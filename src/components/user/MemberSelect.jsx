@@ -31,7 +31,7 @@ export default function MemberSelect() {
     return (
         <>
             <div className="h-screen w-screen flex items-center justify-center bg-graybg">
-                <div className="h-[500px] w-[450px] font-raleway flex justify-center items-center flex-col border-[1px] rounded-lg bg-white">
+                <div className="h-[500px] w-[400px] font-raleway flex justify-center items-center flex-col border-[1px] rounded-lg bg-white">
 
 
                     <div class="relative overflow-x-auto">

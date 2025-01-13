@@ -4,6 +4,7 @@ import MemberSelect from "./components/user/MemberSelect"
 import Response from "./components/user/Response"
 import MutualCheck from "./components/user/MutualCheck"
 import MutualMember from "./components/user/MutualMember"
+import AdminLogin from "./components/admin/AdminLogin"
 export default function App() {
   return (
     <>
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/selectResponse" element={<Response />} />
           <Route path="/mutualCheck" element={<MutualCheck />} />
           <Route path="/mutualMember" element={<MutualMember />} />
+          <Route path="/adminLogin" element={<AdminLogin />} />
         </Routes>
       </Router>
     </>

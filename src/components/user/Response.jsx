@@ -12,7 +12,7 @@ export default function Response() {
     return (
         <>
             <div className="h-screen w-screen flex items-center justify-center bg-graybg">
-                <div className="h-[500px] w-[450px] font-raleway flex justify-center items-center flex-col border-[1px] rounded-lg bg-white gap-[10px]">
+                <div className="h-[500px] w-[400px] font-raleway flex justify-center items-center flex-col border-[1px] rounded-lg bg-white gap-[10px]">
                     <h2>Your entry is submitted</h2>
                     <h2 className="text-gray-400">We'll keep it anonymous</h2>
                     <hr className="w-[400px]" />
