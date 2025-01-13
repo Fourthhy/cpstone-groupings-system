@@ -5,7 +5,14 @@ module.exports = {
   flowbite.content(),
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'graybg': '#656565'
+      },
+      fontFamily: {
+        'raleway': ['Raleway', 'sans-serif'],
+      },
+    },
   },
   plugins: [    
     flowbite.plugin(),
