@@ -6,6 +6,7 @@ const studentList = [
     { name: "Student-Name-03" },
     { name: "Student-Name-04" },
 ]
+const roomCode = "65623"
 
 const StudentResponse = () => {
     return (
@@ -59,8 +60,9 @@ export default function AdminDashboard() {
         <>
             <div className="h-screen w-screen flex items-center justify-center bg-graybg">
                 <div className="min-h-[470px] max-h-full w-[400px] font-raleway  border-[1px] rounded-lg bg-white ">
-                    <div className="my-[30px] border-[1px] border-black flex justify-center items-center flex-col">
+                    <div className="my-[30px] flex justify-center items-center flex-col">
                         <h2>Dashboard - Fit for roles</h2>
+                        <h2 className="text-gray-500">Room code: { roomCode }</h2>
                         <form className="max-w-sm mx-auto">
                             <div className="my-5">
                                 <SelectRole />
@@ -68,7 +70,7 @@ export default function AdminDashboard() {
                         </form>
                         <StudentResponse />
                         <div className="mt-[15px]">
-                            <Link to="/">
+                            <Link to="/adminLogin">
                                 <button type="button" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Go back</button>
                             </Link>
                             <Link to="/voteBacklog">

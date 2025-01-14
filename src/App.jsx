@@ -7,6 +7,7 @@ import MutualMember from "./components/user/MutualMember"
 import AdminLogin from "./components/admin/AdminLogin"
 import AdminDashboard from "./components/admin/AdminDashboard"
 import VoteBacklog from "./components/admin/VoteBacklog"
+import RoomList from "./components/admin/RoomList"
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/mutualCheck" element={<MutualCheck />} />
           <Route path="/mutualMember" element={<MutualMember />} />
           <Route path="/adminLogin" element={<AdminLogin />} />
+          <Route path="/roomList" element={<RoomList />} />
           <Route path="/adminDashboard" element={<AdminDashboard />} />
           <Route path="/voteBacklog" element={<VoteBacklog />} />
         </Routes>
