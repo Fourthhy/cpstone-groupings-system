@@ -1,12 +1,31 @@
 import { Link } from "react-router-dom"
 
 const studentList = [
-    { name: "Student-Name-01" },
-    { name: "Student-Name-02" },
-    { name: "Student-Name-03" },
-    { name: "Student-Name-04" },
+    { name: "User-00aa" },
+    { name: "User-00aa" },
+    { name: "User-00aa" },
+    { name: "User-00aa" },
+    { name: "User-00aa" },
+    { name: "User-00aa" },
+    { name: "User-00aa" },
 ]
+
 const roomCode = "65623"
+
+const rows = studentList.reduce((acc, student, index) => {
+    // Calculate the row index
+    const rowIndex = Math.floor(index / 3);
+
+    // If the row doesn't exist, create it
+    if (!acc[rowIndex]) {
+        acc[rowIndex] = [];
+    }
+
+    // Push the current student into the appropriate row
+    acc[rowIndex].push(student);
+
+    return acc;
+}, []);
 
 const StudentResponse = () => {
     return (
@@ -21,11 +40,17 @@ const StudentResponse = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {studentList.map((student) => (
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {student.name}
-                                </th>
+                    {rows.map((row, rowIndex) => (
+                            <tr key={rowIndex} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                {row.map((student) => (
+                                    <th
+                                        key={student.name}
+                                        scope="row"
+                                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    >
+                                        {student.name}
+                                    </th>
+                                ))}
                             </tr>
                         ))}
                     </tbody>
@@ -49,6 +74,9 @@ const SelectRole = () => {
                 <li class="me-2">
                     <a href="#" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Role3</a>
                 </li>
+                <li class="me-2">
+                    <a href="#" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Drop</a>
+                </li>
             </ul>
 
         </>
@@ -59,10 +87,10 @@ export default function AdminDashboard() {
     return (
         <>
             <div className="h-screen w-screen flex items-center justify-center bg-graybg">
-                <div className="min-h-[470px] max-h-full w-[400px] font-raleway  border-[1px] rounded-lg bg-white ">
+                <div className="min-h-[470px] max-h-full w-[400px] font-raleway  border-[1px] rounded-lg bg-white">
                     <div className="my-[30px] flex justify-center items-center flex-col">
-                        <h2>Dashboard - Fit for roles</h2>
-                        <h2 className="text-gray-500">Room code: { roomCode }</h2>
+                        <h2>Admin Dashboard - Fit for roles</h2>
+                        <h2 className="text-gray-500">Room code: { roomCode } </h2>
                         <form className="max-w-sm mx-auto">
                             <div className="my-5">
                                 <SelectRole />

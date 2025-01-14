@@ -82,7 +82,7 @@ export default function VoteBacklog() {
             <div className="h-screen w-screen flex items-center justify-center bg-graybg">
                 <div className="h-[470px] max-h-full w-[400px] font-raleway border-[1px] rounded-lg bg-white">
                     <div className="my-[30px] flex justify-center items-center flex-col">
-                        <h2>Dashboard - Vote Backlogs</h2>
+                        <h2>Admin Dashboard - Vote Backlogs</h2>
                         <form className="max-w-sm mx-auto">
                             <div className="my-5 gap-[10px]">
                                 <SelectName />

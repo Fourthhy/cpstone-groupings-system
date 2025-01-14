@@ -15,7 +15,13 @@ export default function RoomList() {
         <>
             <div className="h-screen w-screen flex items-center justify-center bg-graybg">
                 <div className="h-[470px] w-[400px] font-raleway flex justify-center items-center flex-col border-[1px] rounded-lg bg-white">
-                    <h2>Room List</h2>
+                    <div className="flex justify-center items-center gap-[20px]">
+                        <h2>Room List</h2>
+                        <Link to="/adminDashboard">
+                            <button type="button" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Create Room</button>
+                        </Link>
+                    </div>
+                    
                     <dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
                         {roomList.map((room) => (
                             <div class="flex flex-col pb-3">
