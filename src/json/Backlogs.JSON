@@ -1,0 +1,18 @@
+[
+    {
+        "userCode": "userCodeParent",
+        "vouches": ["userCodeChild", "userCodeChild", "userCodeChild", "userCodeChild", "userCodeChild"]
+    },
+    {
+        "userCode": "userCodeParent",
+        "vouches": ["userCodeChild", "userCodeChild", "userCodeChild", "userCodeChild", "userCodeChild"]
+    },
+    {
+        "userCode": "userCodeParent",
+        "vouches": ["userCodeChild", "userCodeChild", "userCodeChild", "userCodeChild", "userCodeChild"]
+    },
+    {
+        "userCode": "userCodeParent",
+        "vouches": ["userCodeChild", "userCodeChild", "userCodeChild", "userCodeChild", "userCodeChild"]
+    }
+]

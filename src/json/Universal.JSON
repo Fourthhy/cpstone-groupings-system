@@ -1,0 +1,27 @@
+[
+    {
+        "userCode": "userCodeParent",
+        "mutuals": [
+            { "userName": "userNameChild", "userCode": "userCodeChild", "role": "role_assigned", "mutual": true },
+            { "userName": "userNameChild", "userCode": "userCodeChild", "role": "role_assigned", "mutual": true },
+            { "userName": "userNameChild", "userCode": "userCodeChild", "role": "role_assigned", "mutual": true }
+        ]
+    },
+    {
+        "userCode": "userCodeParent",
+        "mutuals": [
+            { "userName": "userNameChild", "userCode": "userCodeChild", "role": "role_assigned", "mutual": true },
+            { "userName": "userNameChild", "userCode": "userCodeChild", "role": "role_assigned", "mutual": true },
+            { "userName": "userNameChild", "userCode": "userCodeChild", "role": "role_assigned", "mutual": true }
+        ]
+    },
+    {
+        "userCode": "userCodeParent",
+        "mutuals": [
+            { "userName": "userNameChild", "userCode": "userCodeChild", "role": "role_assigned", "mutual": true },
+            { "userName": "userNameChild", "userCode": "userCodeChild", "role": "role_assigned", "mutual": true },
+            { "userName": "userNameChild", "userCode": "userCodeChild", "role": "role_assigned", "mutual": true }
+        ]
+    }
+]
+
