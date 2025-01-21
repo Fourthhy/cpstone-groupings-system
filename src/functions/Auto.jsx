@@ -27,17 +27,6 @@ function Auto() {
       }, []); 
   }
 
-const encodeName = (name) => {
-    return btoa(name);
-}
-
-const decodeName = (name) => {
-    return atob(name);
-}
-
-const encodedName = encodeName(name);
-const decodedName = decodeName(encodedName);
-
 let container;
 
   return (
@@ -45,8 +34,7 @@ let container;
       {/* <button onClick={handleEffect} style={{border: 'black', backgroundColor: 'white'}}>Click to Create Collection</button> */}
       {studentList.map((name) => (
         <div style={{display: 'flex'}}>
-            {/* <p key={name.id}> {container = encodeName(name)} </p> */}
-            <p> {decodeName(name.studentName)} </p>
+            <p> {atob(name.studentName)} </p>
             <p> &nbsp; Random User Code: User-{Math.floor(Math.random() * 1000)} </p>
         </div>
       ))}
