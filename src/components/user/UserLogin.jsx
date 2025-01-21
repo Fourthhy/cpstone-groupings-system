@@ -1,17 +1,15 @@
 import { Link } from "react-router-dom"
+import studentList from "../../json/studentList.json"
 
 const SelectName = () => {
     return (
         <>
             <label for="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">What's your name?</label>
             <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected value="US">student-name-01</option>
-                <option value="CA">student-name-02</option>
-                <option value="FR">student-name-03</option>
-                <option value="DE">student-name-04</option>
-                <option value="CA">student-name-06</option>
-                <option value="FR">student-name-07</option>
-                <option value="DE">student-name-08</option>
+                <option selected value={false}>select a name</option>
+                {studentList.map((item) => (
+                    <option>{atob(item.studentName)}</option>
+                ))}
             </select>
         </>
     )

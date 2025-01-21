@@ -1,37 +1,10 @@
-import { useState, useEffect } from 'react';
-import { doc, setDoc } from 'firebase/firestore';
-import { db } from "../firebase";
 import studentList from "../json/studentList.json"
-
-function Auto() {
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const handleEffect = () => {
-    useEffect(() => {
-        const createParentDocument = async () => {
-          setIsLoading(true);
-          try {
-            const docRef = doc(db, 'i2374112', 'parent');
-            await setDoc(docRef, {}); // Create an empty document
-            setIsLoading(false); 
-            console.log('collection created')
-          } catch (err) {
-            setError(err);
-            setIsLoading(false); 
-          }
-        };
-    
-        createParentDocument(); 
-      }, []); 
-  }
-
-let container;
+import { useAutomation } from "./useAutomation";
+export default function Auto() {
 
   return (
     <div>
-      {/* <button onClick={handleEffect} style={{border: 'black', backgroundColor: 'white'}}>Click to Create Collection</button> */}
+      <button onClick={useAutomation} style={{border: 'black', backgroundColor: 'white'}}>Click to Create Collection</button>
       {studentList.map((name) => (
         <div style={{display: 'flex'}}>
             <p> {atob(name.studentName)} </p>
@@ -41,5 +14,3 @@ let container;
     </div>
   );
 }
-
-export default Auto;
