@@ -2,12 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAGqD9Lvy5ekuc0EBPDLn4WyNQguSSjjXg",
-  authDomain: "capstone-grouping-system.firebaseapp.com",
-  projectId: "capstone-grouping-system",
-  storageBucket: "capstone-grouping-system.firebasestorage.app",
-  messagingSenderId: "664965385969",
-  appId: "1:664965385969:web:34b8ee66f7ac11422fa350"
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
