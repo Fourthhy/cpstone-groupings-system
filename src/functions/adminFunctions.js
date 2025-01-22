@@ -1,5 +1,5 @@
 import { db } from "../firebase";
-import { getDocs, collection } from "firebase/firestore"
+import { doc, getDocs, collection, deleteDoc } from "firebase/firestore"
 
 const handleAdminCodeValidation = (adminCode) => {
     if (adminCode === import.meta.env.VITE_ADMIN_CODE_1) {
@@ -25,7 +25,13 @@ const fetchRoomList = async () => {
     return roomList
 }
 
+const deleteRoom = async (code) => {
+    const roomRef = doc(db, "roomList", code);
+    await deleteDoc(roomRef);
+}
+
 export { 
     handleAdminCodeValidation, 
-    fetchRoomList 
+    fetchRoomList,
+    deleteRoom
 }

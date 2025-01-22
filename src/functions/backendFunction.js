@@ -17,6 +17,12 @@ const addCodeToList = async (code) => {
     }
 }
 
+const studentSubcollection = async (code, studentName) => {
+    const creationDate = Timestamp.now();
+    const subcollectionRef = doc(db, code, studentName, 'mutuals', 'date');
+    await setDoc(subcollectionRef, { creationDate: creationDate });
+}
+
 const addStudentsToList = async (code) => {
     studentList.map(async (item) => {
         const docRef = doc(db, code, item.studentName);
@@ -25,6 +31,7 @@ const addStudentsToList = async (code) => {
             userCode: `User-${Math.floor(Math.random() * 1000)}`,
             role: ''
         });
+        studentSubcollection(code, item.studentName)
     })
 }
 

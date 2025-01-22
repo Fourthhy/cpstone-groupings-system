@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom"
 import { FileX2 } from "lucide-react"
-import { fetchRoomList } from "../../functions/adminFunctions"
+import { fetchRoomList, deleteRoom } from "../../functions/adminFunctions"
 import { createCollection } from "../../functions/backendFunction"
 import React, { useState, useEffect } from "react"
 
@@ -20,6 +20,15 @@ export default function RoomList() {
         try {
             const roomCode = await createCollection()
             navigate(`/adminDashboard/${roomCode}`)
+        } catch (err) {
+            alert(err)
+        }
+    }
+
+    const handleDeleteRoom = async (code) => {
+        try {
+            await deleteRoom(code)
+            setRoomList(roomList.filter(room => room.roomCode !== code))
         } catch (err) {
             alert(err)
         }
@@ -51,7 +60,10 @@ export default function RoomList() {
                                             Enter
                                         </button>
                                     </Link>
-                                    <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                                    <button 
+                                        type="button" 
+                                        onClick={() => {handleDeleteRoom(room.roomCode)}}
+                                        className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
                                         <FileX2 />
                                     </button>
                                 </div>
