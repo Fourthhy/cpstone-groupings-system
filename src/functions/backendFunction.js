@@ -43,7 +43,6 @@ const createCollection = async () => {
         await setDoc(docRef, { creationDate: creationDate });
         addCodeToList(code)
         addStudentsToList(code)
-        alert('Collection created ' + code);
         return code
     } catch (err) {
         alert(err);

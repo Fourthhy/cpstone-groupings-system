@@ -39,14 +39,14 @@ export default function RoomList() {
             <div className="h-[470px] w-[400px] font-raleway flex justify-center items-center flex-col border-[1px] rounded-lg bg-white">
                 <div className="flex justify-center items-center gap-[20px]">
                     <h2>Room List</h2>
-                        <button 
-                            onClick={handleCreateRoom}
-                            type="button" 
-                            className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                            Create Room
-                        </button>
+                    <button
+                        onClick={handleCreateRoom}
+                        type="button"
+                        className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        Create Room
+                    </button>
                 </div>
-                
+
                 <dl className="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
                     {roomList.length === 0 ? (
                         <div>No rooms available.</div>
@@ -60,9 +60,9 @@ export default function RoomList() {
                                             Enter
                                         </button>
                                     </Link>
-                                    <button 
-                                        type="button" 
-                                        onClick={() => {handleDeleteRoom(room.roomCode)}}
+                                    <button
+                                        type="button"
+                                        onClick={() => { handleDeleteRoom(room.roomCode) }}
                                         className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
                                         <FileX2 />
                                     </button>
@@ -71,6 +71,9 @@ export default function RoomList() {
                         ))
                     )}
                 </dl>
+                <Link to="/">
+                    <button type="button" className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"> Back to Home </button>
+                </Link>
             </div>
         </div>
     )
