@@ -10,7 +10,6 @@ export default function MutualCheck() {
         e.preventDefault();
         try {
             const check = await handleCheckMutal(roomCode, userCode);
-            console.log(check)
             if (check) {
                 navigate(`/mutualMember/${roomCode}/${check}`);
             } else {

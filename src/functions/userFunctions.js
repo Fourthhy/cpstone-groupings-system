@@ -26,7 +26,6 @@ const handleSearchUsercode = async (roomCode, userCode) => {
         const docSnap = await getDoc(collectionRef);
     if (docSnap.exists()) {
         const docData = docSnap.data();
-        console.log(docData.userCode)
         return docData.userCode
     }
     return false
@@ -47,10 +46,8 @@ const handleCheckMutal = async (roomCode, userCode) => {
     try {
         const userDocId = await handleGetUserDocId(roomCode, userCode);
         if (userDocId) {
-            console.log("User document found with ID:", userDocId);
             return userDocId; // User found
         } else {
-            console.log("User document not found");
             return false; // User not found
         }
     } catch (error) {

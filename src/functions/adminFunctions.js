@@ -30,8 +30,48 @@ const deleteRoom = async (code) => {
     await deleteDoc(roomRef);
 }
 
+const displayVouchForRoles = async (roomCode) => {
+  try {
+    const collectionRef = collection(db, roomCode);
+    const querySnapshot = await getDocs(collectionRef);
+    const studentList = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+    }));
+
+    const getVouches = async (docId) => {
+      try {
+        const subCollectionRef = collection(db, roomCode, docId, "mutuals");
+        const querySnapshot = await getDocs(subCollectionRef);
+        return querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            role: doc.data().role
+        })); 
+      } catch (error) {
+        console.error("Error getting documents:", error);
+        return [];
+      }
+    };
+
+    const results = await Promise.all(
+      studentList.map(async (doc) => ({
+        id: doc.id,
+        vouches: await getVouches(doc.id), 
+      }))
+    );
+
+    console.log(results); 
+    return results; 
+
+  } catch (error) {
+    console.error("Error getting documents:", error);
+    return []; 
+  }
+};
+
+
 export { 
     handleAdminCodeValidation, 
     fetchRoomList,
-    deleteRoom
+    deleteRoom,
+    displayVouchForRoles
 }
