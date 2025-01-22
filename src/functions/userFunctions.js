@@ -33,6 +33,7 @@ const handleSearchUsercode = async (roomCode, userCode) => {
 }
 
 const handleCheckMutal = async (roomCode, userCode) => {
+
     const handleGetUserDocId = async (roomCode, userCode) => {
         const collectionRef = collection(db, roomCode);
         const querySnapshot = await getDocs(collectionRef);
@@ -58,10 +59,24 @@ const handleCheckMutal = async (roomCode, userCode) => {
     }
 };
 
+const handleMutualMember = async (roomCode, userCode) => {
+    try {
+      const subcollectionRef = collection(db, roomCode, userCode, 'mutuals');
+      const querySnapshot = await getDocs(subcollectionRef);
+      const membersWithRole = querySnapshot.docs.map((doc) => ({
+        role: doc.data().role, 
+        userCode: doc.id
+     }));
+      return membersWithRole;
+    } catch (error) {
+      console.error("Error getting documents: ", error);
+    }
+  };
 
 
 export { 
     handleAddToSubCollection,
     handleSearchUsercode,
-    handleCheckMutal
+    handleCheckMutal,
+    handleMutualMember
 } 
