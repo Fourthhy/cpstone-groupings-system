@@ -96,11 +96,11 @@ export default function MemberSelect() {
     };
 
     const handleSubmit = async () => {
-        Event.preventDefault()
         try {
             await handleAddToSubCollection(
                 roomCode,
                 userCode,
+                roleSelected,
                 selectedMember1,
                 selectedMember2,
                 selectedMember3,
