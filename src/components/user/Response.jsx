@@ -34,6 +34,7 @@ export default function Response() {
             <div className="h-[500px] w-[400px] font-raleway flex justify-center items-center flex-col border-[1px] rounded-lg bg-white gap-[10px]">
                 <h2>Your entry is submitted</h2>
                 <h2 className="text-gray-400">We'll keep it anonymous</h2>
+                <h2 className="text-gray-400">Remember the room code: <span className="text-black">{ roomCode }</span></h2>
                 <hr className="w-[400px]" />
                 <h2>Your user code is...</h2>
                 {loading ? (

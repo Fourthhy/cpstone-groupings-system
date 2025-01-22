@@ -1,22 +1,27 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { handleCheckMutal } from "../../functions/userFunctions";
-
 export default function MutualCheck() {
     const [userCode, setUserCode] = useState('');
     const [roomCode, setRoomCode] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
-        e.preventDefault(); // Prevent the form from reloading the page
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
-            // Assuming handleCheckMutal is a synchronous function
-            handleCheckMutal(roomCode, userCode);
-            navigate(`/mutualMember/${roomCode}/${userCode}`);
+            const check = await handleCheckMutal(roomCode, userCode);
+            console.log(check)
+            if (check) {
+                navigate(`/mutualMember/${roomCode}/${check}`);
+            } else {
+                alert('Room/User not found');
+            }
         } catch (error) {
-            console.log(`Error: ${error}`);
+            console.error("Error checking room/user:", error);
+            alert('An error occurred. Please try again later.');
         }
     };
+    
 
     return (
         <div className="h-screen w-screen flex items-center justify-center bg-graybg">

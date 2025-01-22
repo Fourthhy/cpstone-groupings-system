@@ -1,12 +1,12 @@
 import { db } from "../firebase"
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, getDocs, collection } from "firebase/firestore";
 
 const handleAddToSubCollection = async (roomCode, userCode, role, userCode1, userCode2, userCode3, role1, role2, role3) => {
-    const subcollectionRef1 = doc(db, roomCode, userCode, 'mutuals', userCode1 );
+    const subcollectionRef1 = doc(db, roomCode, userCode, 'mutuals', btoa(userCode1) );
         await setDoc(subcollectionRef1, { role: role1 });
-    const subcollectionRef2 = doc(db, roomCode, userCode, 'mutuals', userCode2 );
+    const subcollectionRef2 = doc(db, roomCode, userCode, 'mutuals', btoa(userCode2) );
         await setDoc(subcollectionRef2, { role: role2 });
-    const subcollectionRef3 = doc(db, roomCode, userCode, 'mutuals', userCode3 );
+    const subcollectionRef3 = doc(db, roomCode, userCode, 'mutuals', btoa(userCode3) );
         await setDoc(subcollectionRef3, { role: role3 });
 
     const collectionRef = doc(db, roomCode, userCode);
@@ -32,11 +32,33 @@ const handleSearchUsercode = async (roomCode, userCode) => {
     return false
 }
 
-const handleCheckMutal = (userCode) => {
-    const collectionRef = doc(db, 'mutuals', userCode)
-    const docSnap = getDoc(collectionRef);
-    console.log(docSnap)
-}
+const handleCheckMutal = async (roomCode, userCode) => {
+    const handleGetUserDocId = async (roomCode, userCode) => {
+        const collectionRef = collection(db, roomCode);
+        const querySnapshot = await getDocs(collectionRef);
+        const userDoc = querySnapshot.docs.find(doc => doc.data().userCode === userCode);
+        if (userDoc) {
+            return userDoc.id;
+        }
+        return null;
+    };
+
+    try {
+        const userDocId = await handleGetUserDocId(roomCode, userCode);
+        if (userDocId) {
+            console.log("User document found with ID:", userDocId);
+            return userDocId; // User found
+        } else {
+            console.log("User document not found");
+            return false; // User not found
+        }
+    } catch (error) {
+        console.error("Error checking document:", error);
+        return false;
+    }
+};
+
+
 
 export { 
     handleAddToSubCollection,
