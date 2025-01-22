@@ -16,7 +16,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<UserLogin />} />
           <Route path="/memberSelect/:roomCode/:userCode" element={<MemberSelect />} />
-          <Route path="/selectResponse" element={<Response />} />
+          <Route path="/selectResponse/:userCode" element={<Response />} />
           <Route path="/mutualCheck" element={<MutualCheck />} />
           <Route path="/mutualMember" element={<MutualMember />} />
           <Route path="/adminLogin" element={<AdminLogin />} />

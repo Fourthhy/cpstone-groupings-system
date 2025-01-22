@@ -1,15 +1,16 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import studentList from "../../json/studentList.json";
 import { useState } from "react";
+import { handleAddToSubCollection } from "../../functions/userFunctions"
+//src/functions/userFunctions.js
 
 export default function MemberSelect() {
     const { roomCode, userCode } = useParams();
-
+    const navigate = useNavigate()
     const originalRoleList = ['DEV', 'PM', 'UI/UX1', 'UI/UX2'];
     const [roleList, setRoleList] = useState([]);
     const [roleSelected, setRoleSelected] = useState('')
 
-    const [memberList, setMemberList] = useState(studentList)
     const [selectedMember1, setSelectedMember1] = useState('')
     const [selectedMember2, setSelectedMember2] = useState('')
     const [selectedMember3, setSelectedMember3] = useState('')
@@ -48,7 +49,7 @@ export default function MemberSelect() {
                     onChange={(e) => { HandleMemberSelect1(e.target.value) }}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option>...</option>
-                    {memberList.map((item) => (
+                    {studentList.map((item) => (
                         <option key={item.studentId}>{atob(item.studentName)}</option>
                     ))}
                 </select>
@@ -67,7 +68,7 @@ export default function MemberSelect() {
                     onChange={(e) => { HandleMemberSelect2(e.target.value) }}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option>...</option>
-                    {memberList.map((item) => (
+                    {studentList.map((item) => (
                         <option key={item.studentId}>{atob(item.studentName)}</option>
                     ))}
                 </select>
@@ -86,13 +87,32 @@ export default function MemberSelect() {
                     onChange={(e) => { HandleMemberSelect3(e.target.value) }}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option>...</option>
-                    {memberList.map((item) => (
+                    {studentList.map((item) => (
                         <option key={item.studentId}>{atob(item.studentName)}</option>
                     ))}
                 </select>
             </div>
         );
     };
+
+    const handleSubmit = async () => {
+        Event.preventDefault()
+        try {
+            await handleAddToSubCollection(
+                roomCode,
+                userCode,
+                selectedMember1,
+                selectedMember2,
+                selectedMember3,
+                roleList[0],
+                roleList[1],
+                roleList[2],
+            )
+            navigate(`/selectResponse/${userCode}`)
+        } catch (err) {
+            alert(err)
+        }
+    }
 
 
     return (
@@ -138,9 +158,11 @@ export default function MemberSelect() {
                         </table>
                     </div>
                     <div className="mt-[15px]">
-                        <Link to="/selectResponse">
-                            <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
-                        </Link>
+                        <button 
+                            type="button" 
+                            onClick={handleSubmit} 
+                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"> Submit
+                        </button>
                     </div>
                 </div>
             </div>
