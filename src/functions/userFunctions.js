@@ -32,7 +32,14 @@ const handleSearchUsercode = async (roomCode, userCode) => {
     return false
 }
 
+const handleCheckMutal = (userCode) => {
+    const collectionRef = doc(db, 'mutuals', userCode)
+    const docSnap = getDoc(collectionRef);
+    console.log(docSnap)
+}
+
 export { 
     handleAddToSubCollection,
-    handleSearchUsercode
+    handleSearchUsercode,
+    handleCheckMutal
 } 
