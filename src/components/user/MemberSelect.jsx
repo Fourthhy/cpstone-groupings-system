@@ -108,7 +108,7 @@ export default function MemberSelect() {
                 roleList[1],
                 roleList[2],
             )
-            navigate(`/selectResponse/${userCode}`)
+            navigate(`/selectResponse/${roomCode}/${userCode}`)
         } catch (err) {
             alert(err)
         }

@@ -21,6 +21,18 @@ const handleAddToSubCollection = async (roomCode, userCode, role, userCode1, use
         }
 }
 
+const handleSearchUsercode = async (roomCode, userCode) => {
+    const collectionRef = doc(db, roomCode, userCode)
+        const docSnap = await getDoc(collectionRef);
+    if (docSnap.exists()) {
+        const docData = docSnap.data();
+        console.log(docData.userCode)
+        return docData.userCode
+    }
+    return false
+}
+
 export { 
-    handleAddToSubCollection 
+    handleAddToSubCollection,
+    handleSearchUsercode
 } 
