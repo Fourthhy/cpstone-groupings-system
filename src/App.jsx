@@ -21,7 +21,7 @@ export default function App() {
           <Route path="/mutualMember" element={<MutualMember />} />
           <Route path="/adminLogin" element={<AdminLogin />} />
           <Route path="/roomList" element={<RoomList />} />
-          <Route path="/adminDashboard" element={<AdminDashboard />} />
+          <Route path="/adminDashboard/:roomCode" element={<AdminDashboard />} />
           <Route path="/voteBacklog" element={<VoteBacklog />} />
         </Routes>
       </Router>

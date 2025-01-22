@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 const studentList = [
     { name: "User-00aa" },
@@ -10,7 +10,7 @@ const studentList = [
     { name: "User-00aa" },
 ]
 
-const roomCode = "65623"
+
 
 const rows = studentList.reduce((acc, student, index) => {
     // Calculate the row index
@@ -83,6 +83,7 @@ const SelectRole = () => {
 }
 
 export default function AdminDashboard() {
+    const { roomCode } = useParams()
     return (
         <>
             <div className="h-screen w-screen flex items-center justify-center bg-graybg">

@@ -18,17 +18,18 @@ const addCodeToList = async (code) => {
 
 const createCollection = async () => {
     const creationDate = Timestamp.now();
-
     try {
         const code = generateCode();
         const docRef = doc(db, code, 'date');
         await setDoc(docRef, { creationDate: creationDate });
         addCodeToList(code)
         alert('Collection created ' + code);
-
+        return code
     } catch (err) {
         alert(err);
     }
 };
 
-export { createCollection };
+export { 
+    createCollection,
+};
