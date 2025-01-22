@@ -8,9 +8,15 @@ export default function MemberSelect() {
     const originalRoleList = ['DEV', 'PM', 'UI/UX1', 'UI/UX2'];
     const [roleList, setRoleList] = useState([]);
     const [roleSelected, setRoleSelected] = useState('')
+
+    const [memberList, setMemberList] = useState(studentList)
+    const [selectedMember1, setSelectedMember1] = useState('')
+    const [selectedMember2, setSelectedMember2] = useState('')
+    const [selectedMember3, setSelectedMember3] = useState('')
+
     const handleSelect = (e) => {
-        const selectedRole = e.target.value
-        setRoleSelected(e.target.value)
+        const selectedRole = e;
+        setRoleSelected(e);
         setRoleList(originalRoleList.filter((role) => role != selectedRole));
     };
 
@@ -18,10 +24,10 @@ export default function MemberSelect() {
         return (
             <div className="flex flex-col items-center">
                 <label className="block mb-2 text-s font-medium text-gray-900 dark:text-white">Select role</label>
-                <select 
+                <select
                     value={roleSelected}
-                    onChange={(e) => handleSelect(e)} 
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    onChange={(e) => handleSelect(e.target.value)}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[calc(100% + 20px)] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option>...</option>
                     {originalRoleList.map((role, index) => (
                         <option key={index} value={role}>{role}</option>
@@ -31,18 +37,63 @@ export default function MemberSelect() {
         );
     };
 
-    const SelectMember = () => {
+    const SelectMember1 = () => {
+        const HandleMemberSelect1 = (e) => {
+            setSelectedMember1(e)
+        }
         return (
             <div className="flex flex-col items-center">
-                <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <select
+                    value={selectedMember1}
+                    onChange={(e) => { HandleMemberSelect1(e.target.value) }}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option>...</option>
-                    {studentList.map((item) => (
+                    {memberList.map((item) => (
                         <option key={item.studentId}>{atob(item.studentName)}</option>
                     ))}
                 </select>
             </div>
         );
     };
+
+    const SelectMember2 = () => {
+        const HandleMemberSelect2 = (e) => {
+            setSelectedMember2(e)
+        }
+        return (
+            <div className="flex flex-col items-center">
+                <select
+                    value={selectedMember2}
+                    onChange={(e) => { HandleMemberSelect2(e.target.value) }}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option>...</option>
+                    {memberList.map((item) => (
+                        <option key={item.studentId}>{atob(item.studentName)}</option>
+                    ))}
+                </select>
+            </div>
+        );
+    };
+
+    const SelectMember3 = () => {
+        const HandleMemberSelect3 = (e) => {
+            setSelectedMember3(e)
+        }
+        return (
+            <div className="flex flex-col items-center">
+                <select
+                    value={selectedMember3}
+                    onChange={(e) => { HandleMemberSelect3(e.target.value) }}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option>...</option>
+                    {memberList.map((item) => (
+                        <option key={item.studentId}>{atob(item.studentName)}</option>
+                    ))}
+                </select>
+            </div>
+        );
+    };
+
 
     return (
         <>
@@ -53,7 +104,7 @@ export default function MemberSelect() {
                             <tbody>
                                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
-                                        { atob(userCode) } <br />
+                                        {atob(userCode)} <br />
                                     </th>
                                     <td className="px-6 py-4">
                                         <SelectRole />
@@ -61,15 +112,15 @@ export default function MemberSelect() {
                                 </tr>
                                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <SelectMember />
+                                        <SelectMember1 />
                                     </th>
                                     <td className="px-6 py-4 text-black">
-                                       {roleList.length == 4 ? "N/A" : roleList[0]}
+                                        {roleList.length == 4 ? "N/A" : roleList[0]}
                                     </td>
                                 </tr>
                                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <SelectMember />
+                                        <SelectMember2 />
                                     </th>
                                     <td className="px-6 py-4 text-black">
                                         {roleList.length == 4 ? "N/A" : roleList[1]}
@@ -77,7 +128,7 @@ export default function MemberSelect() {
                                 </tr>
                                 <tr className="bg-white dark:bg-gray-800">
                                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <SelectMember />
+                                        <SelectMember3 />
                                     </th>
                                     <td className="px-6 py-4 text-black">
                                         {roleList.length == 4 ? "N/A" : roleList[2]}
