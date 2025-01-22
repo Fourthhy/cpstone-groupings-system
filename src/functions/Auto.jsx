@@ -1,14 +1,14 @@
 import studentList from "../json/studentList.json"
-import { useAutomation } from "./backendFunction";
+import { createCollection } from "./backendFunction";
 export default function Auto() {
 
   return (
     <div>
-      <button onClick={useAutomation} className="border-black border-[1px]">Click to Create Collection</button>
+      <button onClick={createCollection} className="border-black border-[1px]">Click to Create Collection</button>
       {studentList.map((name) => (
         <div style={{display: 'flex'}}>
-            <p> {atob(name.studentName)} </p>
-            <p> &nbs p; Random User Code: User-{Math.floor(Math.random() * 1000)} </p>
+            <p className="font-bold"> {atob(name.studentName)} </p>
+            <p> &nbsp; Random User Code: User-{Math.floor(Math.random() * 1000)} </p>
         </div>
       ))}
     </div>
