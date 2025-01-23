@@ -1,5 +1,5 @@
 import { db } from "../firebase";
-import { doc, getDocs, collection, deleteDoc } from "firebase/firestore"
+import { doc, getDoc, getDocs, collection, deleteDoc } from "firebase/firestore"
 
 const handleAdminCodeValidation = (adminCode) => {
   if (adminCode === import.meta.env.VITE_ADMIN_CODE_1) {
@@ -31,13 +31,15 @@ const deleteRoom = async (code) => {
 }
 
 const displayVouchForRoles = async (roomCode) => {
-  try {
+
+  try { //GETTING ALL THE ENCODED STUDENT NAMES
     const collectionRef = collection(db, roomCode);
     const querySnapshot = await getDocs(collectionRef);
     const studentList = querySnapshot.docs.map((doc) => ({
       id: doc.id,
     }));
 
+    //CREATE FUNCTION TO GET ALL THE VOUCHES FOR EACH STUDENT
     const getVouches = async (docId) => {
       try {
         const subCollectionRef = collection(db, roomCode, docId, "mutuals");
@@ -52,6 +54,7 @@ const displayVouchForRoles = async (roomCode) => {
       }
     };
 
+    //GETTING ALL THE VOUCHES FOR EACH STUDENT
     const results = await Promise.all(
       studentList.map(async (doc) => ({
         id: doc.id,
@@ -59,58 +62,95 @@ const displayVouchForRoles = async (roomCode) => {
       }))
     );
 
+    const fetchUserCodes = async () => {
+      try {
+        const collectionRef = collection(db, roomCode)
+        const querySnapshot = await getDocs(collectionRef)
+        const userCodes = querySnapshot.docs.map((doc) => ({
+          studentCode: doc.id,
+          userCode: doc.data().userCode
+        }))
+        return userCodes
+      } catch (err) {consle.log(err)}
+    }
+
+    const convertToUserCode = async (array, arrayName) => {
+      try {
+        const userCodes = await fetchUserCodes();
+        const convertedArray = array.map((studentCode) => {
+          const match = userCodes.find((item) => item.studentCode === studentCode)
+          if (match) {
+            // console.log(arrayName + '' + match.userCode)
+            return match.userCode
+          } else { null }
+        })
+
+        return convertedArray
+        
+      } catch (err) {
+        console.error(err);
+        return []; // Return an empty array in case of an error
+      }
+    };
+
     const sortStudentsByVouched = () => {
-      const DEV = ["dev"]
-      const PM = ["pm"]
-      const UIUX1 = ["ui/ux1"]
-      const UIUX2 = ["ui/ux2"]
-      const NOROLE = ["norole"]
+      const DEVarray = []
+      const PMarray = []
+      const UIUXarray = []
+      const NOROLEarray = []
 
       results.forEach((student) => {
         if (student.vouches.length == 0 ) {
-          if(!NOROLE.includes(student.id)) {
-            NOROLE.push(atob(student.id))
+          if(!NOROLEarray.includes(student.id)) {
+            NOROLEarray.push(student.id)
           }
         }
         student.vouches.forEach((vouch) => {
           switch (vouch.role) {
             case "DEV":
-              if (!DEV.includes(vouch.id)) {
-                DEV.push(atob(vouch.id))
+              if (!DEVarray.includes(vouch.id)) {
+                DEVarray.push(vouch.id)
               }
               break;
             case "PM":
-              if (!PM.includes(vouch.id)) {
-                PM.push(atob(vouch.id))
+              if (!PMarray.includes(vouch.id)) {
+                PMarray.push(vouch.id)
               }
               break;
             case "UI/UX1":
-              if (!UIUX1.includes(vouch.id)) {
-                UIUX1.push(atob(vouch.id))
+              if (!UIUXarray.includes(vouch.id)) {
+                UIUXarray.push(vouch.id)
               }
               break;
             case "UI/UX2":
-              if (!UIUX2.includes(vouch.id)) {
-                UIUX2.push(atob(vouch.id))
+              if (!UIUXarray.includes(vouch.id)) {
+                UIUXarray.push(vouch.id)
               }
               break;
           }
         })
       })
-      console.log(results)
-      console.log(DEV, PM, UIUX1, UIUX2, NOROLE);
-      return { DEV, PM, UIUX1, UIUX2, NOROLE };
+
+      const conversion = async () => {
+        try {
+          const DEV = await convertToUserCode(DEVarray, 'DEV')
+          const PM = await convertToUserCode(PMarray, 'PM')
+          const UIUX = await convertToUserCode(UIUXarray, 'UIUX')
+          const NOROLE = await convertToUserCode(NOROLEarray, 'NOROLE')
+          return [DEV, PM, UIUX, NOROLE]  
+        } catch (err) { console.log(err) }
+      }
+      return conversion()
     }
 
-    const output = sortStudentsByVouched()
-    return output;
+  const output = sortStudentsByVouched()
+  return output;
 
   } catch (error) {
     console.error("Error getting documents:", error);
     return [];
   }
 };
-
 
 export {
   handleAdminCodeValidation,

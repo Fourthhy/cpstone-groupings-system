@@ -22,7 +22,7 @@ const addStudentsToList = async (code) => {
         const docRef = doc(db, code, item.studentName);
         await setDoc(docRef, { 
             id: item.id,
-            userCode: `User-${Math.floor(Math.random() * 1000)}`,
+            userCode: `User-${Math.floor(1000 + Math.random() * 9000)}`,
             role: ''
         });
     })
