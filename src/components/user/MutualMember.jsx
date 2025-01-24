@@ -22,14 +22,14 @@ export default function MutualMember() {
     const MutualItem = ({item}) => {
         return (
             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                { atob(item.userCode) } 
+            <th scope="row" className="px-1 py-4 font-small text-gray-900 whitespace-nowrap dark:text-white">
+               { atob(item.userCode) }
             </th>
             <td className="px-6 py-4">
                 { item.role }
             </td>
-            <td className="px-6 py-4 text-green-500">
-                Mutual
+            <td className={item.mutual ? `px-6 py-4 text-green-500` : `px-6 py-4 text-red-500`}>
+                { item.mutual ? "true" : "false" }
             </td>
         </tr>
         )
@@ -51,7 +51,7 @@ export default function MutualMember() {
                                         Role 
                                     </th>
                                     <th scope="col" className="px-6 py-3">
-                                       Status
+                                       Mutual
                                     </th>
                                 </tr>
                             </thead>

@@ -35,10 +35,8 @@ export default function App() {
         rooms.map((room) => {
             if (room.roomCode === roomCode) {
                 navigate(`/memberSelect/${roomCode}/${encodedName}`)
-                alert('matched')
             }
             else {
-                alert('unmatched')
                 return false
             }
         })
