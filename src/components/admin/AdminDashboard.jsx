@@ -136,11 +136,6 @@ export default function AdminDashboard() {
                                 Go Home
                             </button>
                         </Link>
-                        <Link to="/voteBacklog">
-                            <button type="button" className={buttonDesign}>
-                                View Logs
-                            </button>
-                        </Link>
                     </div>
                 </div>
             </div>
