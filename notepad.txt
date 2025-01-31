@@ -29,4 +29,5 @@ Santos, Mark Joseph
 Sarcia, Sidney John
 Talen, Jean Rose
 Tinagsa, Lenie Jane
-Tiglao, Danielle Luis
+
+Universal Margin: 20px;
