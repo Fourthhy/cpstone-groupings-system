@@ -1,14 +1,18 @@
 import { db } from "../firebase"
 import { doc, setDoc, getDoc, getDocs, collection } from "firebase/firestore";
 
-const handleAddToSubCollection = async (roomCode, userCode, role, userCode1, userCode2, userCode3, role1, role2, role3) => {
+const handleAddToSubCollection = async (roomCode, userCode, role, userCode1, userCode2, userCode3, userCode4, role1, role2, role3, role4) => {
     const subcollectionRef1 = doc(db, roomCode, userCode, 'mutuals', btoa(userCode1));
     await setDoc(subcollectionRef1, { role: role1 });
     const subcollectionRef2 = doc(db, roomCode, userCode, 'mutuals', btoa(userCode2));
     await setDoc(subcollectionRef2, { role: role2 });
     const subcollectionRef3 = doc(db, roomCode, userCode, 'mutuals', btoa(userCode3));
     await setDoc(subcollectionRef3, { role: role3 });
-
+    if (userCode4 !== "" && role4 !== "") {
+        const subcollectionRef4 = doc(db, roomCode, userCode, 'mutuals', btoa(userCode4));
+        await setDoc(subcollectionRef4, { role: role4 });
+    }
+ 
     const collectionRef = doc(db, roomCode, userCode);
     const docSnap = await getDoc(collectionRef);
     if (docSnap.exists()) {

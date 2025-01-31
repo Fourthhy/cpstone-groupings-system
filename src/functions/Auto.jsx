@@ -8,6 +8,7 @@ export default function Auto() {
       {studentList.map((name) => (
         <div style={{display: 'flex'}}>
             <p className="font-bold"> {atob(name.studentName)} </p>
+            <p className="font-bold"> {name.studentName} </p>
             {/* <p> &nbsp; Random User Code: User-{Math.floor(Math.random() * 1000)} </p> */}
         </div>
       ))}

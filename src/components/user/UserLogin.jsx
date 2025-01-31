@@ -53,7 +53,7 @@ export default function App() {
             <div className="h-screen w-screen flex items-center justify-center bg-graybg">
                 <div className="h-[470px] w-[400px] font-raleway flex justify-center items-center flex-col border-[1px] rounded-lg bg-white">
                     
-                    {/* <h2>Capstone Grouping</h2> */}
+                    <h2>Capstone Grouping</h2>
                     { selectedName }
                     <form 
                         className="max-w-sm mx-auto"

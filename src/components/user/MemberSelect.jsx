@@ -1,3 +1,4 @@
+import { UserPlus, X } from "lucide-react"
 import { Link, useParams, useNavigate } from "react-router-dom";
 import studentList from "../../json/studentList.json";
 import { useState } from "react";
@@ -14,6 +15,10 @@ export default function MemberSelect() {
     const [selectedMember1, setSelectedMember1] = useState('')
     const [selectedMember2, setSelectedMember2] = useState('')
     const [selectedMember3, setSelectedMember3] = useState('')
+    const [selectedMember4, setSelectedMember4] = useState('')
+
+    const [member5thShow, setMember5thShow] = useState(false)
+    const [member5thRole, setMember5thRole] = useState('')
 
     const handleSelect = (e) => {
         const selectedRole = e;
@@ -95,24 +100,71 @@ export default function MemberSelect() {
         );
     };
 
+    const SelectMember4 = () => {
+        const HandleMemberSelect4 = (e) => {
+            setSelectedMember4(e)
+        }
+        return (
+            <>
+             <div className="flex flex-col items-center">
+                <select
+                    value={selectedMember4}
+                    onChange={(e) => { HandleMemberSelect4(e.target.value) }}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option>...</option>
+                    {studentList.map((item, index) => (
+                        <option key={index}>{atob(item.studentName)}</option>
+                    ))}
+                </select>
+            </div>
+            </>
+        );
+    }; 
+
+    const SelectRole5th = () => {
+        return (
+            <div className="flex flex-row justify-center gap-[5px]">
+            <select
+                value={member5thRole}
+                onChange={(e) => { setMember5thRole(e.target.value) }}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-auto p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option>UI/UX3</option>
+                <option>DEV2</option>
+            </select>
+            <button
+                onClick={() => {
+                    setMember5thShow(!member5thShow)
+                    setMember5thRole('')
+                    setSelectedMember4('')
+                }}
+                className="me-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            <X size={16}/>
+            </button>
+        </div>
+        )
+    }
+
+
     const handleSubmit = async () => {
         try {
-            await handleAddToSubCollection(
-                roomCode,
-                userCode,
-                roleSelected,
-                selectedMember1,
-                selectedMember2,
-                selectedMember3,
-                roleList[0],
-                roleList[1],
-                roleList[2],
-            )
-            navigate(`/selectResponse/${roomCode}/${userCode}`)
+          await handleAddToSubCollection(
+            roomCode,
+            userCode,
+            roleSelected,
+            selectedMember1,
+            selectedMember2,
+            selectedMember3,
+            selectedMember4,
+            roleList[0],
+            roleList[1],
+            roleList[2],
+            member5thRole
+          );
+          navigate(`/selectResponse/${roomCode}/${userCode}`);
         } catch (err) {
-            alert(err)
+          alert(err);
         }
-    }
+      };
 
 
     return (
@@ -124,7 +176,7 @@ export default function MemberSelect() {
                             <tbody>
                                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
-                                        {atob(userCode)} <br />
+                                        {atob(userCode)} <br /> 
                                     </th>
                                     <td className="px-6 py-4">
                                         <SelectRole />
@@ -154,13 +206,27 @@ export default function MemberSelect() {
                                         {roleList.length == 4 ? "N/A" : roleList[2]}
                                     </td>
                                 </tr>
+                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {member5thShow ? <SelectMember4 /> : <button
+                                        onClick={() => {
+                                            setMember5thShow(!member5thShow)
+                                            setMember5thRole("UI/UX3")
+                                        }}
+                                        type="button"
+                                        className="flex flex-row justify-center gap-[10px] py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">5th member?<UserPlus size={16} fill="white" /></button>}
+                                    </th>
+                                    <td className="px-6 py-4 text-black">
+                                        {member5thShow ? <SelectRole5th /> : ""}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                     <div className="mt-[15px]">
-                        <button 
-                            type="button" 
-                            onClick={handleSubmit} 
+                        <button
+                            type="button"
+                            onClick={() => handleSubmit}
                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"> Submit
                         </button>
                     </div>
