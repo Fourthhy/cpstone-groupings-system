@@ -1,4 +1,5 @@
 import { Button } from "flowbite-react";
+import { Link } from "react-router-dom"
 
 export default function LandingPage() {
     return (
@@ -17,8 +18,8 @@ export default function LandingPage() {
                         <div className="mt-[20px] text-center flex items-center flex-col">
                             <b>Proceed as..</b>
                             <div className="flex gap-[10px] mt-[20px]">
-                            <Button color="gray">Host</Button>
-                            <Button color="gray">User</Button>
+                                <Link to=""><Button color="gray">Host</Button></Link>
+                                <Link to="/joinroom"><Button color="gray">User</Button></Link>
                             </div>
                         </div>
                     </div>
