@@ -17,7 +17,7 @@ export default function Loading() {
         const number = Math.floor(Math.random() * objectList.length);
         setReminder(number);
 
-        const duration = 5000; // 5 seconds
+        const duration = 7000; // 5 seconds
         const increment = 100 / (duration / 100); // Calculate increment per 100ms
         let currentProgress = 0;
 
@@ -34,7 +34,7 @@ export default function Loading() {
     }, []); // Empty dependency array to run only once
 
     return (
-        <div className="h-screen w-screen flex items-center justify-center bg-graybg text-gray-700"> {/* Use a valid Tailwind className */}
+        <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700"> {/* Use a valid Tailwind className */}
             <div className="h-[500px] w-[400px] font-raleway flex justify-start items-center flex-col border rounded-[5px] bg-white">
                 <div className="w-[380px] h-full flex flex-col justify-center items-center">
                     <p className="text-2xl font-bold text-center">Remember!</p>
