@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import LandingPage from "../components/MainPages/LandingPage"
 import JoinRoom from "../components/UserPages/JoinRoom"
-import Loading from "../components/ReusableComponents/Loading"
+import SelfVouch from "../components/UserPages/VouchProcess/SelfVouch"
 
 export default function AppRoute() {
     return (
@@ -10,7 +10,7 @@ export default function AppRoute() {
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
                     <Route path="/joinroom" element={<JoinRoom />} />
-                    <Route path="/loading" element={<Loading />} /> 
+                    <Route path="/selfvouch" element={<SelfVouch />} /> 
                 </Routes>
             </Router>
         </>

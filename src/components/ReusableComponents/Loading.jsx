@@ -1,6 +1,10 @@
+import { browserLocalPersistence } from "firebase/auth";
 import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom"
 
-export default function Loading() {
+export default function Loading({origin, path}) {
+    const navigate = useNavigate()
+
     const [progress, setProgress] = useState(0);
     const [reminder, setReminder] = useState(0);
 
@@ -27,11 +31,22 @@ export default function Loading() {
                 currentProgress = 100;
                 clearInterval(interval);
             }
+
             setProgress(currentProgress);
         }, 35); // Update every 35ms
 
         return () => clearInterval(interval); // Cleanup on unmount
     }, []); // Empty dependency array to run only once
+
+    //After completing progress, navigate using path prop
+    if (progress === 100) {
+        console.log(progress)
+        switch(origin) {
+            case 'joinroom':
+                navigate(`/${path}`)
+            break;
+        }
+    }
 
     return (
         <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700"> {/* Use a valid Tailwind className */}
