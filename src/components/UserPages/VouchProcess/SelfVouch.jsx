@@ -1,5 +1,7 @@
-import { Label, Select, Radio } from "flowbite-react";
+import { Label, Select, Button } from "flowbite-react";
 import { useState } from "react";
+import AnimatedContent from "../../animations/AnimatedContent";
+
 
 export default function SelfVouch() {
     const listofnames = [
@@ -50,11 +52,11 @@ export default function SelfVouch() {
 
     const SelectRole = () => {
         const [selectedOption, setSelectedOption] = useState(null); // Ensure you have state for selected option
-    
+
         const handleOptionChange = (event) => {
             setSelectedOption(event.target.value);
         };
-    
+
         return (
             <>
                 <h2 className="font-bold text-center text-lg mb-4">What is your role?</h2>
@@ -77,31 +79,54 @@ export default function SelfVouch() {
                         </label>
                     ))}
                 </div>
+                <Button color="gray" className="w-full mt-4">Submit</Button>
             </>
         );
     };
+
+    const SelectName = () => {
+        return (
+            <>
+                <h2 className="font-bold text-center text-2xl mb-4">Who are you?</h2>
+                <div className="flex w-[75%] flex-col gap-2">
+                    <Label htmlFor="countries" value="Select your name" />
+                    <Select required>
+                        <option>...</option>
+                        {listofnames.map((name) => (
+                            <option>{name}</option>
+                        ))}
+                    </Select>
+                </div>
+            </>
+        )
+    }
 
 
     return (
         <>
             <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700">
-                <div className="h-[500px] w-[400px] font-raleway flex justify-start items-center flex-col border-[1px] rounded-[5px] bg-white">
-                    <div className="w-[380px] h-full flex flex-col justify-center items-center">
-                        <h2 className="font-bold text-center text-2xl mb-4">Who are you?</h2>
-                        <div className="flex w-[75%] flex-col gap-2">
-                            <Label htmlFor="countries" value="Select your name" />
-                            <Select required>
-                                <option>...</option>
-                                {listofnames.map((name) => (
-                                    <option>{name}</option>
-                                ))}
-                            </Select>
-                        </div>
-                        <div className="mt-[20px]">
-                            <SelectRole />
+                <AnimatedContent
+                    distance={50}
+                    direction="vertical"
+                    reverse={true}
+                    config={{ tension: 90, friction: 30 }}
+                    initialOpacity={0.2}
+                    animateOpacity
+                    scale={1}
+                    threshold={0.2}
+                >
+                    <div className="h-[500px] w-[400px] font-raleway flex justify-start items-center flex-col border-[1px] rounded-[5px] bg-white">
+                        <div className="w-[380px] h-full flex flex-col justify-center items-center">
+
+                            <div className="w-[380px] h-full flex flex-col justify-center items-center">
+                                <SelectName />
+                                <div className="mt-[20px]">
+                                    <SelectRole />
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </AnimatedContent>
             </div>
         </>
     )
