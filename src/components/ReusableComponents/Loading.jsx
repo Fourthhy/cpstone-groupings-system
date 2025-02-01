@@ -2,7 +2,7 @@ import { browserLocalPersistence } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 
-export default function Loading({origin, path}) {
+export default function Loading({origin, path, purpose}) {
     const navigate = useNavigate()
 
     const [progress, setProgress] = useState(0);
@@ -59,7 +59,7 @@ export default function Loading({origin, path}) {
                     </div>
 
                     <div className="w-full flex flex-col items-center justify-start mt-[20px]">
-                        <i>Loading...</i> {/* Added a loading text for clarity */}
+                        <i>{purpose}...</i> {/* Added a loading text for clarity */}
                         <div className="w-[50%] bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
                             <div className="bg-cyan-600 h-2.5 rounded-full" style={{ width: `${progress}%` }}></div>
                         </div>

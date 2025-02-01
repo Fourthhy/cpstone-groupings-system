@@ -1,9 +1,11 @@
 import { Label, Select, Button } from "flowbite-react";
 import { useState } from "react";
 import AnimatedContent from "../../animations/AnimatedContent";
-
+import Loading from "../../ReusableComponents/Loading";
 
 export default function SelfVouch() {
+    const [isLoading, setIsLoading] = useState(false)
+
     const listofnames = [
         "Asaldo, Rizalyne",
         "Bactol, Allen",
@@ -43,12 +45,6 @@ export default function SelfVouch() {
         { id: 3, title: "System QA", description: "Description for option 3.", logo: "/system_quality.png" },
         { id: 4, title: "UI/UX Designer", description: "Description for option 4.", logo: "/uiux_designer.png" },
     ];
-
-    const [selectedOption, setSelectedOption] = useState(null);
-
-    const handleOptionChange = (event) => {
-        setSelectedOption(event.target.value);
-    };
 
     const SelectRole = () => {
         const [selectedOption, setSelectedOption] = useState(null); // Ensure you have state for selected option
@@ -104,30 +100,25 @@ export default function SelfVouch() {
 
     return (
         <>
-            <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700">
-                <AnimatedContent
-                    distance={50}
-                    direction="vertical"
-                    reverse={true}
-                    config={{ tension: 90, friction: 30 }}
-                    initialOpacity={0.2}
-                    animateOpacity
-                    scale={1}
-                    threshold={0.2}
-                >
-                    <div className="h-[500px] w-[400px] font-raleway flex justify-start items-center flex-col border-[1px] rounded-[5px] bg-white">
-                        <div className="w-[380px] h-full flex flex-col justify-center items-center">
-
+            {isLoading ? <Loading origin={'selfvouch'} path={'NEXT PAGE'} purpose={"submitting input"} /> : (
+                <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700">
+                    <AnimatedContent distance={50} direction="vertical" reverse={true} config={{ tension: 90, friction: 30 }} initialOpacity={0.2} animateOpacity scale={1} threshold={0.2}
+                    >
+                        <div className="h-[500px] w-[400px] font-raleway flex justify-start items-center flex-col border-[1px] rounded-[5px] bg-white">
                             <div className="w-[380px] h-full flex flex-col justify-center items-center">
-                                <SelectName />
-                                <div className="mt-[20px]">
-                                    <SelectRole />
+
+                                <div className="w-[380px] h-full flex flex-col justify-center items-center">
+                                    <SelectName />
+                                    <div className="mt-[20px]">
+                                        <SelectRole />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </AnimatedContent>
-            </div>
+                    </AnimatedContent>
+                </div>
+            )}
+
         </>
     )
 }
