@@ -75,7 +75,9 @@ export default function SelfVouch() {
                         </label>
                     ))}
                 </div>
-                <Button color="gray" className="w-full mt-4">Submit</Button>
+                <Button outline gradientDuoTone="purpleToBlue" className="w-full mt-4">
+                    Submit
+                </Button>
             </>
         );
     };
