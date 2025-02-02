@@ -1,5 +1,5 @@
 import { Button } from "flowbite-react";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import AnimatedContent from "../animations/AnimatedContent";
 
 export default function LandingPage() {
@@ -30,7 +30,7 @@ export default function LandingPage() {
                                 <b>Proceed as..</b>
                                 <div className="flex gap-[10px] mt-[20px]">
                                     <Link to=""><Button color="gray">Host</Button></Link>
-                                    <Link to="/joinroom"><Button color="gray">User</Button></Link>
+                                    <Link to="/joinroom"><Button color="gray">User </Button></Link>
                                 </div>
                             </div>
                         </div>
@@ -38,5 +38,5 @@ export default function LandingPage() {
                 </AnimatedContent>
             </div>
         </>
-    )
+    );
 }

@@ -22,7 +22,8 @@ const AnimatedContent = ({
       ([entry]) => {
         if (entry.isIntersecting) {
           setInView(true);
-          observer.unobserve(ref.current);
+        } else {
+          setInView(false);
         }
       },
       { threshold }
@@ -43,9 +44,10 @@ const AnimatedContent = ({
       transform: `translate${directions[direction]}(${reverse ? `-${distance}px` : `${distance}px`}) scale(${scale})`,
       opacity: animateOpacity ? initialOpacity : 1,
     },
-    to: inView
-      ? { transform: "translateY(0px) scale(1)", opacity: 1 }
-      : undefined,
+    to: {
+      transform: inView ? "translateY(0px) scale(1)" : `translate${directions[direction]}(${reverse ? `-${distance}px` : `${distance}px`}) scale(${scale})`,
+      opacity: inView ? 1 : initialOpacity,
+    },
     config,
   });
 

@@ -6,6 +6,8 @@ export default function JoinRoom() {
 
     const [isLoading, setIsLoading] = useState(false)
 
+    const customButtonDesign = "bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-full mt-[5px]";
+
     const JoinRoomForm = () => {
         return (
             <>
@@ -16,15 +18,15 @@ export default function JoinRoom() {
                     <TextInput type="text" placeholder="e.g. 123456" required color="gray" />
                     {/*color="gray" for failed*/}
 
-                    <Button 
+                    <Button
                         onClick={(e) => {
                             e.preventDefault()
                             setIsLoading(true)
-                        }} 
-                        className="w-full mt-[5px]" 
-                        outline 
-                        gradientDuoTone="cyanToBlue">
-                            Submit
+                        }}
+                        outline
+                        className={customButtonDesign}
+                        >
+                        Submit
                     </Button>
 
                     <div className="flex justify-center items-center gap-[10px]">
@@ -44,7 +46,7 @@ export default function JoinRoom() {
             <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700">
                 <div className="h-[500px] w-[400px] font-raleway flex justify-start items-center flex-col border-[1px] rounded-[5px] bg-white">
                     <div className="w-[380px] h-full flex flex-col justify-center items-center">
-                        { isLoading ? <Loading origin={'joinroom'} path={'selfvouch'} purpose={"loading"}/> : <JoinRoomForm />}
+                        {isLoading ? <Loading origin={'joinroom'} path={'selfvouch'} purpose={"loading"} /> : <JoinRoomForm />}
                     </div>
                 </div>
             </div>

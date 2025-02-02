@@ -39,6 +39,8 @@ export default function SelfVouch() {
         "Talen, Jean Rose",
         "Tinagsa, Lenie Jane"]
 
+    const customButtonDesign = "bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-full mt-4";
+
     const roles = [
         { id: 1, title: "System Developer", description: "Description for option 1.", logo: "/system_developer.png" },
         { id: 2, title: "Project Manager", description: "Description for option 2.", logo: "/project_manager.png" },
@@ -54,31 +56,36 @@ export default function SelfVouch() {
         };
 
         return (
-            <>
-                <h2 className="font-bold text-center text-lg mb-4">What is your role?</h2>
-                <div className="grid grid-cols-2 gap-1">
-                    {roles.map((role) => (
-                        <label
-                            key={role.id}
-                            className={`border rounded-lg p-4 cursor-pointer transition-all duration-300 transform hover:scale-105 ${selectedOption === role.id.toString() ? "border-blue-500 bg-blue-100" : "border-gray-300 bg-white"}`}>
-                            <input
-                                type="radio"
-                                value={role.id}
-                                checked={selectedOption === role.id.toString()}
-                                onChange={handleOptionChange}
-                                className="hidden"
-                            />
-                            <div className="flex items-center gap-1">
-                                <img src={role.logo} className="w-[35px] h-[35px]" alt="" />
-                                <h3 className="text-xs">{role.title}</h3>
-                            </div>
-                        </label>
-                    ))}
+<>
+    <h2 className="font-bold text-center text-lg mb-4">What is your role?</h2>
+    <div className="grid grid-cols-2 gap-1">
+        {roles.map((role) => (
+            <label
+                key={role.id}
+                className={`border rounded-lg p-4 cursor-pointer transition-all duration-300 transform 
+                    ${selectedOption === role.id.toString() ? "border-white-500 bg-gradient-to-l from-purple-100 to-cyan-100 scale-105" : "border-gray-300 bg-white scale-100"}`}>
+                <input
+                    type="radio"
+                    value={role.id}
+                    checked={selectedOption === role.id.toString()}
+                    onChange={handleOptionChange}
+                    className="hidden"
+                />
+                <div className="flex items-center gap-1">
+                    <img src={role.logo} className="w-[35px] h-[35px]" alt="" />
+                    <h3 className="text-xs">{role.title}</h3>
                 </div>
-                <Button outline gradientDuoTone="purpleToBlue" className="w-full mt-4">
-                    Submit
-                </Button>
-            </>
+            </label>
+        ))}
+    </div>
+    <Button 
+        outline 
+        gradientDuoTone="purpleToBlue" 
+        className={customButtonDesign}
+        onClick={() => {setIsLoading(true)}}>
+        Submit
+    </Button>
+</>
         );
     };
 
@@ -102,7 +109,7 @@ export default function SelfVouch() {
 
     return (
         <>
-            {isLoading ? <Loading origin={'selfvouch'} path={'NEXT PAGE'} purpose={"submitting input"} /> : (
+            {isLoading ? <Loading origin={'selfvouch'} path={'membervouch'} purpose={"submitting self vouch"} /> : (
                 <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700">
                     <AnimatedContent distance={50} direction="vertical" reverse={true} config={{ tension: 90, friction: 30 }} initialOpacity={0.2} animateOpacity scale={1} threshold={0.2}
                     >

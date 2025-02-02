@@ -45,6 +45,9 @@ export default function Loading({origin, path, purpose}) {
             case 'joinroom':
                 navigate(`/${path}`)
             break;
+            case 'selfvouch':
+                navigate(`/${path}`)
+            break;
         }
     }
 
@@ -61,7 +64,7 @@ export default function Loading({origin, path, purpose}) {
                     <div className="w-full flex flex-col items-center justify-start mt-[20px]">
                         <i>{purpose}...</i> {/* Added a loading text for clarity */}
                         <div className="w-[50%] bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                            <div className="bg-cyan-600 h-2.5 rounded-full" style={{ width: `${progress}%` }}></div>
+                            <div className="bg-gradient-to-l from-cyan-600 to-purple-500 h-2.5 rounded-full" style={{ width: `${progress}%` }}></div>
                         </div>
                     </div>
                 </div>
