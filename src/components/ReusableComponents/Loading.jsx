@@ -48,6 +48,9 @@ export default function Loading({origin, path, purpose}) {
             case 'selfvouch':
                 navigate(`/${path}`)
             break;
+            case 'membervouch':
+                navigate(`/${path}`)
+            break;
         }
     }
 

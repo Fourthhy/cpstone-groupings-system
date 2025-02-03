@@ -1,12 +1,14 @@
 import { Button, Select } from "flowbite-react";
 import { Pencil, Save, Check, X } from "lucide-react";
 import { useState } from "react";
+import Loading from "../../ReusableComponents/Loading";
 
 export default function MemberVouch() {
     const [selectedIndex, setSelectedIndex] = useState(null);
     const [isHidden, setIsHidden] = useState('');
     const [isView, setIsView] = useState(false);
     const [isEdit, setIsEdit] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     const [selectedMembers, setSelectedMembers] = useState([
         { studentName: "No name 1", roleName: "N/A", profile: "undefined.png", previewProfile: "undefined.png", filled: false },
@@ -197,53 +199,61 @@ export default function MemberVouch() {
     }
 
     return (
-        <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700">
-            <div className="h-[500px] w-[400px] font-raleway flex justify-start items-center flex-col border-[1px] rounded-[5px] bg-white">
-                <div className="w-[380px] h-full flex flex-col justify-center items-center">
-                    <h2 className="font-bold text-center text-lg">Vouch for members</h2>
-                    <h2 className="text-center text-gray-500 text-s">Requirement: {countTrueFilled()} / 3</h2>
-                    <div className="grid grid-cols-2 grid-rows-2 gap-2 w-full h-[70%] rounded-s">
-                        {/* Show all content initially */}
-                        {[1, 2, 3, 4].map((item, index) => (
-                            <div
-                                key={index}
-                                className={`relative border-[1px] w-full h-full transition-all duration-500 ease-in-out transform rounded-s ${selectedIndex === item ? 'col-span-full row-span-full' : isHidden}`}>
-                                {/* Transition the icons between Pencil and Save */}
-
-                                <div className="w-full h-full absolute z-1 flex justify-end mt-[5px] ml-[-5px]">
+        <>
+            {isLoading ? (
+                <Loading origin={'membervouch'} path={'responsepage'} purpose={'submitting vouch'} />
+            ) : (
+                <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700">
+                    <div className="h-[500px] w-[400px] font-raleway flex justify-start items-center flex-col border-[1px] rounded-[5px] bg-white">
+                        <div className="w-[380px] h-full flex flex-col justify-center items-center">
+                            <h2 className="font-bold text-center text-lg">Vouch for members</h2>
+                            <h2 className="text-center text-gray-500 text-s">Requirement: {countTrueFilled()} / 3</h2>
+                            <div className="grid grid-cols-2 grid-rows-2 gap-2 w-full h-[70%] rounded-s">
+                                {/* Show all content initially */}
+                                {[1, 2, 3, 4].map((item, index) => (
                                     <div
-                                        className={`absolute transition-all duration-300 transform ${isView ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`}>
-                                        <Pencil color="#6dc4d0" onClick={() => handleSelect(item)} className="transition-all duration-300 ease-in-out" />
+                                        key={index}
+                                        className={`relative border-[1px] w-full h-full transition-all duration-500 ease-in-out transform rounded-s ${selectedIndex === item ? 'col-span-full row-span-full' : isHidden}`}>
+                                        {/* Transition the icons between Pencil and Save */}
 
-                                    </div>
-                                    <div
-                                        className={`transition-all duration-300 transform ${isView ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
-                                        {isEdit ? (
-                                            <>
-                                                <Save color="#6dc4d0" onClick={() => {
-                                                    handleSave()
-                                                    handleSubmitMember(item)
-                                                }}
-                                                    className="transition-all duration-300 ease-in-out" />
-                                            </>
-                                        ) : (
-                                            <X color="#6dc4d0" onClick={handleUnselect} className="transition-all duration-300 ease-in-out" />
-                                        )}
+                                        <div className="w-full h-full absolute z-1 flex justify-end mt-[5px] ml-[-5px]">
+                                            <div
+                                                className={`absolute transition-all duration-300 transform ${isView ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`}>
+                                                <Pencil color="#6dc4d0" onClick={() => handleSelect(item)} className="transition-all duration-300 ease-in-out" />
 
+                                            </div>
+                                            <div
+                                                className={`transition-all duration-300 transform ${isView ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
+                                                {isEdit ? (
+                                                    <>
+                                                        <Save color="#6dc4d0" onClick={() => {
+                                                            handleSave()
+                                                            handleSubmitMember(item)
+                                                        }}
+                                                            className="transition-all duration-300 ease-in-out" />
+                                                    </>
+                                                ) : (
+                                                    <X color="#6dc4d0" onClick={handleUnselect} className="transition-all duration-300 ease-in-out" />
+                                                )}
+
+                                            </div>
+                                        </div>
+                                        <SelectedMemberView index={item} />
                                     </div>
-                                </div>
-                                <SelectedMemberView index={item} />
+                                ))}
                             </div>
-                        ))}
+                            {countTrueFilled() >= 3 ? (<Button
+                                onClick={() => { setIsLoading(true) }}
+                                outline
+                                gradientDuoTone="purpleToBlue"
+                                className="bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-full mt-4">
+                                Submit
+                            </Button>) : ''}
+
+                        </div>
                     </div>
-                    {countTrueFilled() >= 3 ? (<Button
-                        outline
-                        gradientDuoTone="purpleToBlue"
-                        className="bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-full mt-4">
-                        Submit
-                    </Button>) : ''}
                 </div>
-            </div>
-        </div>
+            )}
+        </>
     );
 }
