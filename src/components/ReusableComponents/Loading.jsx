@@ -51,6 +51,9 @@ export default function Loading({origin, path, purpose}) {
             case 'membervouch':
                 navigate(`/${path}`)
             break;
+            case 'responsepage':
+                navigate(`/`)
+            break;
         }
     }
 
