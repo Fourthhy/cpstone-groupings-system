@@ -6,12 +6,13 @@
     </div>
 </div>
 
-                                    <Carousel
-                                        leftControl={<StepBack className="fill-white border-[1px] ml-[-10px]" />}
-                                        rightControl={<StepForward className="fill-white border-[1px] mr-[-10px]" />}
-                                        slide={false}
-                                    >
-                                        {['option 1', 'option 2', 'option 3', 'option 4'].map((opt, idx) => (
-                                            <p key={idx} className="text-center">{opt}</p>
-                                        ))}
-                                    </Carousel>
+
+<Carousel
+    leftControl={<StepBack className="fill-white border-[1px] ml-[-10px]" />}
+    rightControl={<StepForward className="fill-white border-[1px] mr-[-10px]" />}
+    slide={false}
+>
+    {['option 1', 'option 2', 'option 3', 'option 4'].map((opt, idx) => (
+        <p key={idx} className="text-center">{opt}</p>
+    ))}
+</Carousel>

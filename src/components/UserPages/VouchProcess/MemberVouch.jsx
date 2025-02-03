@@ -1,11 +1,12 @@
 import { Button, Select } from "flowbite-react";
-import { Pencil, Save } from "lucide-react";
+import { Pencil, Save, Check, X } from "lucide-react";
 import { useState } from "react";
 
 export default function MemberVouch() {
     const [selectedIndex, setSelectedIndex] = useState(null);
     const [isHidden, setIsHidden] = useState('');
     const [isView, setIsView] = useState(false);
+    const [isEdit, setIsEdit] = useState(false)
 
     const [selectedMember1, setSelectedMember1] = useState({
         name: "No name 1",
@@ -31,6 +32,8 @@ export default function MemberVouch() {
         profile: "undefined.png",
         previewProfile: "undefined.png"
     })
+
+    const [selectedOption, setSelectedOption] = useState(null);
 
 
     const listofnames = [
@@ -71,16 +74,56 @@ export default function MemberVouch() {
 
     const SelectName = () => {
         return (
-            <div className="w-[95%] mb-2">
-                <Select required onChange={(e) => handleSelect(e.target.value)}>
+            <div className="w-auto mt-4">
+                <span className="text-s">Select Member</span>
+                <Select required className="bg-white">
                     <option value="">...</option>
                     {listofnames.map((name, index) => (
-                        <option key={index} value={index} className="text-xs">{name}</option>
+                        <option key={index} value={index} className="text-xs ">{name}</option>
                     ))}
                 </Select>
             </div>
         );
     };
+
+    const SelectRole = () => {
+
+        const roles = [
+            { id: 1, title: "System Developer", description: "Description for option 1.", logo: "/system_developer.png" },
+            { id: 2, title: "Project Manager", description: "Description for option 2.", logo: "/project_manager.png" },
+            { id: 3, title: "System QA", description: "Description for option 3.", logo: "/system_quality.png" },
+            { id: 4, title: "UI/UX Designer", description: "Description for option 4.", logo: "/uiux_designer.png" },
+        ];
+
+        const handleOptionChange = (event) => {
+            setSelectedOption(event.target.value);
+        };
+
+        return (
+            <>
+                <div className="grid grid-cols-2 gap-1">
+                    {roles.map((role) => (
+                        <label
+                            key={role.id}
+                            className={`border rounded-lg p-4 cursor-pointer transition-all duration-300 transform 
+                    ${selectedOption === role.id.toString() ? "border-white-500 bg-gradient-to-l from-purple-100 to-cyan-100 scale-105" : "border-gray-300 bg-white scale-100"}`}>
+                            <input
+                                type="radio"
+                                value={role.id}
+                                checked={selectedOption === role.id.toString()}
+                                onChange={handleOptionChange}
+                                className="hidden"
+                            />
+                            <div className="flex items-center gap-1">
+                                <img src={role.logo} className="w-[35px] h-[35px]" alt="" />
+                                <h3 className="text-xs">{role.title}</h3>
+                            </div>
+                        </label>
+                    ))}
+                </div>
+            </>
+        )
+    }
 
     const handleSelect = (index) => {
         setSelectedIndex(Number(index)); // Make sure to parse index to a number
@@ -90,6 +133,7 @@ export default function MemberVouch() {
     };
 
     const handleUnselect = () => {
+        setIsEdit(false)
         setIsView(false);
         setIsHidden('visible');
         setSelectedIndex(0);
@@ -130,14 +174,28 @@ export default function MemberVouch() {
 
         return (
             <div className=" w-full h-full flex flex-col justify-center items-center border-[1px]">
-                <img src={`/${previewProfile}`} className="z-0 w-[50px] h-[50px] ml-[5px] mb-[10px]" alt="" />
                 {isView ? (
-                    <div className="text-center">
-                        <p className="text-xl">{studentName}</p>
-                        <hr className="w-[100px]" />
-                        <p className="text-s">{roleName}</p>
-                    </div>
-                ) : ""}
+                    <>
+                        {isEdit ? ( //EDIT THE VOUCHED MEMBER
+                            <div className="text-center flex flex-col items-center">
+                                <SelectRole />
+                                <SelectName />
+                            </div>
+                        ) : ( //NOT EDIT THE VOUCH MEMBER
+                            <>
+                                <img src={`/${previewProfile}`} className="z-0 w-[50px] h-[50px] ml-[5px] mb-[10px]" alt="" />
+                                <p className="text-xl">{studentName}</p>
+                                <hr className="w-[40%]" />
+                                <p className="text-s">{roleName}</p>
+                                <div className="border absolute z-2 bottom-[25%]" onClick={() => {setIsEdit(true)}}>
+                                    <Pencil className="mt-[10px]" color="#6dc4d0" />
+                                </div>
+                            </>
+                        )}
+                    </>
+                ) : ( // BASUC GRID PREVIEW
+                    <img src={`/${previewProfile}`} className="z-0 w-[50px] h-[50px] ml-[5px] mb-[10px]" alt="" />
+                )}
             </div>
         )
     }
@@ -163,7 +221,7 @@ export default function MemberVouch() {
                                     </div>
                                     <div
                                         className={`transition-all duration-300 transform ${isView ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
-                                        <Save color="#6dc4d0" onClick={handleUnselect} className="transition-all duration-300 ease-in-out" />
+                                        <X color="#6dc4d0" onClick={handleUnselect} className="transition-all duration-300 ease-in-out" />
                                     </div>
                                 </div>
                                 <SelectedMemberView index={item} />

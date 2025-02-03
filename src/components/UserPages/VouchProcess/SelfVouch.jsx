@@ -56,36 +56,37 @@ export default function SelfVouch() {
         };
 
         return (
-<>
-    <h2 className="font-bold text-center text-lg mb-4">What is your role?</h2>
-    <div className="grid grid-cols-2 gap-1">
-        {roles.map((role) => (
-            <label
-                key={role.id}
-                className={`border rounded-lg p-4 cursor-pointer transition-all duration-300 transform 
+            <>
+                <h2 className="font-bold text-center text-lg mb-4">What is your role?</h2>
+                <div className="grid grid-cols-2 gap-1">
+                    {roles.map((role) => (
+                        <label
+                            key={role.id}
+                            className={`border rounded-lg p-4 cursor-pointer transition-all duration-300 transform 
                     ${selectedOption === role.id.toString() ? "border-white-500 bg-gradient-to-l from-purple-100 to-cyan-100 scale-105" : "border-gray-300 bg-white scale-100"}`}>
-                <input
-                    type="radio"
-                    value={role.id}
-                    checked={selectedOption === role.id.toString()}
-                    onChange={handleOptionChange}
-                    className="hidden"
-                />
-                <div className="flex items-center gap-1">
-                    <img src={role.logo} className="w-[35px] h-[35px]" alt="" />
-                    <h3 className="text-xs">{role.title}</h3>
+                            <input
+                                type="radio"
+                                value={role.id}
+                                checked={selectedOption === role.id.toString()}
+                                onChange={handleOptionChange}
+                                className="hidden"
+                            />
+                            <div className="flex items-center gap-1">
+                                <img src={role.logo} className="w-[35px] h-[35px]" alt="" />
+                                <h3 className="text-xs">{role.title}</h3>
+                            </div>
+                        </label>
+                    ))}
                 </div>
-            </label>
-        ))}
-    </div>
-    <Button 
-        outline 
-        gradientDuoTone="purpleToBlue" 
-        className={customButtonDesign}
-        onClick={() => {setIsLoading(true)}}>
-        Submit
-    </Button>
-</>
+                
+                <Button
+                    outline
+                    gradientDuoTone="purpleToBlue"
+                    className={customButtonDesign}
+                    onClick={() => { setIsLoading(true) }}>
+                    Submit
+                </Button>
+            </>
         );
     };
 
