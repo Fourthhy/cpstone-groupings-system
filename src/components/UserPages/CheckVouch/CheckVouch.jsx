@@ -1,8 +1,8 @@
 import { TextInput, Button, Label } from "flowbite-react"
 import { Link } from "react-router-dom"
-import Loading from "../ReusableComponents/Loading.jsx"
 import { useState } from "react"
-export default function JoinRoom() {
+import Loading from "../../ReusableComponents/Loading.jsx"
+export default function CheckVouch() {
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -11,11 +11,14 @@ export default function JoinRoom() {
     const JoinRoomForm = () => {
         return (
             <>
-                <h2 className="font-bold text-center text-2xl">Enter Room Code</h2>
+                <h2 className="font-bold text-center text-2xl">Check Vouch Results</h2>
                 <div className="mt-[20px] flex max-w-md flex-col gap-2">
 
                     <Label htmlFor="input-gray" color="gray" value="Room Code" />
-                    <TextInput type="text" placeholder="e.g. 123456" required color="gray" />
+                    <TextInput type="text" placeholder="123456" required color="gray" />
+
+                    <Label htmlFor="input-gray" color="gray" value="User Code" />
+                    <TextInput type="text" placeholder="User-12345" required color="gray" />
                     {/*color="gray" for failed*/}
 
                     <Button
@@ -46,7 +49,7 @@ export default function JoinRoom() {
             <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700">
                 <div className="h-[500px] w-[400px] font-raleway flex justify-start items-center flex-col border-[1px] rounded-[5px] bg-white">
                     <div className="w-[380px] h-full flex flex-col justify-center items-center">
-                        {isLoading ? <Loading origin={'joinroom'} path={'selfvouch'} purpose={"loading"} /> : <JoinRoomForm />}
+                        {isLoading ? <Loading origin={'checkvouch'} path={'vouchresults'} purpose={"checking responses"} /> : <JoinRoomForm />}
                     </div>
                 </div>
             </div>

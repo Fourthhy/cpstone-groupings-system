@@ -54,6 +54,8 @@ export default function Loading({origin, path, purpose}) {
             case 'responsepage':
                 navigate(`/`)
             break;
+            case 'checkvouch':
+                navigate(`/${path}`)
         }
     }
 

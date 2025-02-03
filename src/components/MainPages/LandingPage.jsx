@@ -44,7 +44,7 @@ export default function LandingPage() {
                                     or
                                     <hr className="w-[50px] border-gray-300" />
                                 </div>
-                                <Link to="/joinroom"><Button color="gray">Review a vouch</Button></Link>
+                                <Link to="/checkvouch"><Button color="gray">Review a vouch</Button></Link>
                             </div>
                         </div>
                     </div>
