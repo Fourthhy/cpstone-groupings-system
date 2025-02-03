@@ -1,6 +1,6 @@
 import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
-import AnimatedContent from "../animations/AnimatedContent";
+import AnimatedContent from "../ComponentAnimations/AnimatedContent";
 
 export default function LandingPage() {
     return (

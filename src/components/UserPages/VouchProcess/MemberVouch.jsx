@@ -8,33 +8,20 @@ export default function MemberVouch() {
     const [isView, setIsView] = useState(false);
     const [isEdit, setIsEdit] = useState(false)
 
-    const [selectedMember1, setSelectedMember1] = useState({
-        name: "No name 1",
-        role: "No role",
-        profile: "undefined.png",
-        previewProfile: "undefined.png"
-    })
-    const [selectedMember2, setSelectedMember2] = useState({
-        name: "No name 2",
-        role: "No role",
-        profile: "undefined.png",
-        previewProfile: "undefined.png"
-    })
-    const [selectedMember3, setSelectedMember3] = useState({
-        name: "No name 3",
-        role: "No role",
-        profile: "undefined.png",
-        previewProfile: "undefined.png"
-    })
-    const [selectedMember4, setSelectedMember4] = useState({
-        name: "No name 4",
-        role: "No role",
-        profile: "undefined.png",
-        previewProfile: "undefined.png"
-    })
+    const [selectedMembers, setSelectedMembers] = useState([
+        { studentName: "No name 1", roleName: "N/A", profile: "undefined.png", previewProfile: "undefined.png", filled: false },
+        { studentName: "No name 2", roleName: "N/A", profile: "undefined.png", previewProfile: "undefined.png", filled: false },
+        { studentName: "No name 3", roleName: "N/A", profile: "undefined.png", previewProfile: "undefined.png", filled: false },
+        { studentName: "No name 4", roleName: "N/A", profile: "undefined.png", previewProfile: "undefined.png", filled: false },
+    ]);
+
+    const countTrueFilled = () => {
+        return selectedMembers.filter(member => member.filled === true).length;
+    };
 
     const [selectedOption, setSelectedOption] = useState(null);
-
+    const [selectedMember, setSelectedMember] = useState('')
+    const [selectedProfile, setSelectedProfile] = useState('')
 
     const listofnames = [
         "Asaldo, Rizalyne",
@@ -70,34 +57,57 @@ export default function MemberVouch() {
         "Tinagsa, Lenie Jane"
     ];
 
-    const customButtonDesign = "bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-full mt-4";
+    const handleSubmitMember = (index) => {
+        const updatedMembers = [...selectedMembers];
 
-    const SelectName = () => {
+        updatedMembers[index - 1].studentName = selectedMember;
+        setSelectedMembers(updatedMembers);
+
+        const updatedRoles = [...selectedMembers];
+        updatedRoles[index - 1].roleName = selectedOption;
+        setSelectedMembers(updatedRoles)
+
+        const updatedProfile = [...selectedMembers];
+        updatedProfile[index - 1].previewProfile = selectedProfile
+        setSelectedMembers(updatedProfile)
+
+        setSelectedMember('')
+        setSelectedOption('')
+        setSelectedProfile('')
+
+        const updateFilled = [...selectedMembers];
+        updateFilled[index - 1].filled = true;
+        setSelectedMember(updateFilled)
+    }
+
+    const SelectName = ({ index }) => {
+
         return (
-            <div className="w-auto mt-4">
+            <div className="w-auto m-4">
                 <span className="text-s">Select Member</span>
-                <Select required className="bg-white">
-                    <option value="">...</option>
+                <Select
+                    required
+                    className="bg-white"
+                    value={selectedMember}
+                    onChange={(item) => { setSelectedMember(item.target.value) }}
+                >
+                    <option>...</option>
                     {listofnames.map((name, index) => (
-                        <option key={index} value={index} className="text-xs ">{name}</option>
+                        <option key={index} value={name} className="text-xs ">{name}</option>
                     ))}
                 </Select>
             </div>
         );
     };
 
-    const SelectRole = () => {
+    const SelectRole = ({ index }) => {
 
         const roles = [
-            { id: 1, title: "System Developer", description: "Description for option 1.", logo: "/system_developer.png" },
-            { id: 2, title: "Project Manager", description: "Description for option 2.", logo: "/project_manager.png" },
-            { id: 3, title: "System QA", description: "Description for option 3.", logo: "/system_quality.png" },
-            { id: 4, title: "UI/UX Designer", description: "Description for option 4.", logo: "/uiux_designer.png" },
+            { id: 1, title: "System Developer", description: "Description for option 1.", logo: "system_developer.png" },
+            { id: 2, title: "Project Manager", description: "Description for option 2.", logo: "project_manager.png" },
+            { id: 3, title: "System QA", description: "Description for option 3.", logo: "system_quality.png" },
+            { id: 4, title: "UI/UX Designer", description: "Description for option 4.", logo: "uiux_designer.png" },
         ];
-
-        const handleOptionChange = (event) => {
-            setSelectedOption(event.target.value);
-        };
 
         return (
             <>
@@ -106,12 +116,16 @@ export default function MemberVouch() {
                         <label
                             key={role.id}
                             className={`border rounded-lg p-4 cursor-pointer transition-all duration-300 transform 
-                    ${selectedOption === role.id.toString() ? "border-white-500 bg-gradient-to-l from-purple-100 to-cyan-100 scale-105" : "border-gray-300 bg-white scale-100"}`}>
+                    ${selectedOption === role.title ? "border-white-500 bg-gradient-to-l from-purple-100 to-cyan-100 scale-105" : "border-gray-300 bg-white scale-100"}`}
+                        >
                             <input
                                 type="radio"
-                                value={role.id}
-                                checked={selectedOption === role.id.toString()}
-                                onChange={handleOptionChange}
+                                value={role.id} // Use role.id as the value
+                                checked={selectedOption === role.title} // Check against role.id
+                                onChange={() => {
+                                    setSelectedOption(role.title)
+                                    setSelectedProfile(roles[role.id - 1].logo)
+                                }} // Update with role.id
                                 className="hidden"
                             />
                             <div className="flex items-center gap-1">
@@ -129,7 +143,6 @@ export default function MemberVouch() {
         setSelectedIndex(Number(index)); // Make sure to parse index to a number
         setIsHidden('hidden');
         setIsView(true);
-        console.log("selected index: " + index);
     };
 
     const handleUnselect = () => {
@@ -139,38 +152,12 @@ export default function MemberVouch() {
         setSelectedIndex(0);
     };
 
-    const SelectedMemberView = ({ index }) => {
-        let studentName = '';
-        let roleName = '';
-        let profile = '';
-        let previewProfile = '';
+    const handleSave = () => {
+        setIsEdit(false)
+        setIsView(true)
+    }
 
-        switch (index) {
-            case 1:
-                studentName = selectedMember1.name
-                roleName = selectedMember1.role
-                profile = selectedMember1.profile
-                previewProfile = selectedMember1.previewProfile
-                break;
-            case 2:
-                studentName = selectedMember2.name
-                roleName = selectedMember2.role
-                profile = selectedMember2.profile
-                previewProfile = selectedMember2.previewProfile
-                break;
-            case 3:
-                studentName = selectedMember3.name
-                roleName = selectedMember3.role
-                profile = selectedMember3.profile
-                previewProfile = selectedMember3.previewProfile
-                break;
-            case 4:
-                studentName = selectedMember4.name
-                roleName = selectedMember4.role
-                profile = selectedMember4.profile
-                previewProfile = selectedMember4.previewProfile
-                break;
-        }
+    const SelectedMemberView = ({ index }) => {
 
         return (
             <div className=" w-full h-full flex flex-col justify-center items-center border-[1px]">
@@ -178,23 +165,26 @@ export default function MemberVouch() {
                     <>
                         {isEdit ? ( //EDIT THE VOUCHED MEMBER
                             <div className="text-center flex flex-col items-center">
-                                <SelectRole />
-                                <SelectName />
+                                <SelectName index={index} />
+                                <SelectRole index={index} />
                             </div>
-                        ) : ( //NOT EDIT THE VOUCH MEMBER
+                        ) : ( //VIEW THE VOUCH MEMBER
                             <>
-                                <img src={`/${previewProfile}`} className="z-0 w-[50px] h-[50px] ml-[5px] mb-[10px]" alt="" />
-                                <p className="text-xl">{studentName}</p>
+                                <img src={`/${selectedMembers[index - 1].previewProfile}`} className="z-0 w-[50px] h-[50px] ml-[5px] mb-[10px]" alt="" />
+                                <p className="text-xl text-gray-500">{selectedMembers[index - 1].studentName}</p>
                                 <hr className="w-[40%]" />
-                                <p className="text-s">{roleName}</p>
-                                <div className="border absolute z-2 bottom-[25%]" onClick={() => {setIsEdit(true)}}>
+                                <p className="text-s text-gray-500">{selectedMembers[index - 1].roleName}</p>
+                                <div className="absolute z-2 bottom-[25%]" onClick={() => { setIsEdit(true) }}>
                                     <Pencil className="mt-[10px]" color="#6dc4d0" />
                                 </div>
                             </>
                         )}
                     </>
                 ) : ( // BASUC GRID PREVIEW
-                    <img src={`/${previewProfile}`} className="z-0 w-[50px] h-[50px] ml-[5px] mb-[10px]" alt="" />
+                    <div className="flex flex-col items-center">
+                        <img src={`/${selectedMembers[index - 1].previewProfile}`} className="z-0 w-[50px] h-[50px] ml-[5px] mb-[10px]" alt="" />
+                        <p className="text-xs text-gray-500">{selectedMembers[index - 1].roleName}</p>
+                    </div>
                 )}
             </div>
         )
@@ -204,7 +194,8 @@ export default function MemberVouch() {
         <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700">
             <div className="h-[500px] w-[400px] font-raleway flex justify-start items-center flex-col border-[1px] rounded-[5px] bg-white">
                 <div className="w-[380px] h-full flex flex-col justify-center items-center">
-                    <h2 className="font-bold text-center text-lg mb-4">Vouch for members</h2>
+                    <h2 className="font-bold text-center text-lg">Vouch for members</h2>
+                    <h2 className="text-center text-gray-500 text-s">requirement: {countTrueFilled()} / 3</h2>
                     <div className="grid grid-cols-2 grid-rows-2 gap-2 w-full h-[70%] rounded-s">
                         {/* Show all content initially */}
                         {[1, 2, 3, 4].map((item, index) => (
@@ -221,19 +212,30 @@ export default function MemberVouch() {
                                     </div>
                                     <div
                                         className={`transition-all duration-300 transform ${isView ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
-                                        <X color="#6dc4d0" onClick={handleUnselect} className="transition-all duration-300 ease-in-out" />
+                                        {isEdit ? (
+                                            <>
+                                                <Save color="#6dc4d0" onClick={() => {
+                                                    handleSave()
+                                                    handleSubmitMember(item)
+                                                }}
+                                                    className="transition-all duration-300 ease-in-out" />
+                                            </>
+                                        ) : (
+                                            <X color="#6dc4d0" onClick={handleUnselect} className="transition-all duration-300 ease-in-out" />
+                                        )}
+
                                     </div>
                                 </div>
                                 <SelectedMemberView index={item} />
                             </div>
                         ))}
                     </div>
-                    <Button
+                    {countTrueFilled() >= 3 ? (<Button
                         outline
                         gradientDuoTone="purpleToBlue"
-                        className={customButtonDesign}>
+                        className="bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-full mt-4">
                         Submit
-                    </Button>
+                    </Button>) : ''}
                 </div>
             </div>
         </div>

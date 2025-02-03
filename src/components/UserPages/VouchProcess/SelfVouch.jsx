@@ -1,6 +1,6 @@
 import { Label, Select, Button } from "flowbite-react";
 import { useState } from "react";
-import AnimatedContent from "../../animations/AnimatedContent";
+import AnimatedContent from "../../ComponentAnimations/AnimatedContent";
 import Loading from "../../ReusableComponents/Loading";
 
 export default function SelfVouch() {
