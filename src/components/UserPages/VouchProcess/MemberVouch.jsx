@@ -58,27 +58,33 @@ export default function MemberVouch() {
     ];
 
     const handleSubmitMember = (index) => {
+        // 1. Create a *single* copy of the selectedMembers array:
         const updatedMembers = [...selectedMembers];
 
-        updatedMembers[index - 1].studentName = selectedMember;
+        // 2. Input validation:
+        if (Array.isArray(selectedMember) || selectedOption === '' || selectedMember === '') {
+            alert('Requirement fill incomplete'); // More informative message
+            return; // Stop execution if selectedMember is an array (which it shouldn't be)
+        }
+
+        // 3. Update the correct member's data in the *single* copy:
+        updatedMembers[index - 1] = {
+            ...updatedMembers[index - 1], // Spread existing properties to keep them
+            studentName: selectedMember,
+            roleName: selectedOption,
+            previewProfile: selectedProfile, // Make sure selectedProfile is defined
+            filled: true, // Set filled to true
+        };
+
+        // 4. Update the state *once* with the updated array:
         setSelectedMembers(updatedMembers);
 
-        const updatedRoles = [...selectedMembers];
-        updatedRoles[index - 1].roleName = selectedOption;
-        setSelectedMembers(updatedRoles)
+        // 5. Reset input fields (after state update):
+        setSelectedMember('');
+        setSelectedOption('');
+        setSelectedProfile(''); // Make sure setSelectedProfile exists and is used correctly
 
-        const updatedProfile = [...selectedMembers];
-        updatedProfile[index - 1].previewProfile = selectedProfile
-        setSelectedMembers(updatedProfile)
-
-        setSelectedMember('')
-        setSelectedOption('')
-        setSelectedProfile('')
-
-        const updateFilled = [...selectedMembers];
-        updateFilled[index - 1].filled = true;
-        setSelectedMember(updateFilled)
-    }
+    };
 
     const SelectName = ({ index }) => {
 
@@ -195,7 +201,7 @@ export default function MemberVouch() {
             <div className="h-[500px] w-[400px] font-raleway flex justify-start items-center flex-col border-[1px] rounded-[5px] bg-white">
                 <div className="w-[380px] h-full flex flex-col justify-center items-center">
                     <h2 className="font-bold text-center text-lg">Vouch for members</h2>
-                    <h2 className="text-center text-gray-500 text-s">requirement: {countTrueFilled()} / 3</h2>
+                    <h2 className="text-center text-gray-500 text-s">Requirement: {countTrueFilled()} / 3</h2>
                     <div className="grid grid-cols-2 grid-rows-2 gap-2 w-full h-[70%] rounded-s">
                         {/* Show all content initially */}
                         {[1, 2, 3, 4].map((item, index) => (
