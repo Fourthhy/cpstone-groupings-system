@@ -60,6 +60,9 @@ export default function Loading({origin, path, purpose}) {
             case 'adminlogin':
                 navigate(`/${path}`)
             break;
+            case 'roomlist':
+                navigate(`/${path}`)
+            break;
         }
     }
 

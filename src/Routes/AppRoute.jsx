@@ -8,6 +8,7 @@ import CheckVouch from "../components/UserPages/CheckVouch/CheckVouch"
 import VouchResults from "../components/UserPages/CheckVouch/VouchResults"
 import AdminLogin from "../components/AdminPages/AdminLogin"
 import RoomList from "../components/AdminPages/RoomList"
+import Room from "../components/AdminPages/Room"
 
 
 export default function AppRoute() {
@@ -26,6 +27,7 @@ export default function AppRoute() {
 
                     <Route path="/adminlogin" element={<AdminLogin />} />
                     <Route path="/roomlist" element={<RoomList />} />
+                    <Route path="/room" element={<Room />} />
                 </Routes>
             </Router>
         </>
