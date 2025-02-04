@@ -56,6 +56,10 @@ export default function Loading({origin, path, purpose}) {
             break;
             case 'checkvouch':
                 navigate(`/${path}`)
+            break;
+            case 'adminlogin':
+                navigate(`/${path}`)
+            break;
         }
     }
 
