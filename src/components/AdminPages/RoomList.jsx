@@ -102,7 +102,7 @@ export default function RoomList() {
                                                         <span className="text-sm w-full">123---</span>
                                                     </div>
                                                     <div className="flex flex-col items-start justify-center my-[5px]">
-                                                        <span className="text-sm font-bold w-full">Items</span>
+                                                        <span className="text-sm font-bold w-full">Names</span>
                                                         <span className="text-sm w-full">27</span>
                                                     </div>
                                                     <div className="flex flex-col items-start justify-center my-[5px]">
