@@ -36,7 +36,7 @@ export default function LandingPage() {
                             <div className="mt-[10px] text-center flex items-center flex-col">
                                 <b>Proceed as..</b>
                                 <div className="flex gap-[10px] mt-[20px]">
-                                    <Link to=""><Button color="gray">Host</Button></Link>
+                                    <Link to="/adminlogin"><Button color="gray">Host</Button></Link>
                                     <Link to="/joinroom"><Button color="gray">User </Button></Link>
                                 </div>
                                 <div className="flex items-center justify-center gap-1">

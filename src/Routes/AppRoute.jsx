@@ -6,6 +6,7 @@ import ResponsePage from "../components/UserPages/VouchProcess/ResponsePage"
 import JoinRoom from "../components/UserPages/VouchProcess/JoinRoom"
 import CheckVouch from "../components/UserPages/CheckVouch/CheckVouch"
 import VouchResults from "../components/UserPages/CheckVouch/VouchResults"
+import AdminLogin from "../components/AdminPages/AdminLogin"
 
 export default function AppRoute() {
     return (
@@ -20,6 +21,8 @@ export default function AppRoute() {
 
                     <Route path="/checkvouch" element={<CheckVouch /> }/>
                     <Route path="/vouchresults" element={<VouchResults /> }/>
+
+                    <Route path="/adminlogin" element={<AdminLogin />} />
                 </Routes>
             </Router>
         </>
