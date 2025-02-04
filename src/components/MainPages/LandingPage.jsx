@@ -25,8 +25,8 @@ export default function LandingPage() {
                             <Carousel
                                 className="h-[100px]"
                                 slideInterval={2000}
-                                leftControl={<StepBack color="#b8c1bf" className="ml-[-10px]" />}
-                                rightControl={<StepForward color="#b8c1bf" className="mr-[-10px]" />}
+                                leftControl={<StepBack color="#ffffff" className="ml-[-10px]" />}
+                                rightControl={<StepForward color="#ffffff" className="mr-[-10px]" />}
                                 indicators={false}
                             >
                                 <li className="px-[40px] text-sm"><b>Recorded Vouching Sessions</b>:  <br />Vouching sessions are recorded for transparency and accountability.</li>
