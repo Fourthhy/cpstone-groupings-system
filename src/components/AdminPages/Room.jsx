@@ -2,6 +2,7 @@ import { Modal, Dropdown, Tooltip } from "flowbite-react"
 import { useState } from "react"
 import { LogIn } from "lucide-react"
 import { Link } from "react-router-dom"
+import Chart from "./RadarChart"
 
 export default function Room() {
     const [showModal, setShowModal] = useState(true)
@@ -143,8 +144,8 @@ export default function Room() {
                                 Paginated Table
                             </div>
 
-                            <div className="border row-span-3 col-span-1">
-
+                            <div className="row-span-3 col-span-1 w-full h-full flex flex-col justify-center items-center">
+                                <Chart />
                             </div>
 
                             <div className="border row-span-1 col-span-1">
