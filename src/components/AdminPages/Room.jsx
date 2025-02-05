@@ -1,6 +1,7 @@
-import { Modal, Dropdown } from "flowbite-react"
+import { Modal, Dropdown, Tooltip } from "flowbite-react"
 import { useState } from "react"
 import { LogIn } from "lucide-react"
+import { Link } from "react-router-dom"
 
 export default function Room() {
     const [showModal, setShowModal] = useState(true)
@@ -25,14 +26,7 @@ export default function Room() {
                                 <div className="w-full h-full grid grid-cols-5">
 
                                     <div className="col-span-1 flex flex-col justify-center items-start">
-                                        <div className="flex items-center">
-                                            <h2 className="font-bold text-left text-m">Room code: </h2>
-                                            <span className="text-xs">&nbsp; 123456</span>
-                                        </div>
-                                        <div className="flex items-center">
-                                            <h2 className="font-bold text-left text-m">Room passcode: </h2>
-                                            <span className="text-xs">&nbsp; 654321</span>
-                                        </div>
+
                                     </div>
 
                                     <div className="col-span-3 flex items-center justify-evenly gap-1">
@@ -61,33 +55,102 @@ export default function Room() {
                                     <div className="flex items-center justify-evenly">
                                         <div>
                                             <Dropdown label="Sort by" >
-                                                <Dropdown.Item onClick={() => alert('Self Vouch')}>
-                                                    Self Vouch
-                                                </Dropdown.Item>
-                                                <Dropdown.Item onClick={() => alert('Self Vouch')}>
-                                                    Not Vouched
-                                                </Dropdown.Item>
+
+                                                <Dropdown.Header>
+                                                    Self Vouch Roles
+                                                </Dropdown.Header>
+
+                                                <Tooltip content="Show System Developers only" style="light" placement="left" animation="duration-400">
+                                                    <Dropdown.Item onClick={() => alert('Self Vouch')}>
+                                                        System Developer
+                                                    </Dropdown.Item>
+                                                </Tooltip>
+
+                                                <Tooltip content="Show Project Managers only" style="light" placement="left" animation="duration-400">
+                                                    <Dropdown.Item onClick={() => alert('Self Vouch')}>
+                                                        Projet Manager
+                                                    </Dropdown.Item>
+                                                </Tooltip>
+
+                                                <Tooltip content="Show UI/UX Designers only" style="light" placement="left" animation="duration-400">
+                                                    <Dropdown.Item onClick={() => alert('Self Vouch')}>
+                                                        UI/UX Designer
+                                                    </Dropdown.Item>
+                                                </Tooltip>
+
+                                                <Tooltip content="Show System QAs only" style="light" placement="left" animation="duration-400">
+                                                    <Dropdown.Item onClick={() => alert('Self Vouch')}>
+                                                        System QA
+                                                    </Dropdown.Item>
+                                                </Tooltip>
+
+                                                <Dropdown.Divider />
+
+                                                <Tooltip content="Shows who are not vouched by others" style="light" placement="left" animation="duration-400">
+                                                    <Dropdown.Item onClick={() => alert('Self Vouch')}>
+                                                        Not Vouched
+                                                    </Dropdown.Item>
+                                                </Tooltip>
                                             </Dropdown>
                                         </div>
-                                        <LogIn className="cursor-pointer" />
+                                        <Tooltip content="Log Out" style="light" placement="bottom" animation="duration-400">
+                                            <Link to="/"><LogIn className="cursor-pointer" /></Link>
+                                        </Tooltip>
                                     </div>
 
                                 </div>
 
                             </div>
 
-                            <div className="border row-span-5 col-span-1">
-                                Carousel Statistics
+                            <div className="ml-[7px] row-span-4 col-span-1">
+
+                                <div className="flex flex-col justify-center items-start w-full h-full">
+                                    <div className="flex flex-col items-start justify-center">
+                                        <h2 className="font-bold text-left text-m">Room code: </h2>
+                                        <span className="text-xs">&nbsp; 123456</span>
+                                    </div>
+
+                                    <div className="flex flex-col items-start justify-center">
+                                        <h2 className="font-bold text-left text-m">Room passcode: </h2>
+                                        <span className="text-xs">&nbsp; 654321</span>
+                                    </div>
+
+                                    <div className="flex flex-col items-start justify-center">
+                                        <h2 className="font-bold text-left text-m">Room Created at: </h2>
+                                        <span className="text-xs">&nbsp; 01-01-2025 </span>
+                                    </div>
+
+                                    <div className="flex flex-col items-start justify-center">
+                                        <h2 className="font-bold text-left text-m">Total items</h2>
+                                        <span className="text-xs">&nbsp; 27 </span>
+                                    </div>
+
+                                    <div className="flex flex-col items-start justify-center">
+                                        <h2 className="font-bold text-left text-m">Vouching</h2>
+                                        <span className="text-xs">&nbsp; enabled </span>
+                                    </div>
+
+                                    <div className="flex flex-col items-start justify-center">
+                                        <h2 className="font-bold text-left text-m">Response Check</h2>
+                                        <span className="text-xs">&nbsp; disabled </span>
+                                    </div>
+
+                                </div>
+
                             </div>
 
                             <div className="border row-span-8 col-span-5">
                                 Paginated Table
                             </div>
 
-                            <div className="border row-span-4 col-span-1">
+                            <div className="border row-span-3 col-span-1">
+
+                            </div>
+
+                            <div className="border row-span-1 col-span-1">
                                 Settings
                             </div>
-                            
+
                         </div>
 
                     </div>
