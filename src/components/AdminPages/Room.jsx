@@ -1,4 +1,4 @@
-import { Modal, Dropdown, Tooltip } from "flowbite-react"
+import { Modal, Dropdown, Tooltip, Button, Label } from "flowbite-react"
 import { useState } from "react"
 import { LogIn } from "lucide-react"
 import { Link } from "react-router-dom"
@@ -8,7 +8,7 @@ export default function Room() {
     const [showModal, setShowModal] = useState(true)
     return (
         <>
-            <div className="h-screen w-screen flex items-ce nter justify-center bg-gray-100 text-gray-700">
+            <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700">
                 <div className="h-[95%] w-[95%] font-raleway flex justify-center items-center flex-col border-[1px] rounded-[5px] bg-white">
                     <div className="w-[98%] h-[98%] flex flex-col justify-center items-center">
                         <Modal show={showModal} onClose={() => setShowModal(false)}>
@@ -26,12 +26,8 @@ export default function Room() {
 
                                 <div className="w-full h-full grid grid-cols-5">
 
-                                    <div className="col-span-1 flex flex-col justify-center items-start">
-
-                                    </div>
-
                                     <div className="col-span-3 flex items-center justify-evenly gap-1">
-                                        <div className="flex items-center gap-1">
+                                        {/* <div className="flex items-center gap-1">
                                             <img src="/system_developer.png" alt="" className="w-[40px] h-[40px]" />
                                             <span>1</span>
                                         </div>
@@ -50,10 +46,10 @@ export default function Room() {
                                         <div className="flex items-center gap-1">
                                             <img src="/undefined.png" alt="" className="w-[40px] h-[40px]" />
                                             <span>1</span>
-                                        </div>
+                                        </div> */}
                                     </div>
 
-                                    <div className="flex items-center justify-evenly">
+                                    <div className="col-span-2 flex items-center justify-evenly">
                                         <div>
                                             <Dropdown label="Sort by" >
 
@@ -94,9 +90,15 @@ export default function Room() {
                                                 </Tooltip>
                                             </Dropdown>
                                         </div>
-                                        <Tooltip content="Log Out" style="light" placement="bottom" animation="duration-400">
-                                            <Link to="/"><LogIn className="cursor-pointer" /></Link>
-                                        </Tooltip>
+                                        <Link to="/">
+                                            <div className="flex items-center justify-center gap-2 hover:bg-gray-100 transition duration-300 ease-in-out cursor-pointer rounded-sm">
+                                                <Label htmlFor="input-gray" color="gray" value="Exit Room" />
+                                                <Tooltip content="Exit the room" style="light" placement="bottom" animation="duration-400">
+                                                    <LogIn className="cursor-pointer" />
+                                                </Tooltip>
+                                            </div>
+                                        </Link>
+
                                     </div>
 
                                 </div>
