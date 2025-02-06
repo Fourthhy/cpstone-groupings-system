@@ -172,7 +172,7 @@ export default function Room() {
                             <div className="row-span-2 col-span-1">
                                 <div className="flex flex-col items-start gap-5">
                                     <div className="w-full flex justify-center ">
-                                        Settings
+                                        Settings 
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <ToggleSwitch checked={isVouch} onChange={() => setIsVouch(!isVouch)} label="Enable Vouching" />
