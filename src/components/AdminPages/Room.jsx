@@ -1,11 +1,16 @@
-import { Modal, Dropdown, Tooltip, Button, Label } from "flowbite-react"
+import { Modal, Dropdown, Tooltip, Button, Label, ToggleSwitch } from "flowbite-react"
 import { useState } from "react"
-import { LogIn } from "lucide-react"
+import { LogIn, Info } from "lucide-react"
 import { Link } from "react-router-dom"
 import Chart from "./RadarChart"
 
 export default function Room() {
     const [showModal, setShowModal] = useState(true)
+    const [showGraph, setShowGraph] = useState(false)
+    const [isVouch, setIsVouch] = useState(false)
+    const [isChecking, setIsChecking] = useState(false)
+
+
     return (
         <>
             <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700">
@@ -105,9 +110,9 @@ export default function Room() {
 
                             </div>
 
-                            <div className="ml-[7px] row-span-4 col-span-1">
+                            <div className="ml-[7px] row-span-5 col-span-1">
 
-                                <div className="flex flex-col justify-center items-start w-full h-full">
+                                <div className="flex flex-col justify-evenly items-start w-full h-full">
                                     <div className="flex flex-col items-start justify-center">
                                         <h2 className="font-bold text-left text-m">Room code: </h2>
                                         <span className="text-xs">&nbsp; 123456</span>
@@ -129,6 +134,11 @@ export default function Room() {
                                     </div>
 
                                     <div className="flex flex-col items-start justify-center">
+                                        <h2 className="font-bold text-left text-m">Total vouched</h2>
+                                        <span className="text-xs">&nbsp; 15 / 27 </span>
+                                    </div>
+
+                                    <div className="flex flex-col items-start justify-center">
                                         <h2 className="font-bold text-left text-m">Vouching</h2>
                                         <span className="text-xs">&nbsp; enabled </span>
                                     </div>
@@ -146,12 +156,37 @@ export default function Room() {
                                 Paginated Table
                             </div>
 
-                            <div className="row-span-3 col-span-1 w-full h-full flex flex-col justify-center items-center">
-                                <Chart />
+                            <div className="row-span-1 col-span-1 w-full h-full flex flex-col justify-center items-center">
+                                <Button outline onClick={() => { setShowGraph(true) }}>View Statistics</Button>
+                                <Modal dismissible show={showGraph} onClose={() => setShowGraph(false)} >
+                                    <Modal.Header>Vouching Statistics</Modal.Header>
+                                    <Modal.Body>
+                                        <div className="h-[250px]">
+                                            <Chart />
+                                        </div>
+                                    </Modal.Body>
+                                </Modal>
+
                             </div>
 
-                            <div className="border row-span-1 col-span-1">
-                                Settings
+                            <div className="row-span-2 col-span-1">
+                                <div className="flex flex-col items-start gap-5">
+                                    <div className="w-full flex justify-center ">
+                                        Settings
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <ToggleSwitch checked={isVouch} onChange={() => setIsVouch(!isVouch)} label="Enable Vouching" />
+                                        <Tooltip content="Enable vouch entry for items" style="light" placement="top" animation="duration-600">
+                                            <Info color="#000000" className="w-[15px] h-[15px]" />
+                                        </Tooltip>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <ToggleSwitch checked={isChecking} onChange={() => setIsChecking(!isChecking)} label="Enable Checking" />
+                                        <Tooltip content="Enable vouch checking for items" style="light" placement="top" animation="duration-600">
+                                            <Info color="#000000" className="w-[15px] h-[15px]" />
+                                        </Tooltip>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
