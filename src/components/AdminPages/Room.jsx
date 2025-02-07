@@ -212,6 +212,57 @@ export default function Room() {
                                                 </div>
                                             </Table.Cell>
                                         </Table.Row>
+
+                                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                            <Table.Cell>Cuanan, Sherelyn</Table.Cell>
+                                            <Table.Cell>System QA</Table.Cell>
+                                            <Table.Cell>
+                                                <div className="flex items-center justify-start gap-3 w-full">
+                                                    <div>
+                                                        <Check color="#2ab265" />
+                                                    </div>
+                                                    <div>
+                                                        <Info className="cursor-pointer" />
+                                                    </div>
+                                                </div>
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                <div className="flex items-center justify-start gap-3 w-full">
+                                                    <div>
+                                                        <X color="#c82828" />
+                                                    </div>
+                                                    <div>
+                                                        <Info className="cursor-pointer" />
+                                                    </div>
+                                                </div>
+                                            </Table.Cell>
+                                        </Table.Row>
+
+                                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                            <Table.Cell>Olorvida, Trisha</Table.Cell>
+                                            <Table.Cell>UI/UX Designer</Table.Cell>
+                                            <Table.Cell>
+                                                <div className="flex items-center justify-start gap-3 w-full">
+                                                    <div>
+                                                        <X color="#c82828" />
+                                                    </div>
+                                                    <div>
+                                                        <Info className="cursor-pointer" />
+                                                    </div>
+                                                </div>
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                <div className="flex items-center justify-start gap-3 w-full">
+                                                    <div>
+                                                        <Check color="#2ab265" />
+                                                    </div>
+                                                    <div>
+                                                        <Info className="cursor-pointer" />
+                                                    </div>
+                                                </div>
+                                            </Table.Cell>
+                                        </Table.Row>
+
                                     </Table.Body>
                                 </Table>
 
