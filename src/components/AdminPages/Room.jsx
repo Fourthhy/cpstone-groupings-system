@@ -170,18 +170,34 @@ export default function Room() {
                             </div>
 
                             <div className="row-span-2 col-span-1">
-                                <div className="flex flex-col items-start gap-5">
+                                <div className="flex flex-col items-center gap-1">
                                     <div className="w-full flex justify-center ">
-                                        Settings 
+                                        Settings
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                        <ToggleSwitch checked={isVouch} onChange={() => setIsVouch(!isVouch)} label="Enable Vouching" />
-                                        <Tooltip content="Enable vouch entry for items" style="light" placement="top" animation="duration-600">
-                                            <Info color="#000000" className="w-[15px] h-[15px]" />
-                                        </Tooltip>
+
+                                    <div className="w-full border flex items-center justify-between">
+                                        <div className="grid grid-cols-3 w-full">
+                                            <div className="border col-span-1 flex items-center">
+                                                <ToggleSwitch checked={isVouch} onChange={() => setIsVouch(!isVouch)} />
+                                            </div>
+                                            <div className="col-span-2 border flex items-center">
+                                                <Label value="Enable Vouching" className="text-xs" />
+                                            </div>
+                                        </div>
+                                            <Tooltip content="Enable vouch entry for items" style="light" placement="top" animation="duration-600">
+                                                <Info color="#000000" className="w-[15px] h-[15px]" />
+                                            </Tooltip>
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                        <ToggleSwitch checked={isChecking} onChange={() => setIsChecking(!isChecking)} label="Enable Checking" />
+
+                                    <div className="w-full border flex items-center justify-between">
+                                        <div className="grid grid-cols-3 w-full">
+                                            <div className="border col-span-1 flex items-center">
+                                                <ToggleSwitch checked={isChecking} onChange={() => setIsChecking(!isChecking)} />
+                                            </div>
+                                            <div className="col-span-2 border flex items-center">
+                                                <Label value="Enable Checking" className="text-xs" />
+                                            </div>
+                                        </div>
                                         <Tooltip content="Enable vouch checking for items" style="light" placement="top" animation="duration-600">
                                             <Info color="#000000" className="w-[15px] h-[15px]" />
                                         </Tooltip>
