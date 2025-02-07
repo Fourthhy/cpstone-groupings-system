@@ -1,6 +1,6 @@
-import { Modal, Dropdown, Tooltip, Button, Label, ToggleSwitch } from "flowbite-react"
+import { Modal, Dropdown, Tooltip, Button, Label, ToggleSwitch, Table } from "flowbite-react"
 import { useState } from "react"
-import { LogIn, Info } from "lucide-react"
+import { LogIn, Info, Check, X } from "lucide-react"
 import { Link } from "react-router-dom"
 import Chart from "./RadarChart"
 
@@ -152,8 +152,69 @@ export default function Room() {
 
                             </div>
 
-                            <div className="border row-span-8 col-span-5">
-                                Paginated Table
+                            <div className="row-span-8 col-span-5 ml-[5px]">
+
+                                <Table stripped={true}>
+                                    <Table.Head>
+                                        <Table.HeadCell>Name</Table.HeadCell>
+                                        <Table.HeadCell>Self Role</Table.HeadCell>
+                                        <Table.HeadCell>is Vouched ? </Table.HeadCell>
+                                        <Table.HeadCell>Vouched by others ?</Table.HeadCell>
+                                    </Table.Head>
+                                    <Table.Body className="divide-y">
+
+                                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                            <Table.Cell>Marco, Justine Jynne Patrice</Table.Cell>
+                                            <Table.Cell>Project Manager</Table.Cell>
+                                            <Table.Cell>
+                                                <div className="flex items-center justify-start gap-3 w-full">
+                                                    <div>
+                                                        <Check color="#2ab265" />
+                                                    </div>
+                                                    <div>
+                                                        <Info className="cursor-pointer" />
+                                                    </div>
+                                                </div>
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                <div className="flex items-center justify-start gap-3 w-full">
+                                                    <div>
+                                                        <Check color="#2ab265" />
+                                                    </div>
+                                                    <div>
+                                                        <Info className="cursor-pointer" />
+                                                    </div>
+                                                </div>
+                                            </Table.Cell>
+                                        </Table.Row>
+
+                                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                            <Table.Cell>Isip, Christian Eliseo</Table.Cell>
+                                            <Table.Cell>System Developer</Table.Cell>
+                                            <Table.Cell>
+                                                <div className="flex items-center justify-start gap-3 w-full">
+                                                    <div>
+                                                        <X color="#c82828" />
+                                                    </div>
+                                                    <div>
+                                                        <Info className="cursor-pointer" />
+                                                    </div>
+                                                </div>
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                <div className="flex items-center justify-start gap-3 w-full">
+                                                    <div>
+                                                        <X color="#c82828" />
+                                                    </div>
+                                                    <div>
+                                                        <Info className="cursor-pointer" />
+                                                    </div>
+                                                </div>
+                                            </Table.Cell>
+                                        </Table.Row>
+                                    </Table.Body>
+                                </Table>
+
                             </div>
 
                             <div className="row-span-1 col-span-1 w-full h-full flex flex-col justify-center items-center">
@@ -185,9 +246,9 @@ export default function Room() {
                                                 <Label value="Enable Vouching" className="text-xs" />
                                             </div>
                                         </div>
-                                            <Tooltip content="Enable vouch entry for items" style="light" placement="top" animation="duration-600">
-                                                <Info color="#000000" className="w-[15px] h-[15px]" />
-                                            </Tooltip>
+                                        <Tooltip content="Enable vouch entry for items" style="light" placement="top" animation="duration-600">
+                                            <Info color="#000000" className="w-[15px] h-[15px]" />
+                                        </Tooltip>
                                     </div>
 
                                     <div className="w-full flex items-center justify-between">
