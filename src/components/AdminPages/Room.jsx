@@ -169,18 +169,19 @@ export default function Room() {
 
                             </div>
 
-                            <div className="row-span-2 col-span-1">
-                                <div className="flex flex-col items-center gap-1">
+                            <div className="row-span-2 col-span-1 gap-3 h-full">
+
+                                <div className="flex flex-col items-center gap-2">
                                     <div className="w-full flex justify-center ">
                                         Settings
                                     </div>
 
-                                    <div className="w-full border flex items-center justify-between">
+                                    <div className="w-full flex items-center justify-between">
                                         <div className="grid grid-cols-3 w-full">
-                                            <div className="border col-span-1 flex items-center">
+                                            <div className="col-span-1 flex items-center">
                                                 <ToggleSwitch checked={isVouch} onChange={() => setIsVouch(!isVouch)} />
                                             </div>
-                                            <div className="col-span-2 border flex items-center">
+                                            <div className="col-span-2 flex items-center">
                                                 <Label value="Enable Vouching" className="text-xs" />
                                             </div>
                                         </div>
@@ -189,12 +190,12 @@ export default function Room() {
                                             </Tooltip>
                                     </div>
 
-                                    <div className="w-full border flex items-center justify-between">
+                                    <div className="w-full flex items-center justify-between">
                                         <div className="grid grid-cols-3 w-full">
-                                            <div className="border col-span-1 flex items-center">
+                                            <div className="col-span-1 flex items-center">
                                                 <ToggleSwitch checked={isChecking} onChange={() => setIsChecking(!isChecking)} />
                                             </div>
-                                            <div className="col-span-2 border flex items-center">
+                                            <div className="col-span-2 flex items-center">
                                                 <Label value="Enable Checking" className="text-xs" />
                                             </div>
                                         </div>
