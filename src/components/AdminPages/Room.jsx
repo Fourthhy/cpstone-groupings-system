@@ -1,4 +1,4 @@
-import { Modal, Dropdown, Tooltip, Button, Label, ToggleSwitch, Table } from "flowbite-react"
+import { Modal, Dropdown, Tooltip, Button, Label, ToggleSwitch, Table, Pagination } from "flowbite-react"
 import { useState } from "react"
 import { LogIn, Info, Check, X } from "lucide-react"
 import { Link } from "react-router-dom"
@@ -9,6 +9,8 @@ export default function Room() {
     const [showGraph, setShowGraph] = useState(false)
     const [isVouch, setIsVouch] = useState(false)
     const [isChecking, setIsChecking] = useState(false)
+
+    const [currentPage, setCurrentPage] = useState(1);
 
 
     return (
@@ -153,118 +155,151 @@ export default function Room() {
                             </div>
 
                             <div className="row-span-8 col-span-5 ml-[5px]">
+                                <div className="grid grid-rows-10">
+                                    <div className="row-span-9">
+                                        <Table stripped={true}>
+                                            <Table.Head>
+                                                <Table.HeadCell>Name</Table.HeadCell>
+                                                <Table.HeadCell>Self Role</Table.HeadCell>
+                                                <Table.HeadCell>is Vouched ? </Table.HeadCell>
+                                                <Table.HeadCell>Vouched by others ?</Table.HeadCell>
+                                            </Table.Head>
+                                            <Table.Body className="divide-y">
 
-                                <Table stripped={true}>
-                                    <Table.Head>
-                                        <Table.HeadCell>Name</Table.HeadCell>
-                                        <Table.HeadCell>Self Role</Table.HeadCell>
-                                        <Table.HeadCell>is Vouched ? </Table.HeadCell>
-                                        <Table.HeadCell>Vouched by others ?</Table.HeadCell>
-                                    </Table.Head>
-                                    <Table.Body className="divide-y">
+                                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                                    <Table.Cell>Marco, Justine Jynne Patrice</Table.Cell>
+                                                    <Table.Cell>Project Manager</Table.Cell>
+                                                    <Table.Cell>
+                                                        <div className="flex items-center justify-start gap-3 w-full">
+                                                            <div>
+                                                                <Check color="#2ab265" />
+                                                            </div>
+                                                            <div>
+                                                                <Info className="cursor-pointer" />
+                                                            </div>
+                                                        </div>
+                                                    </Table.Cell>
+                                                    <Table.Cell>
+                                                        <div className="flex items-center justify-start gap-3 w-full">
+                                                            <div>
+                                                                <Check color="#2ab265" />
+                                                            </div>
+                                                            <div>
+                                                                <Info className="cursor-pointer" />
+                                                            </div>
+                                                        </div>
+                                                    </Table.Cell>
+                                                </Table.Row>
 
-                                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                            <Table.Cell>Marco, Justine Jynne Patrice</Table.Cell>
-                                            <Table.Cell>Project Manager</Table.Cell>
-                                            <Table.Cell>
-                                                <div className="flex items-center justify-start gap-3 w-full">
-                                                    <div>
-                                                        <Check color="#2ab265" />
-                                                    </div>
-                                                    <div>
-                                                        <Info className="cursor-pointer" />
-                                                    </div>
-                                                </div>
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                <div className="flex items-center justify-start gap-3 w-full">
-                                                    <div>
-                                                        <Check color="#2ab265" />
-                                                    </div>
-                                                    <div>
-                                                        <Info className="cursor-pointer" />
-                                                    </div>
-                                                </div>
-                                            </Table.Cell>
-                                        </Table.Row>
+                                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                                    <Table.Cell>Isip, Christian Eliseo</Table.Cell>
+                                                    <Table.Cell>System Developer</Table.Cell>
+                                                    <Table.Cell>
+                                                        <div className="flex items-center justify-start gap-3 w-full">
+                                                            <div>
+                                                                <X color="#c82828" />
+                                                            </div>
+                                                            <div>
+                                                                <Info className="cursor-pointer" />
+                                                            </div>
+                                                        </div>
+                                                    </Table.Cell>
+                                                    <Table.Cell>
+                                                        <div className="flex items-center justify-start gap-3 w-full">
+                                                            <div>
+                                                                <X color="#c82828" />
+                                                            </div>
+                                                            <div>
+                                                                <Info className="cursor-pointer" />
+                                                            </div>
+                                                        </div>
+                                                    </Table.Cell>
+                                                </Table.Row>
 
-                                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                            <Table.Cell>Isip, Christian Eliseo</Table.Cell>
-                                            <Table.Cell>System Developer</Table.Cell>
-                                            <Table.Cell>
-                                                <div className="flex items-center justify-start gap-3 w-full">
-                                                    <div>
-                                                        <X color="#c82828" />
-                                                    </div>
-                                                    <div>
-                                                        <Info className="cursor-pointer" />
-                                                    </div>
-                                                </div>
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                <div className="flex items-center justify-start gap-3 w-full">
-                                                    <div>
-                                                        <X color="#c82828" />
-                                                    </div>
-                                                    <div>
-                                                        <Info className="cursor-pointer" />
-                                                    </div>
-                                                </div>
-                                            </Table.Cell>
-                                        </Table.Row>
+                                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                                    <Table.Cell>Cuanan, Sherelyn</Table.Cell>
+                                                    <Table.Cell>System QA</Table.Cell>
+                                                    <Table.Cell>
+                                                        <div className="flex items-center justify-start gap-3 w-full">
+                                                            <div>
+                                                                <Check color="#2ab265" />
+                                                            </div>
+                                                            <div>
+                                                                <Info className="cursor-pointer" />
+                                                            </div>
+                                                        </div>
+                                                    </Table.Cell>
+                                                    <Table.Cell>
+                                                        <div className="flex items-center justify-start gap-3 w-full">
+                                                            <div>
+                                                                <X color="#c82828" />
+                                                            </div>
+                                                            <div>
+                                                                <Info className="cursor-pointer" />
+                                                            </div>
+                                                        </div>
+                                                    </Table.Cell>
+                                                </Table.Row>
 
-                                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                            <Table.Cell>Cuanan, Sherelyn</Table.Cell>
-                                            <Table.Cell>System QA</Table.Cell>
-                                            <Table.Cell>
-                                                <div className="flex items-center justify-start gap-3 w-full">
-                                                    <div>
-                                                        <Check color="#2ab265" />
-                                                    </div>
-                                                    <div>
-                                                        <Info className="cursor-pointer" />
-                                                    </div>
-                                                </div>
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                <div className="flex items-center justify-start gap-3 w-full">
-                                                    <div>
-                                                        <X color="#c82828" />
-                                                    </div>
-                                                    <div>
-                                                        <Info className="cursor-pointer" />
-                                                    </div>
-                                                </div>
-                                            </Table.Cell>
-                                        </Table.Row>
+                                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                                    <Table.Cell>Olorvida, Trisha</Table.Cell>
+                                                    <Table.Cell>UI/UX Designer</Table.Cell>
+                                                    <Table.Cell>
+                                                        <div className="flex items-center justify-start gap-3 w-full">
+                                                            <div>
+                                                                <X color="#c82828" />
+                                                            </div>
+                                                            <div>
+                                                                <Info className="cursor-pointer" />
+                                                            </div>
+                                                        </div>
+                                                    </Table.Cell>
+                                                    <Table.Cell>
+                                                        <div className="flex items-center justify-start gap-3 w-full">
+                                                            <div>
+                                                                <Check color="#2ab265" />
+                                                            </div>
+                                                            <div>
+                                                                <Info className="cursor-pointer" />
+                                                            </div>
+                                                        </div>
+                                                    </Table.Cell>
+                                                </Table.Row>
 
-                                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                            <Table.Cell>Olorvida, Trisha</Table.Cell>
-                                            <Table.Cell>UI/UX Designer</Table.Cell>
-                                            <Table.Cell>
-                                                <div className="flex items-center justify-start gap-3 w-full">
-                                                    <div>
-                                                        <X color="#c82828" />
-                                                    </div>
-                                                    <div>
-                                                        <Info className="cursor-pointer" />
-                                                    </div>
-                                                </div>
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                <div className="flex items-center justify-start gap-3 w-full">
-                                                    <div>
-                                                        <Check color="#2ab265" />
-                                                    </div>
-                                                    <div>
-                                                        <Info className="cursor-pointer" />
-                                                    </div>
-                                                </div>
-                                            </Table.Cell>
-                                        </Table.Row>
+                                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                                    <Table.Cell>Mañabo, John Miguel</Table.Cell>
+                                                    <Table.Cell>System Developer</Table.Cell>
+                                                    <Table.Cell>
+                                                        <div className="flex items-center justify-start gap-3 w-full">
+                                                            <div>
+                                                                <Check color="#2ab265" />
+                                                            </div>
+                                                            <div>
+                                                                <Info className="cursor-pointer" />
+                                                            </div>
+                                                        </div>
+                                                    </Table.Cell>
+                                                    <Table.Cell>
+                                                        <div className="flex items-center justify-start gap-3 w-full">
+                                                            <div>
+                                                                <Check color="#2ab265" />
+                                                            </div>
+                                                            <div>
+                                                                <Info className="cursor-pointer" />
+                                                            </div>
+                                                        </div>
+                                                    </Table.Cell>
+                                                </Table.Row>
 
-                                    </Table.Body>
-                                </Table>
+                                                
+
+                                            </Table.Body>
+                                        </Table>
+                                    </div>
+                                    <div className="row-span-1 flex overflow-x-auto sm:justify-center">
+                                        <Pagination currentPage={currentPage} totalPages={100} onPageChange={(number) => setCurrentPage(number)} />
+                                    </div>
+                                </div>
 
                             </div>
 
