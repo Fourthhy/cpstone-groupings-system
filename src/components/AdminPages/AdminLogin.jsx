@@ -6,6 +6,27 @@ import { useState } from "react"
 export default function AdminLogin() {
     const [isLoading, setIsLoading] = useState(false)
 
+    const [inputResponse, setInputResponse] = useState(0)
+    // 0 for gray
+    // 1 for success
+    //2 for failure
+
+    const HelperTextValidCredentials = () => {
+        return (
+            <>
+                <span>Logging in... </span>
+            </>
+        )
+    }
+
+    const HelperTextInvalidCredentials = () => {
+        return (
+            <>
+                <span>invalid admin code </span>
+            </>
+        )
+    }
+
     return (
         <>
             {isLoading ? (
@@ -21,10 +42,19 @@ export default function AdminLogin() {
                                 <h2 className="text-center text-sm px-[10px]"><i>we value your participation as admin but first enter the given admin code for verification</i></h2>
 
                                 <div className="mt-[20px] flex max-w-md flex-col gap-2">
-                                    <TextInput type="text" placeholder="enter admin code" required color="gray" />
-                                    <Button 
-                                        onClick={() => {setIsLoading(true)}}
-                                        outline 
+                                    <TextInput 
+                                        type="text" 
+                                        placeholder="enter admin code" 
+                                        required
+                                        color={inputResponse == 0 ? 'gray' : inputResponse == 1 ? 'success' : inputResponse == 2 ? 'failure' : ''} 
+                                        helperText={
+                                            inputResponse == 1 ? <HelperTextValidCredentials /> :
+                                            inputResponse == 2 ? <HelperTextInvalidCredentials /> : ''
+                                        }
+                                        />
+                                    <Button
+                                        onClick={() => { setIsLoading(true) }}
+                                        outline
                                         className="bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-full mt-[5px]">
                                         Submit
                                     </Button>
