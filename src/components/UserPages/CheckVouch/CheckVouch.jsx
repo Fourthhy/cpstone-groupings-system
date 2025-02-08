@@ -5,8 +5,61 @@ import Loading from "../../ReusableComponents/Loading.jsx"
 export default function CheckVouch() {
 
     const [isLoading, setIsLoading] = useState(false)
+    const [inputResponseRoom, setInputResponseRoom] = useState(0)
+    // 0 for gray
+    // 1 for success
+    // 2 for failure
+
+    const [invalidReasonRoom, setInvalidReasonRoom] = useState(0)
+    // 0 for no matching room code
+    // 1 for ineligible for checking 
+
+    const [inputResponseUser, setInputResponseUser] = useState(0)
+    // 0 for gray
+    // 1 for success
+    // 2 for failure
 
     const customButtonDesign = "bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-full mt-[5px]";
+
+    const HelperTextSucessRoom = () => {
+        return (
+            <>
+                <span>Room Found..</span>
+            </>
+        )
+    }
+
+    const HelperTextInvalidCode = () => {
+        return (
+            <>
+                <span>Invalid Room Code</span>
+            </>
+        )
+    }
+
+    const HelperTextVouchDisabled = () => {
+        return (
+            <>
+                <span>Room is ineligible for checking</span>
+            </>
+        )
+    }
+
+    const HelperTextSucessUser = () => {
+        return (
+            <>
+                <span>User Found..</span>
+            </>
+        )
+    }
+
+    const HelperTextInvalidUserCode = () => {
+        return (
+            <>
+                <span>Invalid User Code</span>
+            </>
+        )
+    }
 
     const JoinRoomForm = () => {
         return (
@@ -15,10 +68,29 @@ export default function CheckVouch() {
                 <div className="mt-[20px] flex max-w-md flex-col gap-2">
 
                     <Label htmlFor="input-gray" color="gray" value="Room Code" />
-                    <TextInput type="text" placeholder="123456" required color="gray" />
+                    <TextInput
+                        type="text"
+                        placeholder="123456"
+                        required
+                        color={inputResponseRoom == 0 ? "gray" : inputResponseRoom == 1 ? "success" : inputResponseRoom == 2 ? 'failure' : ''}
+                        helperText={
+                            inputResponseRoom == 1 ? <HelperTextSucessRoom /> :
+                                inputResponseRoom == 2 ?
+                                    invalidReasonRoom == 0 ? <HelperTextInvalidCode /> :
+                                        invalidReasonRoom == 1 ? <HelperTextVouchDisabled /> : '' : ''
+                        } />
 
                     <Label htmlFor="input-gray" color="gray" value="User Code" />
-                    <TextInput type="text" placeholder="User-12345" required color="gray" />
+                    <TextInput 
+                        type="text" 
+                        placeholder="User-12345" 
+                        required 
+                        color={inputResponseUser == 0 ? 'gray' : inputResponseUser == 1 ? 'success' : inputResponseUser == 2 ? 'failure' : ''} 
+                        helperText={
+                            inputResponseUser == 1 ? <HelperTextSucessUser /> :
+                            inputResponseUser == 2 ? <HelperTextInvalidUserCode /> : '' 
+                        }
+                        />
                     {/*color="gray" for failed*/}
 
                     <Button
@@ -28,7 +100,7 @@ export default function CheckVouch() {
                         }}
                         outline
                         className={customButtonDesign}
-                        >
+                    >
                         Submit
                     </Button>
 

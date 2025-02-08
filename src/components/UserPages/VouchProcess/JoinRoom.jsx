@@ -5,14 +5,12 @@ import Loading from "../../ReusableComponents/Loading.jsx"
 export default function JoinRoom() {
 
     const [isLoading, setIsLoading] = useState(false)
-
     const [inputResponse, setInputResponse] = useState(0)
     // 0 for neutral
     // 1 for success
     // 2 for failure
 
     const [invalidReason, setInvalidReason] = useState(0)
-
     // 0 for invalid room code
     // 1 for room not open
 
