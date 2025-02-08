@@ -5,6 +5,8 @@ import Loading from "../../ReusableComponents/Loading";
 
 export default function SelfVouch() {
     const [isLoading, setIsLoading] = useState(false)
+    const [selectedOption, setSelectedOption] = useState(null); // Ensure you have state for selected option
+    const [selectedName, setSelectedName] = useState('');
 
     const listofnames = [
         "Asaldo, Rizalyne",
@@ -49,7 +51,6 @@ export default function SelfVouch() {
     ];
 
     const SelectRole = () => {
-        const [selectedOption, setSelectedOption] = useState(null); // Ensure you have state for selected option
 
         const handleOptionChange = (event) => {
             setSelectedOption(event.target.value);
@@ -78,28 +79,25 @@ export default function SelfVouch() {
                         </label>
                     ))}
                 </div>
-                
-                <Button
-                    outline
-                    gradientDuoTone="purpleToBlue"
-                    className={customButtonDesign}
-                    onClick={() => { setIsLoading(true) }}>
-                    Submit
-                </Button>
+
+
             </>
         );
     };
 
     const SelectName = () => {
+        const handleSelectChange = (event) => {
+            setSelectedName(event.target.value);
+        };
         return (
             <>
                 <h2 className="font-bold text-center text-2xl mb-4">Who are you?</h2>
                 <div className="flex w-[75%] flex-col gap-2">
-                    <Label htmlFor="countries" value="Select your name" />
-                    <Select required>
-                        <option>...</option>
-                        {listofnames.map((name) => (
-                            <option>{name}</option>
+                    <Label htmlFor="names" value="Select your name" />
+                    <Select id="names" required onChange={handleSelectChange} value={selectedName}>
+                        <option value="">Select a name...</option>
+                        {listofnames.map((name, index) => (
+                            <option key={index} value={name}>{name}</option>
                         ))}
                     </Select>
                 </div>
@@ -122,6 +120,18 @@ export default function SelfVouch() {
                                     <div className="mt-[20px]">
                                         <SelectRole />
                                     </div>
+                                </div>
+                                <div className="h-[25%] w-[100%]">
+                                    {
+                                        selectedOption && selectedName ? (
+                                        <Button
+                                            outline
+                                            gradientDuoTone="purpleToBlue"
+                                            className={customButtonDesign}
+                                            onClick={() => { setIsLoading(true) }}>
+                                            Submit
+                                        </Button>) : ''
+                                    }
                                 </div>
                             </div>
                         </div>
