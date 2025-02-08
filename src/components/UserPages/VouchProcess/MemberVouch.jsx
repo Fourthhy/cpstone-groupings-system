@@ -242,14 +242,16 @@ export default function MemberVouch() {
                                     </div>
                                 ))}
                             </div>
-                            {countTrueFilled() >= 3 ? (<Button
+                            {
+                               isView ? '' :
+                               countTrueFilled() >= 3 ? (<Button
                                 onClick={() => { setIsLoading(true) }}
                                 outline
                                 gradientDuoTone="purpleToBlue"
                                 className="bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-full mt-4">
                                 Submit
-                            </Button>) : ''}
-
+                            </Button>) : '' 
+                            }
                         </div>
                     </div>
                 </div>
