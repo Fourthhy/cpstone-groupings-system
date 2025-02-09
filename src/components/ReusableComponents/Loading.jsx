@@ -2,7 +2,7 @@ import { browserLocalPersistence } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 
-export default function Loading({origin, path, purpose}) {
+export default function Loading({ origin, path, purpose }) {
     const navigate = useNavigate()
 
     const [progress, setProgress] = useState(0);
@@ -41,34 +41,35 @@ export default function Loading({origin, path, purpose}) {
     //After completing progress, navigate using path prop
     if (progress === 100) {
         console.log(progress)
-        switch(origin) {
+        switch (origin) {
             case 'joinroom':
                 navigate(`/${path}`)
-            break;
+                break;
 
-            case 'membervouch':
-                navigate(`/${path}`)
-            break;
             case 'responsepage':
                 navigate(`/`)
-            break;
+                break;
             case 'checkvouch':
                 navigate(`/${path}`)
-            break;
+                break;
             case 'adminlogin':
                 navigate(`/${path}`)
-            break;
+                break;
             case 'roomlist':
                 navigate(`/${path}`)
-            break;
+                break;
 
             case 'userLogin':
                 navigate(`/${path}`)
-            break;
+                break;
 
             case 'selfvouch':
                 navigate(`/${path}`)
-            break;
+                break;
+
+            case 'membervouch':
+                navigate(`/${path}`)
+                break;
 
         }
     }

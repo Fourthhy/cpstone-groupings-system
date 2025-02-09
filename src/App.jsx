@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 import MemberSelect from "./components/user/MemberSelect"
-import Response from "./components/user/Response"
+// import Response from "./components/user/Response"
 import MutualCheck from "./components/user/MutualCheck"
 import MutualMember from "./components/user/MutualMember"
 import AdminLogin from "./components/admin/AdminLogin"
@@ -21,6 +21,9 @@ import SelfVouch from "./components/UserPages/VouchProcess/SelfVouch"
 //Member Vouch Page
 import MemberVouch from "./components/UserPages/VouchProcess/MemberVouch"
 
+//Response Vouch Page
+import Response from "./components/UserPages/VouchProcess/ResponsePage"
+
 export default function App() {
   return (
     <>
@@ -36,7 +39,9 @@ export default function App() {
 
           <Route path="/membervouch/:roomCode/:userCode" element={<MemberVouch />} />
 
-          <Route path="/selectResponse/:roomCode/:userCode" element={<Response />} />
+          <Route path="/responsepage/:roomCode/:userCode" element={<Response />} />
+
+          {/* <Route path="/selectResponse/:roomCode/:userCode" element={<Response />} /> */}
           <Route path="/mutualCheck" element={<MutualCheck />} />
           <Route path="/mutualMember/:roomCode/:userCode" element={<MutualMember />} />
           

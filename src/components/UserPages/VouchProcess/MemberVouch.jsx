@@ -36,6 +36,7 @@ export default function MemberVouch() {
     const [selectedMember, setSelectedMember] = useState('')
     const [selectedProfile, setSelectedProfile] = useState('')
     const [roleIndex, setRoleIndex] = useState(0)
+    const [loadingPath, setLoadingPath] = useState(``)
 
     const handleSubmitMember = (index) => {
         
@@ -74,6 +75,7 @@ export default function MemberVouch() {
     const handleSubmitMemberVouch = () => {
         setIsLoading(true)
         memberVouchEntry(roomCode, userCode, selectedMembers)
+        setLoadingPath(`responsepage/${roomCode}/${userCode}`)
     }
 
     const SelectName = ({ index }) => {
@@ -190,7 +192,7 @@ export default function MemberVouch() {
     return (
         <>
             {isLoading ? (
-                <Loading origin={'membervouch'} path={'responsepage'} purpose={'submitting vouch'} />
+                <Loading origin={'membervouch'} path={loadingPath} purpose={'submitting vouch'} />
             ) : (
                 <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700">
                     <div className="h-[500px] w-[400px] font-raleway flex justify-start items-center flex-col border-[1px] rounded-[5px] bg-white">
