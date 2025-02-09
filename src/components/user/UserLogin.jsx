@@ -50,9 +50,9 @@ export default function App() {
                 <div className="my-5">
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Room Code</label>
                   <TextInput
-                    required
                     value={enterCode}
                     onChange={(e) => setEnterCode(e.target.value)}
+                    required
                     type="text"
                     color={inputResponse === 1 ? 'success' :
                       inputResponse === 2 ? 'failure' : 'gray'

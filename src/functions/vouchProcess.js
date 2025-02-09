@@ -52,7 +52,6 @@ const handleSearchUsercode = async (roomCode, userCode) => {
 }
 
 
-
 export {
     selfVouchentry,
     memberVouchEntry,
