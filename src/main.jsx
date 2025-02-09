@@ -11,8 +11,8 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/* <Auto /> */}
     {/* <Auto2 /> */}
-    {/* <App /> */}
-    <AppRoute />
+    <App />
+    {/* <AppRoute /> */}
     {/* <Auto3 /> */}
   </StrictMode>,
 )

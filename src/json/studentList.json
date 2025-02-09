@@ -1,6 +1,5 @@
 [
     {"id": 1, "studentName": "QXNhbGRvLCBSaXphbHluZQ=="},
-    {"id": 2, "studentName": "QmFjdG9sLCBBbGxlbg=="},
     {"id": 3, "studentName": "QmFnYXBvcm8sIExpYW5vcg=="},
     {"id": 4, "studentName": "Qm9yamEsIEFzdHJpZA=="},
     {"id": 5, "studentName": "Q2F0aWJvZywgVHJpc2hhIE1hZQ=="},
@@ -29,6 +28,5 @@
     {"id": 28, "studentName": "U2FudG9zLCBNYXJrIEpvc2VwaA=="},
     {"id": 29, "studentName": "U2FyY2lhLCBTaWRuZXkgSm9obg=="},
     {"id": 30, "studentName": "VGFsZW4sIEplYW4gUm9zZQ=="},
-    {"id": 31, "studentName": "VGluYWdzYSwgTGVuaWUgSmFuZQ=="},
-    {"id": 32, "studentName": "VGlnbGFvLCBEYW5pZWxsZSBMdWlz"}
+    {"id": 31, "studentName": "VGluYWdzYSwgTGVuaWUgSmFuZQ=="}
 ]

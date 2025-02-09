@@ -16,7 +16,7 @@ export default function RoomList() {
     const [roomCode, setRoomCode] = useState(0)
     const [roomPasscode, setRoomPasscode] = useState(0)
 
-    const [names, setNames] = useState()
+    const [names, setNames] = useState('')
     const [nameCount, setNameCount] = useState(0)
     useEffect(() => {
         setRoomCode(Math.floor(Math.random() * 900000) + 100000)
@@ -32,6 +32,10 @@ export default function RoomList() {
         setNames(event.target.value);
         const lines = names.split('\n');
         setNameCount(lines.length)
+    }
+
+    const handleSubmit = () => {
+
     }
 
     const CreateRoom = () => {
@@ -91,7 +95,12 @@ export default function RoomList() {
 
                     <div className="w-full flex justify-end">
                         <Button
-                            onClick={() => { setIsLoading(true) }}
+                            onClick={() => { 
+                                console.log(names)
+                                console.log(roomCode)
+                                console.log(roomPasscode)
+                                // setIsLoading(true) 
+                            }}
                             outline
                             className="bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-[50%] mt-[5px]">Create Room</Button>
                     </div>
