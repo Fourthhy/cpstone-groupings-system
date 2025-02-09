@@ -1,10 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 import MemberSelect from "./components/user/MemberSelect"
-// import Response from "./components/user/Response"
-// import MutualCheck from "./components/user/MutualCheck"
-import MutualMember from "./components/user/MutualMember"
-import AdminLogin from "./components/admin/AdminLogin"
+// import AdminLogin from "./components/admin/AdminLogin"
 import AdminDashboard from "./components/admin/AdminDashboard"
 import VoteBacklog from "./components/admin/VoteBacklog"
 import RoomList from "./components/admin/RoomList"
@@ -30,6 +27,9 @@ import CheckVouch from "./components/UserPages/CheckVouch/CheckVouch"
 //Check Mutuals - actual
 import VouchResults from "./components/UserPages/CheckVouch/VouchResults"
 
+//Login as Admin
+import AdminLogin from "./components/AdminPages/AdminLogin"
+
 export default function App() {
   return (
     <>
@@ -51,11 +51,9 @@ export default function App() {
 
           <Route path="/vouchresults/:roomCode/:userCode" element={<VouchResults />} />
 
-          {/* <Route path="/selectResponse/:roomCode/:userCode" element={<Response />} /> */}
-          {/* <Route path="/mutualCheck" element={<MutualCheck />} /> */}
-          <Route path="/mutualMember/:roomCode/:userCode" element={<MutualMember />} />
-          
-          <Route path="/adminLogin" element={<AdminLogin />} />
+          <Route path="/adminLogin" element={<AdminLogin /> } />
+
+          {/* <Route path="/adminLogin" element={<AdminLogin />} /> */}
           <Route path="/roomList" element={<RoomList />} />
           <Route path="/adminDashboard/:roomCode" element={<AdminDashboard />} />
           <Route path="/voteBacklog" element={<VoteBacklog />} />

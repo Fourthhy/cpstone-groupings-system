@@ -33,82 +33,6 @@ export default function RoomList() {
         const lines = names.split('\n');
         setNameCount(lines.length)
     }
-
-    const handleSubmit = () => {
-
-    }
-
-    const CreateRoom = () => {
-
-        return (
-            <>
-                <div className="w-[380px] h-full flex flex-col gap-3">
-                    <div className="w-full grid grid-cols-2">
-                        <h2 className="font-bold mt-[20px] text-left text-2xl mb-[10px]">New Room</h2>
-                        <div className="flex justify-end items-center">
-                            <X className="cursor-pointer" onClick={() => { setIsNewRoom(!isNewRoom) }} />
-                        </div>
-                    </div>
-
-                    <div>
-                        <Label htmlFor="input-gray" color="gray" value="Room Code" />
-                        <div className="flex gap-5">
-                            <div className="h-[50%] flex flex-col items-start gap-5">
-                                <span className="font-bold">{roomCode}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <Label htmlFor="input-gray" color="gray" value="Room Password" />
-                        <div className="flex gap-5">
-                            {showPassword ? (
-                                <>
-                                    <span className="font-bold">{roomPasscode}</span>
-                                </>
-                            ) : (
-                                <>
-                                    -------
-                                </>
-                            )}
-                            
-                            <div className="flex items-center justify-center">
-                                {showPassword ? (
-                                    <Eye onClick={() => { handleShowPasword() }} className="cursor-pointer" />
-                                ) : (
-                                    <EyeOff onClick={() => { handleShowPasword() }} className="cursor-pointer" />
-                                )}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <Label htmlFor="comment" value="Enter Names" />
-                        <Textarea 
-                            value={names}
-                            onChange={handleItemCounting}
-                            id="comment" 
-                            placeholder="Paste Names Here and press enter" 
-                            rows={4} />
-                        <Label htmlFor="comment" value={`Total names: ${nameCount}`} />
-                    </div>
-
-                    <div className="w-full flex justify-end">
-                        <Button
-                            onClick={() => { 
-                                console.log(names)
-                                console.log(roomCode)
-                                console.log(roomPasscode)
-                                // setIsLoading(true) 
-                            }}
-                            outline
-                            className="bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-[50%] mt-[5px]">Create Room</Button>
-                    </div>
-                </div>
-            </>
-        )
-    }
-
     return (
         <>
             <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700">
@@ -126,7 +50,71 @@ export default function RoomList() {
                         {isLoading ? (<Loading origin={'roomlist'} path={'room'} purpose={'going to the room'} />) : (
                             <>
                                 {isNewRoom ? (
-                                    <CreateRoom />
+                                    <>
+                                        <div className="w-[380px] h-full flex flex-col gap-3">
+                                            <div className="w-full grid grid-cols-2">
+                                                <h2 className="font-bold mt-[20px] text-left text-2xl mb-[10px]">New Room</h2>
+                                                <div className="flex justify-end items-center">
+                                                    <X className="cursor-pointer" onClick={() => { setIsNewRoom(!isNewRoom) }} />
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <Label htmlFor="input-gray" color="gray" value="Room Code" />
+                                                <div className="flex gap-5">
+                                                    <div className="h-[50%] flex flex-col items-start gap-5">
+                                                        <span className="font-bold">{roomCode}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <Label htmlFor="input-gray" color="gray" value="Room Password" />
+                                                <div className="flex gap-5">
+                                                    {showPassword ? (
+                                                        <>
+                                                            <span className="font-bold">{roomPasscode}</span>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            -------
+                                                        </>
+                                                    )}
+
+                                                    <div className="flex items-center justify-center">
+                                                        {showPassword ? (
+                                                            <Eye onClick={() => { handleShowPasword() }} className="cursor-pointer" />
+                                                        ) : (
+                                                            <EyeOff onClick={() => { handleShowPasword() }} className="cursor-pointer" />
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <Label htmlFor="comment" value="Enter Names" />
+                                                <Textarea
+                                                    value={names}
+                                                    onChange={handleItemCounting}
+                                                    id="comment"
+                                                    placeholder="Paste Names Here and press enter"
+                                                    rows={4} />
+                                                <Label htmlFor="comment" value={`Total names: ${nameCount}`} />
+                                            </div>
+
+                                            <div className="w-full flex justify-end">
+                                                <Button
+                                                    onClick={() => {
+                                                        console.log(names)
+                                                        console.log(roomCode)
+                                                        console.log(roomPasscode)
+                                                        // setIsLoading(true) 
+                                                    }}
+                                                    outline
+                                                    className="bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-[50%] mt-[5px]">Create Room</Button>
+                                            </div>
+                                        </div>
+                                    </>
                                 ) : (
                                     <>
                                         {isEnterPassword ? (
