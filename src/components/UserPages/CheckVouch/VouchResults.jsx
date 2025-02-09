@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom"
 import { Button } from "flowbite-react";
-import { Check, Cross } from "lucide-react";
+import { Check, X } from "lucide-react";
 import AnimatedContent from "../../ComponentAnimations/AnimatedContent";
 import { handleMutualMember } from "../../../functions/checkProcess"
 import { useState, useEffect } from "react"
@@ -13,12 +13,14 @@ export default function VouchResults() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // const matter = await handleMutualMember(roomCode, userCode); 
                 const memberList = await handleMutualMember(roomCode, userCode); 
+                setMembers(memberList)
             } catch (error) {
-
+                alert(error)
             }
         }
+
+        fetchData()
     }, [])
 
 
@@ -28,6 +30,32 @@ export default function VouchResults() {
         { studentName: "Olingay, Princess", roleName: "UI/UX Designer", profile: "uiux_designer.png", status: "mutual" },
         { studentName: "Olorvida, Trisha", roleName: "UI/UX Designer", profile: "uiux_designer.png", status: "mutual" },
     ];
+
+    const handleRoleNameIndexTranslate = (index) => {
+        switch (index) {
+            case 1:
+                return "System Developer";
+            case 2:
+                return "Project Manager";
+            case 3:
+                return "System QA";
+            case 4:
+                return "UI/UX Designer";
+        }
+    }
+
+    const handleRoleProfileIndexTranslate = (index) => {
+        switch (index) {
+            case 1:
+                return "system_developer.png";
+            case 2:
+                return "project_manager.png";
+            case 3:
+                return "system_quality.png";
+            case 4:
+                return "uiux_designer.png"
+        }
+    }
 
     // Use an array of booleans to track visibility for each member
     return (
@@ -48,17 +76,17 @@ export default function VouchResults() {
                             <h2 className="font-bold text-center text-2xl">Vouch Results</h2>
                             <h2 className="text-center text-gray-500 text-l mb-4">summary</h2>
                             <div className="grid grid-cols-1 grid-rows-auto gap-2">
-                                {selectedMembers.map((item, index) => (
+                                {members.map((item, index) => (
                                     <div className="border rounded-[5px] px-[10px] py-[5px] grid grid-cols-10 grid-rows-1">
                                         <div className="flex col-span-9">
-                                            <img src={`/${selectedMembers[index].profile}`} alt="" className="w-[50px] h-[50px] mx-[10px]" />
+                                            <img src={`/${handleRoleProfileIndexTranslate(index)}`} alt="" className="w-[50px] h-[50px] mx-[10px]" />
                                             <div className="flex flex-col justify-center">
-                                                <p className="text-sm text-gray-500">{selectedMembers[index].studentName}</p>
-                                                <p className="text-xs text-gray-500">{selectedMembers[index].roleName}</p>
+                                                <p className="text-sm text-gray-500">{atob(members[index].userCode)}</p>
+                                                <p className="text-xs text-gray-500">{handleRoleNameIndexTranslate(index)}</p>
                                             </div>
                                         </div>
                                         <div className="flex items-center ml-[5px]">
-                                            <Check color="#2ab265" />
+                                            {members[index].isMutual ? <Check color="#2ab265" /> : <X color="#b42727"/>}
                                         </div>
                                     </div>
                                 ))}
