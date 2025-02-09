@@ -27,6 +27,9 @@ import Response from "./components/UserPages/VouchProcess/ResponsePage"
 //Review a Vouch
 import CheckVouch from "./components/UserPages/CheckVouch/CheckVouch"
 
+//Check Mutuals - actual
+import VouchResults from "./components/UserPages/CheckVouch/VouchResults"
+
 export default function App() {
   return (
     <>
@@ -45,6 +48,8 @@ export default function App() {
           <Route path="/responsepage/:roomCode/:userCode" element={<Response />} />
 
           <Route path="/checkvouch" element={<CheckVouch />} />
+
+          <Route path="/vouchresults/:roomCode/:userCode" element={<VouchResults />} />
 
           {/* <Route path="/selectResponse/:roomCode/:userCode" element={<Response />} /> */}
           {/* <Route path="/mutualCheck" element={<MutualCheck />} /> */}

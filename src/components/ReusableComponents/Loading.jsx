@@ -49,9 +49,7 @@ export default function Loading({ origin, path, purpose }) {
             case 'responsepage':
                 navigate(`/`)
                 break;
-            case 'checkvouch':
-                navigate(`/${path}`)
-                break;
+
             case 'adminlogin':
                 navigate(`/${path}`)
                 break;
@@ -68,6 +66,10 @@ export default function Loading({ origin, path, purpose }) {
                 break;
 
             case 'membervouch':
+                navigate(`/${path}`)
+                break;
+
+            case 'checkvouch':
                 navigate(`/${path}`)
                 break;
 

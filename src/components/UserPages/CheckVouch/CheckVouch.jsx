@@ -8,8 +8,7 @@ export default function CheckVouch() {
     const [roomCode, setRoomCode] = useState('')
     const [userCode, setUserCode] = useState('')
     const [isLoading, setIsLoading] = useState(false)
-
-    const [roomList, setRoomList] = useState()
+    const [loadingPath, setLoadingPath] = useState(``)
 
     const [inputResponseRoom, setInputResponseRoom] = useState(0)
     // 0 for gray
@@ -33,6 +32,10 @@ export default function CheckVouch() {
             if (check) {
                 setInputResponseRoom(1)
                 setInputResponseUser(1)
+                setLoadingPath(`vouchresults/${roomCode}/${userCode}`)
+                setTimeout(() => {
+                    setIsLoading(true)
+                }, 500)
                 // navigate(`/mutualMember/${roomCode}/${check}`);
             } else {
                 setInputResponseRoom(2)
@@ -91,7 +94,7 @@ export default function CheckVouch() {
             <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700">
                 <div className="h-[500px] w-[400px] font-raleway flex justify-start items-center flex-col border-[1px] rounded-[5px] bg-white">
                     <div className="w-[380px] h-full flex flex-col justify-center items-center">
-                        {isLoading ? <Loading origin={'checkvouch'} path={'vouchresults'} purpose={"checking responses"} /> : (
+                        {isLoading ? <Loading origin={'checkvouch'} path={loadingPath} purpose={"checking responses"} /> : (
                             <>
                                 <h2 className="font-bold text-center text-2xl">Check Vouch Results</h2>
                                 <div className="mt-[20px] flex max-w-md flex-col gap-2">
