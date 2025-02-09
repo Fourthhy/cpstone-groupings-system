@@ -1,18 +1,21 @@
-import { Modal, Dropdown, Tooltip, Button, Label, ToggleSwitch, Table, Pagination } from "flowbite-react"
+import { Modal, Dropdown, Tooltip, Button, Label, Table, Pagination } from "flowbite-react"
 import { useState, useEffect } from "react"
 import { LogIn, Info, Check, X } from "lucide-react"
 import { Link, useParams } from "react-router-dom"
 import Chart from "./RadarChart"
-import { getRoomDate, countAllDocs } from "../../functions/adminFunctions"
+import { getRoomDate, countAllDocs, fetchAllDocs as fetchRoomDocs } from "../../functions/adminFunctions"
 
 export default function Room() {
     const [showModal, setShowModal] = useState(true)
     const [showGraph, setShowGraph] = useState(false)
-    const [currentPage, setCurrentPage] = useState(1);
-    
+    const [currentPage, setCurrentPage] = useState(1)
+    const [itemsPerPage] = useState(5) // number of items per page
+
     const [docCount, setDocCount] = useState(0)
     const [roomDate, setRoomDate] = useState('')
     const { roomCode } = useParams()
+
+    const [allDocs, setAllDocs] = useState([])
 
     useEffect(() => {
         const fetchCount = async () => {
@@ -20,17 +23,27 @@ export default function Room() {
             setDocCount(itemsCount)
         }
 
-        fetchCount();
+        fetchCount()
 
         const fetchDate = async () => {
-            const roomDate = await getRoomDate(roomCode);
+            const roomDate = await getRoomDate(roomCode)
             setRoomDate(roomDate)
         }
 
         fetchDate()
-    }, [])
 
-    
+        const fetchDocs = async () => {
+            const documents = await fetchRoomDocs(roomCode)
+            setAllDocs(documents)
+        }
+
+        fetchDocs()
+    }, [roomCode])
+
+    // Pagination logic
+    const totalPages = Math.ceil(docCount / itemsPerPage)
+
+    const currentDocs = allDocs.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
     return (
         <>
@@ -47,49 +60,41 @@ export default function Room() {
                         </Modal>
 
                         <div className="grid grid-rows-9 grid-cols-6 h-full w-full">
-
-                            <div className="flex flex-col items-start justify-center row-span-1 col-span-full"> {/*TOP LAYER*/}
+                            <div className="flex flex-col items-start justify-center row-span-1 col-span-full">
                                 <div className="w-full h-full flex items-center justify-end gap-10 mr-[10px]">
-                                    <div>
-                                        <Dropdown outline label="Sort by" >
-
+                                    {/* <div>
+                                        <Dropdown outline label="Sort by">
                                             <Dropdown.Header>
                                                 Self Vouch Roles
                                             </Dropdown.Header>
-
                                             <Tooltip content="Show System Developers only" style="light" placement="left" animation="duration-400">
                                                 <Dropdown.Item onClick={() => alert('Self Vouch')}>
                                                     System Developer
                                                 </Dropdown.Item>
                                             </Tooltip>
-
                                             <Tooltip content="Show Project Managers only" style="light" placement="left" animation="duration-400">
                                                 <Dropdown.Item onClick={() => alert('Self Vouch')}>
                                                     Projet Manager
                                                 </Dropdown.Item>
                                             </Tooltip>
-
                                             <Tooltip content="Show UI/UX Designers only" style="light" placement="left" animation="duration-400">
                                                 <Dropdown.Item onClick={() => alert('Self Vouch')}>
                                                     UI/UX Designer
                                                 </Dropdown.Item>
                                             </Tooltip>
-
                                             <Tooltip content="Show System QAs only" style="light" placement="left" animation="duration-400">
                                                 <Dropdown.Item onClick={() => alert('Self Vouch')}>
                                                     System QA
                                                 </Dropdown.Item>
                                             </Tooltip>
-
                                             <Dropdown.Divider />
-
                                             <Tooltip content="Shows who are not vouched by others" style="light" placement="left" animation="duration-400">
                                                 <Dropdown.Item onClick={() => alert('Self Vouch')}>
                                                     Not Vouched
                                                 </Dropdown.Item>
                                             </Tooltip>
                                         </Dropdown>
-                                    </div>
+                                    </div> */}
                                     <Link to="/roomList">
                                         <div className="flex items-center justify-center gap-2 hover:bg-gray-100 transition duration-300 ease-in-out cursor-pointer rounded-sm">
                                             <Label htmlFor="input-gray" color="gray" value="Exit Room" />
@@ -102,7 +107,6 @@ export default function Room() {
                             </div>
 
                             <div className="ml-[7px] row-span-5 col-span-1">
-
                                 <div className="flex flex-col justify-evenly items-start w-full h-full">
                                     <div className="flex flex-col items-start justify-center">
                                         <h2 className="font-bold text-left text-m">Room code: </h2>
@@ -111,21 +115,19 @@ export default function Room() {
 
                                     <div className="flex flex-col items-start justify-center">
                                         <h2 className="font-bold text-left text-m">Room Created at: </h2>
-                                        <span className="text-xs">&nbsp; {roomDate.date} </span>
+                                        <span className="text-xs">&nbsp; {roomDate?.date} </span>
                                     </div>
 
                                     <div className="flex flex-col items-start justify-center">
                                         <h2 className="font-bold text-left text-m">Total items</h2>
-                                        <span className="text-xs">&nbsp; {docCount} </span>
+                                        <span className="text-xs">&nbsp; {docCount - 1} </span>
                                     </div>
 
                                     <div className="flex flex-col items-start justify-center">
                                         <h2 className="font-bold text-left text-m">Total vouched</h2>
                                         <span className="text-xs">&nbsp; 15 / 27 </span>
                                     </div>
-
                                 </div>
-
                             </div>
 
                             <div className="row-span-8 col-span-5 ml-[5px]">
@@ -138,33 +140,32 @@ export default function Room() {
                                                 <Table.HeadCell>is Vouched ? </Table.HeadCell>
                                             </Table.Head>
                                             <Table.Body className="divide-y">
-
-                                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                                    <Table.Cell>Olorvida, Trisha</Table.Cell>
-                                                    <Table.Cell>UI/UX Designer</Table.Cell>
-                                                    <Table.Cell>
-                                                        <div className="flex items-center justify-start gap-3 w-full">
-                                                            <div>
-                                                                <X color="#c82828" />
-                                                                <Check color="#2ab265" />
+                                                {currentDocs.map((doc, index) => (
+                                                    <Table.Row key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                                        <Table.Cell>{atob(doc.id)}</Table.Cell>
+                                                        <Table.Cell>{doc.role === "" ? "no role" : doc.role}</Table.Cell>
+                                                        <Table.Cell>
+                                                            <div className="flex items-center justify-start gap-3 w-full">
+                                                                <div>
+                                                                    {doc.isVouched ? <Check color="#2ab265" /> : <X color="#c82828" />}
+                                                                </div>
+                                                                <div>
+                                                                    <Info className="cursor-pointer" />
+                                                                </div>
                                                             </div>
-                                                            <div>
-                                                                <Info className="cursor-pointer" />
-                                                            </div>
-                                                        </div>
-                                                    </Table.Cell>
-                                                </Table.Row>
-
+                                                        </Table.Cell>
+                                                    </Table.Row>
+                                                ))}
                                             </Table.Body>
                                         </Table>
                                     </div>
                                     <div className="row-span-1 flex overflow-x-auto sm:justify-center">
-                                        <Pagination currentPage={currentPage} totalPages={100} onPageChange={(number) => setCurrentPage(number)} />
+                                        <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={(number) => setCurrentPage(number)} />
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="row-span-1 col-span-1 w-full h-full flex flex-col justify-center items-center">
+                            {/* <div className="row-span-1 col-span-1 w-full h-full flex flex-col justify-center items-center">
                                 <Button outline onClick={() => { setShowGraph(true) }}>View Statistics</Button>
                                 <Modal dismissible show={showGraph} onClose={() => setShowGraph(false)} >
                                     <Modal.Header>Vouching Statistics</Modal.Header>
@@ -174,7 +175,7 @@ export default function Room() {
                                         </div>
                                     </Modal.Body>
                                 </Modal>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

@@ -175,11 +175,23 @@ const displayVouchForRoles = async (roomCode) => {
   
   };
 
+  const fetchAllDocs = async (roomCode) => {
+    const collectionRef = collection(db, roomCode)
+    const querySnapshot = await getDocs(collectionRef)
+    const studentList = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      role: doc.data().roleIndex,
+      isVouched: doc.data().isVouched
+    }))
+    return studentList
+  }
+
 export {
   handleAdminCodeValidation,
   fetchRoomList,
   deleteRoom,
   displayVouchForRoles,
   countAllDocs,
-  getRoomDate
+  getRoomDate,
+  fetchAllDocs
 }
