@@ -14,7 +14,7 @@ export default function ResponsePage() {
 
     const handleCopyClick = async () => {
         try {
-            await navigator.clipboard.writeText(userCode);
+            await navigator.clipboard.writeText(userSecretCode);
             alert("Copied!"); // Or better yet, show a brief success message in the UI
         } catch (err) {
             console.error("Copy failed:", err);
