@@ -41,6 +41,7 @@ export default function MemberVouch() {
         
         // 1. Create a *single* copy of the selectedMembers array:
         const updatedMembers = [...selectedMembers];
+        alert(roleIndex)
 
         const updatedList = studentCodeList.filter(student => student !== selectedMember)
         setStudentCodeList(updatedList)
@@ -58,7 +59,7 @@ export default function MemberVouch() {
             roleName: selectedOption,
             previewProfile: selectedProfile, // Make sure selectedProfile is defined
             filled: true, // Set filled to true
-            roleIndx: roleIndex
+            roleIndex: roleIndex
         };
 
         // 4. Update the state *once* with the updated array:
