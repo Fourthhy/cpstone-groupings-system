@@ -9,36 +9,32 @@ import Loading from "../ReusableComponents/Loading"
 
 export default function RoomList() {
     const [isEnterPassword, setIsEnterPassowrd] = useState(false);
-    const [isNewRoom, setIsNewRoom] = useState(false)
+    const [isNewRoom, setIsNewRoom] = useState(true) //temporary
     const [showPassword, setShowPassword] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+
+    const [roomCode, setRoomCode] = useState(0)
+    const [roomPasscode, setRoomPasscode] = useState(0)
+
+    const [names, setNames] = useState()
+    const [nameCount, setNameCount] = useState(0)
+    useEffect(() => {
+        setRoomCode(Math.floor(Math.random() * 900000) + 100000)
+        setRoomPasscode(Math.floor(Math.random() * 900000) + 100000)
+    }, [])
+
 
     const handleShowPasword = () => {
         setShowPassword(!showPassword)
     }
 
-    const namesCount = 0;
+    const handleItemCounting = (event) => {
+        setNames(event.target.value);
+        const lines = names.split('\n');
+        setNameCount(lines.length)
+    }
 
     const CreateRoom = () => {
-        const [roomCodeCount, setRoomCodeCount] = useState(0);
-        const [roonPasswordCount, setRoomPasswordCount] = useState(0);
-
-        const handleRoomCodeChange = (event) => {
-            setRoomCodeCount(event.target.value);
-        }
-
-        const handlePasswordCountChange = (event) => {
-            setRoomPasswordCount(event.target.value);
-        }
-
-        useEffect(() => {
-            roomCodeCount.length == 6 ? alert('6 length reached') : ''
-        }, [roomCodeCount])
-
-        useEffect(() => {
-            roonPasswordCount.length == 6 ? alert('6 length reached') : ''
-        }, [roonPasswordCount])
-
 
         return (
             <>
@@ -53,15 +49,25 @@ export default function RoomList() {
                     <div>
                         <Label htmlFor="input-gray" color="gray" value="Room Code" />
                         <div className="flex gap-5">
-                            <TextInput type="text" placeholder="6-digit room code" required color="gray" />
-                            <Button outline >Auto Generate</Button>
+                            <div className="h-[50%] flex flex-col items-start gap-5">
+                                <span className="font-bold">{roomCode}</span>
+                            </div>
                         </div>
                     </div>
 
                     <div>
                         <Label htmlFor="input-gray" color="gray" value="Room Password" />
                         <div className="flex gap-5">
-                            <TextInput type={showPassword ? `text` : `password`} placeholder="6-digit room passcode" required color="gray" />
+                            {showPassword ? (
+                                <>
+                                    <span className="font-bold">{roomPasscode}</span>
+                                </>
+                            ) : (
+                                <>
+                                    -------
+                                </>
+                            )}
+                            
                             <div className="flex items-center justify-center">
                                 {showPassword ? (
                                     <Eye onClick={() => { handleShowPasword() }} className="cursor-pointer" />
@@ -74,8 +80,13 @@ export default function RoomList() {
 
                     <div>
                         <Label htmlFor="comment" value="Enter Names" />
-                        <Textarea id="comment" placeholder="Enter names or paste here" required rows={4} />
-                        <Label htmlFor="comment" value={`Total names: ${namesCount}`} />
+                        <Textarea 
+                            value={names}
+                            onChange={handleItemCounting}
+                            id="comment" 
+                            placeholder="Paste Names Here and press enter" 
+                            rows={4} />
+                        <Label htmlFor="comment" value={`Total names: ${nameCount}`} />
                     </div>
 
                     <div className="w-full flex justify-end">
