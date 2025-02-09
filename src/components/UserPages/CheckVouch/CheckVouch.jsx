@@ -2,13 +2,15 @@ import { TextInput, Button, Label } from "flowbite-react"
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import Loading from "../../ReusableComponents/Loading.jsx"
-import { fetchRoomList } from "../../../functions/checkProcess"
+import { handleCheckVouchRoom } from "../../../functions/checkProcess"
 
 export default function CheckVouch() {
-    const [codeRoom, setCodeRoom] = useState('')
-    const [userCodeInput, setUserCodeInput] = useState('')
-
+    const [roomCode, setRoomCode] = useState('')
+    const [userCode, setUserCode] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+
+    const [roomList, setRoomList] = useState()
+
     const [inputResponseRoom, setInputResponseRoom] = useState(0)
     // 0 for gray
     // 1 for success
@@ -24,6 +26,26 @@ export default function CheckVouch() {
     // 2 for failure
 
     const customButtonDesign = "bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-full mt-[5px]";
+
+    const handleSubmit = async () => {
+        try {
+            const check = await handleCheckVouchRoom(roomCode, userCode);
+            if (check) {
+                setInputResponseRoom(1)
+                setInputResponseUser(1)
+                // navigate(`/mutualMember/${roomCode}/${check}`);
+            } else {
+                setInputResponseRoom(2)
+                setInvalidReasonRoom(0)
+                // alert('Room/User not found');
+            }
+        } catch (error) {
+            setInputResponseRoom(2)
+            setInvalidReasonRoom(0)
+            // console.error("Error checking room/user:", error);
+            // alert('An error occurred. Please try again later.');
+        }
+    };
 
     const HelperTextSucessRoom = () => {
         return (
@@ -76,8 +98,8 @@ export default function CheckVouch() {
 
                                     <Label htmlFor="input-gray" color="gray" value="Room Code" />
                                     <TextInput
-                                        value={codeRoom}
-                                        onChange={(e) => setCodeRoom(e.target.value)}
+                                        value={roomCode}
+                                        onChange={(e) => setRoomCode(e.target.value)}
                                         id="room-code"
                                         placeholder="enter room code"
                                         required
@@ -91,6 +113,8 @@ export default function CheckVouch() {
 
                                     <Label htmlFor="input-gray" color="gray" value="User Code" />
                                     <TextInput
+                                        value={userCode}
+                                        onChange={(e) => { setUserCode(e.target.value) }}
                                         type="text"
                                         placeholder="User-12345"
                                         required
@@ -104,8 +128,7 @@ export default function CheckVouch() {
 
                                     <Button
                                         onClick={(e) => {
-                                            e.preventDefault()
-                                            setIsLoading(true)
+                                            handleSubmit()
                                         }}
                                         outline
                                         className={customButtonDesign}
