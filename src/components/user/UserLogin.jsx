@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-// import studentList from "../../json/studentList.json"
 import { fetchRoomList } from "../../functions/adminFunctions";
 
 import { Button, TextInput, Label, Select } from "flowbite-react";

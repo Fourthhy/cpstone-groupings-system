@@ -14,7 +14,12 @@ import LandingPage from "./components/user/LandingPage"
 
 //Login Page
 import UserLogin from "./components/user/UserLogin"
+
+//Self Vouch Page
 import SelfVouch from "./components/UserPages/VouchProcess/SelfVouch"
+
+//Member Vouch Page
+import MemberVouch from "./components/UserPages/VouchProcess/MemberVouch"
 
 export default function App() {
   return (
@@ -28,6 +33,8 @@ export default function App() {
           <Route path="/memberSelect/:roomCode" element={<MemberSelect />} />
 
           <Route path="/selfvouch/:roomCode" element={<SelfVouch /> } />
+
+          <Route path="/membervouch/:roomCode" element={<MemberVouch />} />
 
           <Route path="/selectResponse/:roomCode/:userCode" element={<Response />} />
           <Route path="/mutualCheck" element={<MutualCheck />} />
