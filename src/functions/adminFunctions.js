@@ -156,7 +156,6 @@ const displayVouchForRoles = async (roomCode) => {
   }
 
   const getRoomDate = async () => {
-    const roomList = [];
     const querySnapshot = await getDocs(collection(db, "roomList"));
   
     // Check if there are any documents in the snapshot
@@ -169,12 +168,11 @@ const displayVouchForRoles = async (roomCode) => {
       const date = timestamp.toDate(); 
       const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`; // Format the date
   
-      roomList.push({ roomCode: doc.id, date: formattedDate }); // Store the room code and formatted date
+      return { roomCode: doc.id, date: formattedDate }; // Store the room code and formatted date
     } else {
       console.log("No documents found in the collection.");
     }
   
-    return roomList; // Return the list of rooms
   };
 
 export {

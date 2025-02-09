@@ -6,17 +6,19 @@ import AnimatedContent from "../ComponentAnimations/AnimatedContent"
 import Loading from "../ReusableComponents/Loading"
 
 import { fetchRoomList } from "../../functions/adminFunctions"
+import { createCollection } from "../../functions/backendFunction"
 
 export default function RoomList() {
     const navigate = useNavigate()
     const [isEnterPassword, setIsEnterPassowrd] = useState(false);
-    const [isNewRoom, setIsNewRoom] = useState(true) //temporary
+    const [isNewRoom, setIsNewRoom] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
     const [roomCode, setRoomCode] = useState(0)
 
     const [names, setNames] = useState('')
     const [nameCount, setNameCount] = useState(0)
+    const [studentList, setStudentList] = useState([])
 
     const [roomList, setRoomList] = useState([])
 
@@ -34,7 +36,10 @@ export default function RoomList() {
         setNames(event.target.value);
         const lines = names.split('\n');
         setNameCount(lines.length)
+        setStudentList(lines)
     }
+
+
     return (
         <>
             <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700">
@@ -84,9 +89,10 @@ export default function RoomList() {
                                             <div className="w-full flex justify-end">
                                                 <Button
                                                     onClick={() => {
-                                                        console.log(names)
-                                                        console.log(roomCode)
-                                                        // setIsLoading(true) 
+                                                        createCollection(roomCode, studentList)
+                                                        setTimeout(() => {
+                                                            navigate(`/room/${roomCode}`)
+                                                        }, 1000)
                                                     }}
                                                     outline
                                                     className="bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-[50%] mt-[5px]">Create Room</Button>
@@ -122,7 +128,17 @@ export default function RoomList() {
                                                         <div className="mt-[10px] flex items-center gap-[2px]">
                                                             <div>
                                                                 <Button
-                                                                    onClick={() => { setIsNewRoom(!isNewRoom) }}
+                                                                    onClick={() => { 
+                                                                        const handleCreateRoom = async () => {
+                                                                            try {
+                                                                                const newRoom = await createCollection()
+                                                                                navigate(`/room/${newRoom}`)
+                                                                            } catch (err) {
+                                                                                alert(err)
+                                                                            }
+                                                                        }
+                                                                        handleCreateRoom()
+                                                                    }}
                                                                     outline
                                                                     className="bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-full">Create Room
                                                                 </Button>

@@ -90,7 +90,7 @@ export default function Room() {
                                             </Tooltip>
                                         </Dropdown>
                                     </div>
-                                    <Link to="/">
+                                    <Link to="/roomList">
                                         <div className="flex items-center justify-center gap-2 hover:bg-gray-100 transition duration-300 ease-in-out cursor-pointer rounded-sm">
                                             <Label htmlFor="input-gray" color="gray" value="Exit Room" />
                                             <Tooltip content="Exit the room" style="light" placement="bottom" animation="duration-400">
@@ -111,7 +111,7 @@ export default function Room() {
 
                                     <div className="flex flex-col items-start justify-center">
                                         <h2 className="font-bold text-left text-m">Room Created at: </h2>
-                                        <span className="text-xs">&nbsp; {roomDate[0].date} </span>
+                                        <span className="text-xs">&nbsp; {roomDate.date} </span>
                                     </div>
 
                                     <div className="flex flex-col items-start justify-center">

@@ -9,7 +9,8 @@ const selfVouchentry = async (roomCode, userCode, roleIndex) => {
         await setDoc(collectionRef, {
             id: docData.id,
             userCode: docData.userCode,
-            roleIndex: roleIndex
+            roleIndex: roleIndex,
+            isVouched: true
         });
     }
 }
