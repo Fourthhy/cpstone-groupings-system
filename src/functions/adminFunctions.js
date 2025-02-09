@@ -155,12 +155,33 @@ const displayVouchForRoles = async (roomCode) => {
     return querySnapshot.size;
   }
 
-
+  const getRoomDate = async () => {
+    const roomList = [];
+    const querySnapshot = await getDocs(collection(db, "roomList"));
+  
+    // Check if there are any documents in the snapshot
+    if (!querySnapshot.empty) {
+      // Since you expect only one document, access the first document directly
+      const doc = querySnapshot.docs[0]; // Get the first document
+      const timestamp = doc.data().timestamp; // Fetch the timestamp from Firestore
+  
+      // Convert Firestore timestamp to JavaScript Date
+      const date = timestamp.toDate(); 
+      const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`; // Format the date
+  
+      roomList.push({ roomCode: doc.id, date: formattedDate }); // Store the room code and formatted date
+    } else {
+      console.log("No documents found in the collection.");
+    }
+  
+    return roomList; // Return the list of rooms
+  };
 
 export {
   handleAdminCodeValidation,
   fetchRoomList,
   deleteRoom,
   displayVouchForRoles,
-  countAllDocs
+  countAllDocs,
+  getRoomDate
 }

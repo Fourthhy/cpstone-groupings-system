@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { LogIn, Info, Check, X } from "lucide-react"
 import { Link, useParams } from "react-router-dom"
 import Chart from "./RadarChart"
-import { fetchRoomList, countAllDocs } from "../../functions/adminFunctions"
+import { getRoomDate, countAllDocs } from "../../functions/adminFunctions"
 
 export default function Room() {
     const [showModal, setShowModal] = useState(true)
@@ -11,8 +11,9 @@ export default function Room() {
     const [currentPage, setCurrentPage] = useState(1);
     
     const [docCount, setDocCount] = useState(0)
+    const [roomDate, setRoomDate] = useState('')
     const { roomCode } = useParams()
-    
+
     useEffect(() => {
         const fetchCount = async () => {
             const itemsCount = await countAllDocs(roomCode)
@@ -20,6 +21,13 @@ export default function Room() {
         }
 
         fetchCount();
+
+        const fetchDate = async () => {
+            const roomDate = await getRoomDate(roomCode);
+            setRoomDate(roomDate)
+        }
+
+        fetchDate()
     }, [])
 
     
@@ -103,7 +111,7 @@ export default function Room() {
 
                                     <div className="flex flex-col items-start justify-center">
                                         <h2 className="font-bold text-left text-m">Room Created at: </h2>
-                                        <span className="text-xs">&nbsp; 01-01-2025 </span>
+                                        <span className="text-xs">&nbsp; {roomDate[0].date} </span>
                                     </div>
 
                                     <div className="flex flex-col items-start justify-center">
