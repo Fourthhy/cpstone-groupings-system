@@ -14,9 +14,29 @@ const selfVouchentry = async (roomCode, userCode, roleIndex) => {
     }
 }
 
-const memberVouchEntry = async (memberVouch) => {
-    alert(memberVouch[0].studentName)
-    alert('passed')
+const memberVouchEntry = async (roomCode, userCode, memberVouch) => {
+    if (!memberVouch[0].studentName) { return }
+    else {
+        const subcollectionRef1 = doc(db, roomCode, userCode, 'mutuals', memberVouch[0].studentName);
+        await setDoc(subcollectionRef1, { roleIndex: memberVouch[0].roleIndex });
+    }
+    if (!memberVouch[1].studentName) { return }
+    else {
+        const subcollectionRef1 = doc(db, roomCode, userCode, 'mutuals', memberVouch[1].studentName);
+        await setDoc(subcollectionRef1, { roleIndex: memberVouch[1].roleIndex });
+    }
+    if (!memberVouch[2].studentName) { return }
+    else {
+        const subcollectionRef1 = doc(db, roomCode, userCode, 'mutuals', memberVouch[2].studentName);
+        await setDoc(subcollectionRef1, { roleIndex: memberVouch[2].roleIndex });
+    }
+    if (!memberVouch[4].studentName) { return }
+    else {
+        const subcollectionRef1 = doc(db, roomCode, userCode, 'mutuals', memberVouch[4].studentName);
+        await setDoc(subcollectionRef1, { roleIndex: memberVouch[4].roleIndex });
+    }
+
+
 }
 
 

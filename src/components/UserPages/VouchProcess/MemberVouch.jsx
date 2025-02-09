@@ -16,10 +16,10 @@ export default function MemberVouch() {
     const { roomCode, userCode } = useParams()
 
     const [selectedMembers, setSelectedMembers] = useState([
-        { studentName: "bm9uZQ==", roleName: "N/A", profile: "undefined.png", previewProfile: "/undefined.png", filled: false, roleIndex: 0 },
-        { studentName: "bm9uZQ==", roleName: "N/A", profile: "undefined.png", previewProfile: "/undefined.png", filled: false, roleIndex: 0 },
-        { studentName: "bm9uZQ==", roleName: "N/A", profile: "undefined.png", previewProfile: "/undefined.png", filled: false, roleIndex: 0 },
-        { studentName: "bm9uZQ==", roleName: "N/A", profile: "undefined.png", previewProfile: "/undefined.png", filled: false, roleIndex: 0 },
+        { studentName: "", roleName: "N/A", profile: "undefined.png", previewProfile: "/undefined.png", filled: false, roleIndex: 0 },
+        { studentName: "", roleName: "N/A", profile: "undefined.png", previewProfile: "/undefined.png", filled: false, roleIndex: 0 },
+        { studentName: "", roleName: "N/A", profile: "undefined.png", previewProfile: "/undefined.png", filled: false, roleIndex: 0 },
+        { studentName: "", roleName: "N/A", profile: "undefined.png", previewProfile: "/undefined.png", filled: false, roleIndex: 0 },
     ]);
 
     const [studentCodeList, setStudentCodeList] = useState([])
@@ -72,7 +72,7 @@ export default function MemberVouch() {
 
     const handleSubmitMemberVouch = () => {
         setIsLoading(true)
-        memberVouchEntry(selectedMembers)
+        memberVouchEntry(roomCode, userCode, selectedMembers)
     }
 
     const SelectName = ({ index }) => {
@@ -167,7 +167,7 @@ export default function MemberVouch() {
                         ) : ( //VIEW THE VOUCH MEMBER
                             <>
                                 <img src={`${selectedMembers[index - 1].previewProfile}`} className="z-0 w-[50px] h-[50px] ml-[5px] mb-[10px]" alt="" />
-                                <p className="text-xl text-gray-500">{atob(selectedMembers[index - 1].studentName)}</p>
+                                <p className="text-xl text-gray-500">{atob(selectedMembers[index - 1].studentName) === '' ? 'none' : atob(selectedMembers[index - 1].studentName) }</p>
                                 <hr className="w-[40%]" />
                                 <p className="text-s text-gray-500">{selectedMembers[index - 1].roleName}</p>
                                 <div className="absolute z-2 bottom-[25%]" onClick={() => { setIsEdit(true) }}>
