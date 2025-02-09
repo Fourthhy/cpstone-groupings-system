@@ -1,10 +1,11 @@
-import { TextInput, Button, Label } from "flowbite-react"
+import { TextInput, Button } from "flowbite-react"
 import { Link } from "react-router-dom"
 import Loading from "../ReusableComponents/Loading"
 import { useState } from "react"
 
 export default function AdminLogin() {
     const [isLoading, setIsLoading] = useState(false)
+    const [credential, setCredential] = useState('')
 
     const [inputResponse, setInputResponse] = useState(0)
     // 0 for gray
@@ -27,6 +28,18 @@ export default function AdminLogin() {
         )
     }
 
+    const handleAdminLogin = (credential) => {
+        if (credential === import.meta.env.VITE_ADMIN_CODE_3) {
+            setInputResponse(1)
+            setTimeout(() => {
+                setIsLoading(true)
+            }, 1000)
+        }
+        else {
+            setInputResponse(2)
+        }
+    }
+
     return (
         <>
             {isLoading ? (
@@ -43,6 +56,8 @@ export default function AdminLogin() {
 
                                 <div className="mt-[20px] flex max-w-md flex-col gap-2">
                                     <TextInput 
+                                        value={credential}
+                                        onChange={(e) => setCredential(e.target.value)}
                                         type="text" 
                                         placeholder="enter admin code" 
                                         required
@@ -53,7 +68,7 @@ export default function AdminLogin() {
                                         }
                                         />
                                     <Button
-                                        onClick={() => { setIsLoading(true) }}
+                                        onClick={() => { handleAdminLogin(credential) }}
                                         outline
                                         className="bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-full mt-[5px]">
                                         Submit
