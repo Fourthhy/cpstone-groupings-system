@@ -58,7 +58,7 @@ export default function Room() {
 
                                     <div className="col-span-2 flex items-center justify-evenly">
                                         <div>
-                                            <Dropdown label="Sort by" >
+                                            <Dropdown outline label="Sort by" >
 
                                                 <Dropdown.Header>
                                                     Self Vouch Roles
@@ -121,11 +121,6 @@ export default function Room() {
                                     </div>
 
                                     <div className="flex flex-col items-start justify-center">
-                                        <h2 className="font-bold text-left text-m">Room passcode: </h2>
-                                        <span className="text-xs">&nbsp; 654321</span>
-                                    </div>
-
-                                    <div className="flex flex-col items-start justify-center">
                                         <h2 className="font-bold text-left text-m">Room Created at: </h2>
                                         <span className="text-xs">&nbsp; 01-01-2025 </span>
                                     </div>
@@ -140,16 +135,6 @@ export default function Room() {
                                         <span className="text-xs">&nbsp; 15 / 27 </span>
                                     </div>
 
-                                    <div className="flex flex-col items-start justify-center">
-                                        <h2 className="font-bold text-left text-m">Vouching</h2>
-                                        <span className="text-xs">&nbsp; enabled </span>
-                                    </div>
-
-                                    <div className="flex flex-col items-start justify-center">
-                                        <h2 className="font-bold text-left text-m">Response Check</h2>
-                                        <span className="text-xs">&nbsp; disabled </span>
-                                    </div>
-
                                 </div>
 
                             </div>
@@ -162,84 +147,8 @@ export default function Room() {
                                                 <Table.HeadCell>Name</Table.HeadCell>
                                                 <Table.HeadCell>Self Role</Table.HeadCell>
                                                 <Table.HeadCell>is Vouched ? </Table.HeadCell>
-                                                <Table.HeadCell>Vouched by others ?</Table.HeadCell>
                                             </Table.Head>
                                             <Table.Body className="divide-y">
-
-                                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                                    <Table.Cell>Marco, Justine Jynne Patrice</Table.Cell>
-                                                    <Table.Cell>Project Manager</Table.Cell>
-                                                    <Table.Cell>
-                                                        <div className="flex items-center justify-start gap-3 w-full">
-                                                            <div>
-                                                                <Check color="#2ab265" />
-                                                            </div>
-                                                            <div>
-                                                                <Info className="cursor-pointer" />
-                                                            </div>
-                                                        </div>
-                                                    </Table.Cell>
-                                                    <Table.Cell>
-                                                        <div className="flex items-center justify-start gap-3 w-full">
-                                                            <div>
-                                                                <Check color="#2ab265" />
-                                                            </div>
-                                                            <div>
-                                                                <Info className="cursor-pointer" />
-                                                            </div>
-                                                        </div>
-                                                    </Table.Cell>
-                                                </Table.Row>
-
-                                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                                    <Table.Cell>Isip, Christian Eliseo</Table.Cell>
-                                                    <Table.Cell>System Developer</Table.Cell>
-                                                    <Table.Cell>
-                                                        <div className="flex items-center justify-start gap-3 w-full">
-                                                            <div>
-                                                                <X color="#c82828" />
-                                                            </div>
-                                                            <div>
-                                                                <Info className="cursor-pointer" />
-                                                            </div>
-                                                        </div>
-                                                    </Table.Cell>
-                                                    <Table.Cell>
-                                                        <div className="flex items-center justify-start gap-3 w-full">
-                                                            <div>
-                                                                <X color="#c82828" />
-                                                            </div>
-                                                            <div>
-                                                                <Info className="cursor-pointer" />
-                                                            </div>
-                                                        </div>
-                                                    </Table.Cell>
-                                                </Table.Row>
-
-                                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                                    <Table.Cell>Cuanan, Sherelyn</Table.Cell>
-                                                    <Table.Cell>System QA</Table.Cell>
-                                                    <Table.Cell>
-                                                        <div className="flex items-center justify-start gap-3 w-full">
-                                                            <div>
-                                                                <Check color="#2ab265" />
-                                                            </div>
-                                                            <div>
-                                                                <Info className="cursor-pointer" />
-                                                            </div>
-                                                        </div>
-                                                    </Table.Cell>
-                                                    <Table.Cell>
-                                                        <div className="flex items-center justify-start gap-3 w-full">
-                                                            <div>
-                                                                <X color="#c82828" />
-                                                            </div>
-                                                            <div>
-                                                                <Info className="cursor-pointer" />
-                                                            </div>
-                                                        </div>
-                                                    </Table.Cell>
-                                                </Table.Row>
 
                                                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                                     <Table.Cell>Olorvida, Trisha</Table.Cell>
@@ -248,15 +157,6 @@ export default function Room() {
                                                         <div className="flex items-center justify-start gap-3 w-full">
                                                             <div>
                                                                 <X color="#c82828" />
-                                                            </div>
-                                                            <div>
-                                                                <Info className="cursor-pointer" />
-                                                            </div>
-                                                        </div>
-                                                    </Table.Cell>
-                                                    <Table.Cell>
-                                                        <div className="flex items-center justify-start gap-3 w-full">
-                                                            <div>
                                                                 <Check color="#2ab265" />
                                                             </div>
                                                             <div>
@@ -265,34 +165,7 @@ export default function Room() {
                                                         </div>
                                                     </Table.Cell>
                                                 </Table.Row>
-
-                                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                                    <Table.Cell>Mañabo, John Miguel</Table.Cell>
-                                                    <Table.Cell>System Developer</Table.Cell>
-                                                    <Table.Cell>
-                                                        <div className="flex items-center justify-start gap-3 w-full">
-                                                            <div>
-                                                                <Check color="#2ab265" />
-                                                            </div>
-                                                            <div>
-                                                                <Info className="cursor-pointer" />
-                                                            </div>
-                                                        </div>
-                                                    </Table.Cell>
-                                                    <Table.Cell>
-                                                        <div className="flex items-center justify-start gap-3 w-full">
-                                                            <div>
-                                                                <Check color="#2ab265" />
-                                                            </div>
-                                                            <div>
-                                                                <Info className="cursor-pointer" />
-                                                            </div>
-                                                        </div>
-                                                    </Table.Cell>
-                                                </Table.Row>
-
-                                                
-
+                                              
                                             </Table.Body>
                                         </Table>
                                     </div>
@@ -300,7 +173,6 @@ export default function Room() {
                                         <Pagination currentPage={currentPage} totalPages={100} onPageChange={(number) => setCurrentPage(number)} />
                                     </div>
                                 </div>
-
                             </div>
 
                             <div className="row-span-1 col-span-1 w-full h-full flex flex-col justify-center items-center">
@@ -313,48 +185,8 @@ export default function Room() {
                                         </div>
                                     </Modal.Body>
                                 </Modal>
-
                             </div>
-
-                            <div className="row-span-2 col-span-1 gap-3 h-full">
-
-                                <div className="flex flex-col items-center gap-2">
-                                    <div className="w-full flex justify-center ">
-                                        Settings
-                                    </div>
-
-                                    <div className="w-full flex items-center justify-between">
-                                        <div className="grid grid-cols-3 w-full">
-                                            <div className="col-span-1 flex items-center">
-                                                <ToggleSwitch checked={isVouch} onChange={() => setIsVouch(!isVouch)} />
-                                            </div>
-                                            <div className="col-span-2 flex items-center">
-                                                <Label value="Enable Vouching" className="text-xs" />
-                                            </div>
-                                        </div>
-                                        <Tooltip content="Enable vouch entry for items" style="light" placement="top" animation="duration-600">
-                                            <Info color="#000000" className="w-[15px] h-[15px]" />
-                                        </Tooltip>
-                                    </div>
-
-                                    <div className="w-full flex items-center justify-between">
-                                        <div className="grid grid-cols-3 w-full">
-                                            <div className="col-span-1 flex items-center">
-                                                <ToggleSwitch checked={isChecking} onChange={() => setIsChecking(!isChecking)} />
-                                            </div>
-                                            <div className="col-span-2 flex items-center">
-                                                <Label value="Enable Checking" className="text-xs" />
-                                            </div>
-                                        </div>
-                                        <Tooltip content="Enable vouch checking for items" style="light" placement="top" animation="duration-600">
-                                            <Info color="#000000" className="w-[15px] h-[15px]" />
-                                        </Tooltip>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
-
                     </div>
                 </div>
             </div>
