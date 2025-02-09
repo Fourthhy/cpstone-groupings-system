@@ -39,13 +39,22 @@ const memberVouchEntry = async (roomCode, userCode, memberVouch) => {
         const subcollectionRef1 = doc(db, roomCode, userCode, 'mutuals', memberVouch[3].studentName);
         await setDoc(subcollectionRef1, { roleIndex: memberVouch[3].roleIndex });
     }
+}
 
-
+const handleSearchUsercode = async (roomCode, userCode) => {
+    const collectionRef = doc(db, roomCode, userCode)
+    const docSnap = await getDoc(collectionRef);
+    if (docSnap.exists()) {
+        const docData = docSnap.data();
+        return docData.userCode
+    }
+    return false
 }
 
 
 
 export {
     selfVouchentry,
-    memberVouchEntry
+    memberVouchEntry,
+    handleSearchUsercode
 }
