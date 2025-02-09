@@ -63,6 +63,12 @@ export default function Loading({origin, path, purpose}) {
             case 'roomlist':
                 navigate(`/${path}`)
             break;
+
+            case 'userLogin':
+                navigate(`/${path}`)
+            break;
+
+
         }
     }
 

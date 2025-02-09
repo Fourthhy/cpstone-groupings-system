@@ -25,10 +25,11 @@ export default function App() {
           <Route path="/userLogin" element={<UserLogin />} />
 
           <Route path="/memberSelect/:roomCode/:userCode" element={<MemberSelect />} />
-          
+
           <Route path="/selectResponse/:roomCode/:userCode" element={<Response />} />
           <Route path="/mutualCheck" element={<MutualCheck />} />
           <Route path="/mutualMember/:roomCode/:userCode" element={<MutualMember />} />
+          
           <Route path="/adminLogin" element={<AdminLogin />} />
           <Route path="/roomList" element={<RoomList />} />
           <Route path="/adminDashboard/:roomCode" element={<AdminDashboard />} />

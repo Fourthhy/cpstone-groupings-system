@@ -5,12 +5,15 @@ import { fetchRoomList } from "../../functions/adminFunctions"
 
 import { Button, TextInput, Label, Select } from "flowbite-react"
 
+import { Loading } from "../ReusableComponents/Loading"
+
 export default function App() {
     const [selectedName, setSelectedName] = useState('')
     const [enterCode, setEnterCode] = useState('')
-
     const [inputResponse, setInputResponse] = useState(0)
 
+    const [isLoading, setIsLoading] = useState(false)
+    const [loadingPath, setLoadingPath] = useState(``)
     const navigate = useNavigate()
 
     const customButtonDesign = "bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-full mt-[5px]";
@@ -42,7 +45,10 @@ export default function App() {
         rooms.map((room) => {
             if (room.roomCode === roomCode) {
                 setInputResponse(1)
-                navigate(`/memberSelect/${roomCode}/${encodedName}`)
+                setTimeout(() => {
+                    setIsLoading(true)
+                    setLoadingPath(`/memberSelect/${roomCode}/${encodedName}`)
+                }, 1000)
             }
             else {
                 setInputResponse(2)
@@ -59,58 +65,64 @@ export default function App() {
 
     return (
         <>
-            <div className="h-screen w-screen flex items-center justify-center bg-gray-100">
-                <div className="h-[500px] w-[400px] font-raleway flex justify-center items-center flex-col border-[1px] rounded-lg bg-white">
+            {isLoading ? (
+                <>
+                    <Loading origin={'userLogin'} path={loadingPath} purpose={'Logging in'} />
+                </>
+            ) : (
+                <div className="h-screen w-screen flex items-center justify-center bg-gray-100">
+                    <div className="h-[500px] w-[400px] font-raleway flex justify-center items-center flex-col border-[1px] rounded-lg bg-white">
 
-                    <h2>Capstone Grouping</h2>
-                    <form
-                        className="max-w-sm mx-auto"
-                        onSubmit={(e) => {
-                            handleSubmit(enterCode, selectedName)
-                            e.preventDefault()
-                        }}>
-                        <div className="my-5">
-                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Room Code</label>
-                            <TextInput
-                                required
-                                value={enterCode}
-                                onChange={(e) => setEnterCode(e.target.value)}
-                                type="text"
-                                color={inputResponse == 1 ? 'success' : 
+                        <h2>Capstone Grouping</h2>
+                        <form
+                            className="max-w-sm mx-auto"
+                            onSubmit={(e) => {
+                                handleSubmit(enterCode, selectedName)
+                                e.preventDefault()
+                            }}>
+                            <div className="my-5">
+                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Room Code</label>
+                                <TextInput
+                                    required
+                                    value={enterCode}
+                                    onChange={(e) => setEnterCode(e.target.value)}
+                                    type="text"
+                                    color={inputResponse == 1 ? 'success' :
                                         inputResponse == 2 ? 'failure' : 'gray'
-                                }
-                                placeholder='123456'
-                                helperText={inputResponse == 1 ? 'room found!' : 
-                                inputResponse == 2 ? 'room not found' : ''}
+                                    }
+                                    placeholder='123456'
+                                    helperText={inputResponse == 1 ? 'room found!' :
+                                        inputResponse == 2 ? 'room not found' : ''}
                                 />
-                        </div>
-                        <SelectName />
+                            </div>
+                            <SelectName />
 
-                        <div className="mt-[20px]">
-                            <Button
-                                outline
-                                type="submit"
-                                onClick={() => { handleJoin(selectedName) }}
-                                className={customButtonDesign}>Join Room
-                            </Button>
+                            <div className="mt-[20px]">
+                                <Button
+                                    outline
+                                    type="submit"
+                                    onClick={() => { handleJoin(selectedName) }}
+                                    className={customButtonDesign}>Join Room
+                                </Button>
+                            </div>
+                        </form>
+                        <div className="my-[20px] flex justify-center items-center gap-5">
+                            <hr className="border-gray-400 w-[50px]" />
+                            <p>or</p>
+                            <hr className="border-gray-400 w-[50px]" />
                         </div>
-                    </form>
-                    <div className="my-[20px] flex justify-center items-center gap-5">
-                        <hr className="border-gray-400 w-[50px]" />
-                        <p>or</p>
-                        <hr className="border-gray-400 w-[50px]" />
-                    </div>
-                    <div className="w-[50%]">
-                        <Link to="/">
-                            <Button
-                                color="gray"
-                                className="w-full">
-                                Go Back
-                            </Button>
-                        </Link>
+                        <div className="w-[50%]">
+                            <Link to="/">
+                                <Button
+                                    color="gray"
+                                    className="w-full">
+                                    Go Back
+                                </Button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
         </>
     )
 }
