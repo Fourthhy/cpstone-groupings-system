@@ -1,17 +1,28 @@
 import { Modal, Dropdown, Tooltip, Button, Label, ToggleSwitch, Table, Pagination } from "flowbite-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { LogIn, Info, Check, X } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import Chart from "./RadarChart"
+import { fetchRoomList, countAllDocs } from "../../functions/adminFunctions"
 
 export default function Room() {
     const [showModal, setShowModal] = useState(true)
     const [showGraph, setShowGraph] = useState(false)
-    const [isVouch, setIsVouch] = useState(false)
-    const [isChecking, setIsChecking] = useState(false)
-
     const [currentPage, setCurrentPage] = useState(1);
+    
+    const [docCount, setDocCount] = useState(0)
+    const { roomCode } = useParams()
+    
+    useEffect(() => {
+        const fetchCount = async () => {
+            const itemsCount = await countAllDocs(roomCode)
+            setDocCount(itemsCount)
+        }
 
+        fetchCount();
+    }, [])
+
+    
 
     return (
         <>
@@ -30,86 +41,56 @@ export default function Room() {
                         <div className="grid grid-rows-9 grid-cols-6 h-full w-full">
 
                             <div className="flex flex-col items-start justify-center row-span-1 col-span-full"> {/*TOP LAYER*/}
+                                <div className="w-full h-full flex items-center justify-end gap-10 mr-[10px]">
+                                    <div>
+                                        <Dropdown outline label="Sort by" >
 
-                                <div className="w-full h-full grid grid-cols-5">
+                                            <Dropdown.Header>
+                                                Self Vouch Roles
+                                            </Dropdown.Header>
 
-                                    <div className="col-span-3 flex items-center justify-evenly gap-1">
-                                        {/* <div className="flex items-center gap-1">
-                                            <img src="/system_developer.png" alt="" className="w-[40px] h-[40px]" />
-                                            <span>1</span>
-                                        </div>
-                                        <div className="flex items-center gap-1">
-                                            <img src="/project_manager.png" alt="" className="w-[40px] h-[40px]" />
-                                            <span>1</span>
-                                        </div>
-                                        <div className="flex items-center gap-1">
-                                            <img src="/uiux_designer.png" alt="" className="w-[40px] h-[40px]" />
-                                            <span>1</span>
-                                        </div>
-                                        <div className="flex items-center gap-1">
-                                            <img src="/system_quality.png" alt="" className="w-[40px] h-[40px]" />
-                                            <span>1</span>
-                                        </div>
-                                        <div className="flex items-center gap-1">
-                                            <img src="/undefined.png" alt="" className="w-[40px] h-[40px]" />
-                                            <span>1</span>
-                                        </div> */}
+                                            <Tooltip content="Show System Developers only" style="light" placement="left" animation="duration-400">
+                                                <Dropdown.Item onClick={() => alert('Self Vouch')}>
+                                                    System Developer
+                                                </Dropdown.Item>
+                                            </Tooltip>
+
+                                            <Tooltip content="Show Project Managers only" style="light" placement="left" animation="duration-400">
+                                                <Dropdown.Item onClick={() => alert('Self Vouch')}>
+                                                    Projet Manager
+                                                </Dropdown.Item>
+                                            </Tooltip>
+
+                                            <Tooltip content="Show UI/UX Designers only" style="light" placement="left" animation="duration-400">
+                                                <Dropdown.Item onClick={() => alert('Self Vouch')}>
+                                                    UI/UX Designer
+                                                </Dropdown.Item>
+                                            </Tooltip>
+
+                                            <Tooltip content="Show System QAs only" style="light" placement="left" animation="duration-400">
+                                                <Dropdown.Item onClick={() => alert('Self Vouch')}>
+                                                    System QA
+                                                </Dropdown.Item>
+                                            </Tooltip>
+
+                                            <Dropdown.Divider />
+
+                                            <Tooltip content="Shows who are not vouched by others" style="light" placement="left" animation="duration-400">
+                                                <Dropdown.Item onClick={() => alert('Self Vouch')}>
+                                                    Not Vouched
+                                                </Dropdown.Item>
+                                            </Tooltip>
+                                        </Dropdown>
                                     </div>
-
-                                    <div className="col-span-2 flex items-center justify-evenly">
-                                        <div>
-                                            <Dropdown outline label="Sort by" >
-
-                                                <Dropdown.Header>
-                                                    Self Vouch Roles
-                                                </Dropdown.Header>
-
-                                                <Tooltip content="Show System Developers only" style="light" placement="left" animation="duration-400">
-                                                    <Dropdown.Item onClick={() => alert('Self Vouch')}>
-                                                        System Developer
-                                                    </Dropdown.Item>
-                                                </Tooltip>
-
-                                                <Tooltip content="Show Project Managers only" style="light" placement="left" animation="duration-400">
-                                                    <Dropdown.Item onClick={() => alert('Self Vouch')}>
-                                                        Projet Manager
-                                                    </Dropdown.Item>
-                                                </Tooltip>
-
-                                                <Tooltip content="Show UI/UX Designers only" style="light" placement="left" animation="duration-400">
-                                                    <Dropdown.Item onClick={() => alert('Self Vouch')}>
-                                                        UI/UX Designer
-                                                    </Dropdown.Item>
-                                                </Tooltip>
-
-                                                <Tooltip content="Show System QAs only" style="light" placement="left" animation="duration-400">
-                                                    <Dropdown.Item onClick={() => alert('Self Vouch')}>
-                                                        System QA
-                                                    </Dropdown.Item>
-                                                </Tooltip>
-
-                                                <Dropdown.Divider />
-
-                                                <Tooltip content="Shows who are not vouched by others" style="light" placement="left" animation="duration-400">
-                                                    <Dropdown.Item onClick={() => alert('Self Vouch')}>
-                                                        Not Vouched
-                                                    </Dropdown.Item>
-                                                </Tooltip>
-                                            </Dropdown>
+                                    <Link to="/">
+                                        <div className="flex items-center justify-center gap-2 hover:bg-gray-100 transition duration-300 ease-in-out cursor-pointer rounded-sm">
+                                            <Label htmlFor="input-gray" color="gray" value="Exit Room" />
+                                            <Tooltip content="Exit the room" style="light" placement="bottom" animation="duration-400">
+                                                <LogIn className="cursor-pointer" />
+                                            </Tooltip>
                                         </div>
-                                        <Link to="/">
-                                            <div className="flex items-center justify-center gap-2 hover:bg-gray-100 transition duration-300 ease-in-out cursor-pointer rounded-sm">
-                                                <Label htmlFor="input-gray" color="gray" value="Exit Room" />
-                                                <Tooltip content="Exit the room" style="light" placement="bottom" animation="duration-400">
-                                                    <LogIn className="cursor-pointer" />
-                                                </Tooltip>
-                                            </div>
-                                        </Link>
-
-                                    </div>
-
+                                    </Link>
                                 </div>
-
                             </div>
 
                             <div className="ml-[7px] row-span-5 col-span-1">
@@ -117,7 +98,7 @@ export default function Room() {
                                 <div className="flex flex-col justify-evenly items-start w-full h-full">
                                     <div className="flex flex-col items-start justify-center">
                                         <h2 className="font-bold text-left text-m">Room code: </h2>
-                                        <span className="text-xs">&nbsp; 123456</span>
+                                        <span className="text-xs">&nbsp; {roomCode}</span>
                                     </div>
 
                                     <div className="flex flex-col items-start justify-center">
@@ -127,7 +108,7 @@ export default function Room() {
 
                                     <div className="flex flex-col items-start justify-center">
                                         <h2 className="font-bold text-left text-m">Total items</h2>
-                                        <span className="text-xs">&nbsp; 27 </span>
+                                        <span className="text-xs">&nbsp; {docCount} </span>
                                     </div>
 
                                     <div className="flex flex-col items-start justify-center">
@@ -165,7 +146,7 @@ export default function Room() {
                                                         </div>
                                                     </Table.Cell>
                                                 </Table.Row>
-                                              
+
                                             </Table.Body>
                                         </Table>
                                     </div>

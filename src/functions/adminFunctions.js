@@ -19,7 +19,7 @@ const handleAdminCodeValidation = (adminCode) => {
 const fetchRoomList = async () => {
   const roomList = [];
   const querySnapshot = await getDocs(collection(db, "roomList"));
-  
+
   querySnapshot.forEach((doc) => {
     const timestamp = doc.data().timestamp; // Fetch the timestamp from Firestore
     const date = timestamp.toDate(); // Convert Firestore timestamp to JavaScript Date
@@ -82,22 +82,22 @@ const displayVouchForRoles = async (roomCode) => {
 
     const convertToUserCode = async (array) => {
       try {
-          const userCodes = await fetchUserCodes();
-          const convertedArray = array.map((studentCode) => {
-              const match = userCodes.find((item) => item.studentCode === studentCode)
-              if (match && match.userCode) { 
-                  return match.userCode;
-              } else {
-                  return null; 
-              }
-          }).filter(code => code !== null); 
-  
-          return convertedArray;
+        const userCodes = await fetchUserCodes();
+        const convertedArray = array.map((studentCode) => {
+          const match = userCodes.find((item) => item.studentCode === studentCode)
+          if (match && match.userCode) {
+            return match.userCode;
+          } else {
+            return null;
+          }
+        }).filter(code => code !== null);
+
+        return convertedArray;
       } catch (err) {
-          console.error(err);
-          return []; 
+        console.error(err);
+        return [];
       }
-  };
+    };
 
 
     const sortStudentsByVouched = async () => {
@@ -148,9 +148,19 @@ const displayVouchForRoles = async (roomCode) => {
   }
 };
 
+
+  const countAllDocs = async (roomCode) => {
+    const collectionRef = collection(db, roomCode);
+    const querySnapshot = await getDocs(collectionRef);
+    return querySnapshot.size;
+  }
+
+
+
 export {
   handleAdminCodeValidation,
   fetchRoomList,
   deleteRoom,
-  displayVouchForRoles
+  displayVouchForRoles,
+  countAllDocs
 }
