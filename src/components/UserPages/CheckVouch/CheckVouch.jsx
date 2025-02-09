@@ -2,7 +2,7 @@ import { TextInput, Button, Label } from "flowbite-react"
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import Loading from "../../ReusableComponents/Loading.jsx"
-import { handleCheckVouchRoom } from "../../../functions/checkProcess"
+import { handleCheckVouchRoom, handleCheckMutal } from "../../../functions/checkProcess"
 
 export default function CheckVouch() {
     const [roomCode, setRoomCode] = useState('')
@@ -32,11 +32,14 @@ export default function CheckVouch() {
             if (check) {
                 setInputResponseRoom(1)
                 setInputResponseUser(1)
-                setLoadingPath(`vouchresults/${roomCode}/${userCode}`)
-                setTimeout(() => {
-                    setIsLoading(true)
-                }, 500)
-                // navigate(`/mutualMember/${roomCode}/${check}`);
+                //translating userCode into btoa()
+                const translatedUserCode = await handleCheckMutal(roomCode, userCode)
+                if (translatedUserCode) {
+                    setLoadingPath(`vouchresults/${roomCode}/${translatedUserCode}`)
+                    setTimeout(() => {
+                        setIsLoading(true)
+                    }, 500)
+                }
             } else {
                 setInputResponseRoom(2)
                 setInvalidReasonRoom(0)

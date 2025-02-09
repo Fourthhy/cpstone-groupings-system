@@ -1,10 +1,27 @@
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { Button } from "flowbite-react";
 import { Check, Cross } from "lucide-react";
 import AnimatedContent from "../../ComponentAnimations/AnimatedContent";
+import { handleMutualMember } from "../../../functions/checkProcess"
+import { useState, useEffect } from "react"
 
 
 export default function VouchResults() {
+    const [members, setMembers] = useState([])
+    const { roomCode, userCode } = useParams()
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // const matter = await handleMutualMember(roomCode, userCode); 
+                const memberList = await handleMutualMember(roomCode, userCode); 
+            } catch (error) {
+
+            }
+        }
+    }, [])
+
+
     const selectedMembers = [
         { studentName: "Pagarigan, Shaina Karillyn", roleName: "project manager", profile: "project_manager.png", status: "mutual" },
         { studentName: "Isip, Christian Eliseo", roleName: "System Developer", profile: "system_developer.png", status: "mutual" },
