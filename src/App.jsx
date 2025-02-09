@@ -14,6 +14,7 @@ import LandingPage from "./components/user/LandingPage"
 
 //Login Page
 import UserLogin from "./components/user/UserLogin"
+import SelfVouch from "./components/UserPages/VouchProcess/SelfVouch"
 
 export default function App() {
   return (
@@ -24,7 +25,9 @@ export default function App() {
 
           <Route path="/userLogin" element={<UserLogin />} />
 
-          <Route path="/memberSelect/:roomCode/:userCode" element={<MemberSelect />} />
+          <Route path="/memberSelect/:roomCode" element={<MemberSelect />} />
+
+          <Route path="/selfvouch/:roomCode" element={<SelfVouch /> } />
 
           <Route path="/selectResponse/:roomCode/:userCode" element={<Response />} />
           <Route path="/mutualCheck" element={<MutualCheck />} />

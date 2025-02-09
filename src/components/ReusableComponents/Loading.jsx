@@ -45,9 +45,7 @@ export default function Loading({origin, path, purpose}) {
             case 'joinroom':
                 navigate(`/${path}`)
             break;
-            case 'selfvouch':
-                navigate(`/${path}`)
-            break;
+
             case 'membervouch':
                 navigate(`/${path}`)
             break;
@@ -68,6 +66,9 @@ export default function Loading({origin, path, purpose}) {
                 navigate(`/${path}`)
             break;
 
+            case 'selfvouch':
+                navigate(`/${path}`)
+            break;
 
         }
     }
