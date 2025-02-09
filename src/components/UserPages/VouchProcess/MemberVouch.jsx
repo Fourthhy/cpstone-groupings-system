@@ -2,6 +2,7 @@ import { Button, Select } from "flowbite-react";
 import { Pencil, Save, Check, X } from "lucide-react";
 import { useState } from "react";
 import Loading from "../../ReusableComponents/Loading";
+import studentList from "../../../json/studentList.json"
 
 export default function MemberVouch() {
     const [selectedIndex, setSelectedIndex] = useState(null);
@@ -11,10 +12,10 @@ export default function MemberVouch() {
     const [isLoading, setIsLoading] = useState(false)
 
     const [selectedMembers, setSelectedMembers] = useState([
-        { studentName: "No name 1", roleName: "N/A", profile: "undefined.png", previewProfile: "undefined.png", filled: false },
-        { studentName: "No name 2", roleName: "N/A", profile: "undefined.png", previewProfile: "undefined.png", filled: false },
-        { studentName: "No name 3", roleName: "N/A", profile: "undefined.png", previewProfile: "undefined.png", filled: false },
-        { studentName: "No name 4", roleName: "N/A", profile: "undefined.png", previewProfile: "undefined.png", filled: false },
+        { studentName: "bm9uZQ==", roleName: "N/A", profile: "undefined.png", previewProfile: "/undefined.png", filled: false, roleIndex: 0 },
+        { studentName: "bm9uZQ==", roleName: "N/A", profile: "undefined.png", previewProfile: "/undefined.png", filled: false, roleIndex: 0 },
+        { studentName: "bm9uZQ==", roleName: "N/A", profile: "undefined.png", previewProfile: "/undefined.png", filled: false, roleIndex: 0 },
+        { studentName: "bm9uZQ==", roleName: "N/A", profile: "undefined.png", previewProfile: "/undefined.png", filled: false, roleIndex: 0 },
     ]);
 
     const countTrueFilled = () => {
@@ -24,44 +25,13 @@ export default function MemberVouch() {
     const [selectedOption, setSelectedOption] = useState(null);
     const [selectedMember, setSelectedMember] = useState('')
     const [selectedProfile, setSelectedProfile] = useState('')
-
-    const listofnames = [
-        "Asaldo, Rizalyne",
-        "Bactol, Allen",
-        "Bagaporo, Lianor",
-        "Borja, Astrid",
-        "Catibog, Trisha Mae",
-        "Cuanan, Sherelyn",
-        "Degula, Elloisa",
-        "Dicdican, Roylyn Joy",
-        "Ebajan, Rodolfo",
-        "Imperial, Jerome",
-        "Isip, Christian Eliseo",
-        "Latina, Daniel",
-        "Luzon, Kylie",
-        "Magpayo, Kristel",
-        "Malapit, Ma. Hermosa",
-        "Mañabo, John Miguel",
-        "Manansala, Jasmine",
-        "Marco, Justine Jynne Patrice",
-        "Medina, Alicia Jane",
-        "Miclat, Shiela Mae",
-        "Olingay, Princess",
-        "Olorvida, Trisha May",
-        "Pagarigan, Shaina Karillyn",
-        "Pregunta, Ma. Ellaine",
-        "Ramos, Rafael",
-        "Reyez, Lorenz Genesis",
-        "Santos, Aerrol Kyle",
-        "Santos, Mark Joseph",
-        "Sarcia, Sidney John",
-        "Talen, Jean Rose",
-        "Tinagsa, Lenie Jane"
-    ];
+    const [roleIndex, setRoleIndex] = useState(0)
 
     const handleSubmitMember = (index) => {
+        
         // 1. Create a *single* copy of the selectedMembers array:
         const updatedMembers = [...selectedMembers];
+        alert(roleIndex)
 
         // 2. Input validation:
         if (Array.isArray(selectedMember) || selectedOption === '' || selectedMember === '') {
@@ -76,6 +46,7 @@ export default function MemberVouch() {
             roleName: selectedOption,
             previewProfile: selectedProfile, // Make sure selectedProfile is defined
             filled: true, // Set filled to true
+            roleIndx: roleIndex
         };
 
         // 4. Update the state *once* with the updated array:
@@ -85,7 +56,6 @@ export default function MemberVouch() {
         setSelectedMember('');
         setSelectedOption('');
         setSelectedProfile(''); // Make sure setSelectedProfile exists and is used correctly
-
     };
 
     const SelectName = ({ index }) => {
@@ -100,8 +70,8 @@ export default function MemberVouch() {
                     onChange={(item) => { setSelectedMember(item.target.value) }}
                 >
                     <option>...</option>
-                    {listofnames.map((name, index) => (
-                        <option key={index} value={name} className="text-xs ">{name}</option>
+                    {studentList.map((name, index) => (
+                        <option key={index} value={name.studentName} className="text-xs ">{atob(name.studentName)}</option>
                     ))}
                 </Select>
             </div>
@@ -111,10 +81,10 @@ export default function MemberVouch() {
     const SelectRole = ({ index }) => {
 
         const roles = [
-            { id: 1, title: "System Developer", description: "Description for option 1.", logo: "system_developer.png" },
-            { id: 2, title: "Project Manager", description: "Description for option 2.", logo: "project_manager.png" },
-            { id: 3, title: "System QA", description: "Description for option 3.", logo: "system_quality.png" },
-            { id: 4, title: "UI/UX Designer", description: "Description for option 4.", logo: "uiux_designer.png" },
+            { id: 1, title: "System Developer", description: "Description for option 1.", logo: "/system_developer.png" },
+            { id: 2, title: "Project Manager", description: "Description for option 2.", logo: "/project_manager.png" },
+            { id: 3, title: "System QA", description: "Description for option 3.", logo: "/system_quality.png" },
+            { id: 4, title: "UI/UX Designer", description: "Description for option 4.", logo: "/uiux_designer.png" },
         ];
 
         return (
@@ -133,6 +103,7 @@ export default function MemberVouch() {
                                 onChange={() => {
                                     setSelectedOption(role.title)
                                     setSelectedProfile(roles[role.id - 1].logo)
+                                    setRoleIndex(role.id)
                                 }} // Update with role.id
                                 className="hidden"
                             />
@@ -178,8 +149,8 @@ export default function MemberVouch() {
                             </div>
                         ) : ( //VIEW THE VOUCH MEMBER
                             <>
-                                <img src={`/${selectedMembers[index - 1].previewProfile}`} className="z-0 w-[50px] h-[50px] ml-[5px] mb-[10px]" alt="" />
-                                <p className="text-xl text-gray-500">{selectedMembers[index - 1].studentName}</p>
+                                <img src={`${selectedMembers[index - 1].previewProfile}`} className="z-0 w-[50px] h-[50px] ml-[5px] mb-[10px]" alt="" />
+                                <p className="text-xl text-gray-500">{atob(selectedMembers[index - 1].studentName)}</p>
                                 <hr className="w-[40%]" />
                                 <p className="text-s text-gray-500">{selectedMembers[index - 1].roleName}</p>
                                 <div className="absolute z-2 bottom-[25%]" onClick={() => { setIsEdit(true) }}>
@@ -190,7 +161,7 @@ export default function MemberVouch() {
                     </>
                 ) : ( // BASUC GRID PREVIEW
                     <div className="flex flex-col items-center">
-                        <img src={`/${selectedMembers[index - 1].previewProfile}`} className="z-0 w-[50px] h-[50px] ml-[5px] mb-[10px]" alt="" />
+                        <img src={`${selectedMembers[index - 1].previewProfile}`} className="z-0 w-[50px] h-[50px] ml-[5px] mb-[10px]" alt="" />
                         <p className="text-xs text-gray-500">{selectedMembers[index - 1].roleName}</p>
                     </div>
                 )}
