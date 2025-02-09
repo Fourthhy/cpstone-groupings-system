@@ -14,6 +14,14 @@ const selfVouchentry = async (roomCode, userCode, roleIndex) => {
     }
 }
 
+const memberVouchEntry = async (memberVouch) => {
+    alert(memberVouch[0].studentName)
+    alert('passed')
+}
+
+
+
 export {
-    selfVouchentry
+    selfVouchentry,
+    memberVouchEntry
 }

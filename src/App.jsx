@@ -34,7 +34,7 @@ export default function App() {
 
           <Route path="/selfvouch/:roomCode" element={<SelfVouch /> } />
 
-          <Route path="/membervouch/:roomCode" element={<MemberVouch />} />
+          <Route path="/membervouch/:roomCode/:userCode" element={<MemberVouch />} />
 
           <Route path="/selectResponse/:roomCode/:userCode" element={<Response />} />
           <Route path="/mutualCheck" element={<MutualCheck />} />

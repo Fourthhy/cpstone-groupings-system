@@ -26,7 +26,7 @@ export default function SelfVouch() {
     const handleSubmitSelfVouch = () => {
         selfVouchentry(roomCode, selectedName, selectedOption);
         setTimeout(() => {
-            setLoadingPath(`membervouch/${roomCode}`);
+            setLoadingPath(`membervouch/${roomCode}/${selectedName}`);
             setIsLoading(true);
         }, 1000);
     };

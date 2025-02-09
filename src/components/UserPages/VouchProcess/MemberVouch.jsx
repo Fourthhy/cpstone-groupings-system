@@ -1,8 +1,10 @@
 import { Button, Select } from "flowbite-react";
 import { Pencil, Save, Check, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom"
 import Loading from "../../ReusableComponents/Loading";
 import studentList from "../../../json/studentList.json"
+import { memberVouchEntry } from "../../../functions/vouchProcess"
 
 export default function MemberVouch() {
     const [selectedIndex, setSelectedIndex] = useState(null);
@@ -11,12 +13,20 @@ export default function MemberVouch() {
     const [isEdit, setIsEdit] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
+    const { roomCode, userCode } = useParams()
+
     const [selectedMembers, setSelectedMembers] = useState([
         { studentName: "bm9uZQ==", roleName: "N/A", profile: "undefined.png", previewProfile: "/undefined.png", filled: false, roleIndex: 0 },
         { studentName: "bm9uZQ==", roleName: "N/A", profile: "undefined.png", previewProfile: "/undefined.png", filled: false, roleIndex: 0 },
         { studentName: "bm9uZQ==", roleName: "N/A", profile: "undefined.png", previewProfile: "/undefined.png", filled: false, roleIndex: 0 },
         { studentName: "bm9uZQ==", roleName: "N/A", profile: "undefined.png", previewProfile: "/undefined.png", filled: false, roleIndex: 0 },
     ]);
+
+    const [studentCodeList, setStudentCodeList] = useState([])
+    useEffect(() => {
+        const codes = studentList.map((item) => item.studentName);
+        setStudentCodeList(codes)
+    }, [])
 
     const countTrueFilled = () => {
         return selectedMembers.filter(member => member.filled === true).length;
@@ -31,7 +41,9 @@ export default function MemberVouch() {
         
         // 1. Create a *single* copy of the selectedMembers array:
         const updatedMembers = [...selectedMembers];
-        alert(roleIndex)
+
+        const updatedList = studentCodeList.filter(student => student !== selectedMember)
+        setStudentCodeList(updatedList)
 
         // 2. Input validation:
         if (Array.isArray(selectedMember) || selectedOption === '' || selectedMember === '') {
@@ -58,6 +70,11 @@ export default function MemberVouch() {
         setSelectedProfile(''); // Make sure setSelectedProfile exists and is used correctly
     };
 
+    const handleSubmitMemberVouch = () => {
+        setIsLoading(true)
+        memberVouchEntry(selectedMembers)
+    }
+
     const SelectName = ({ index }) => {
 
         return (
@@ -70,8 +87,8 @@ export default function MemberVouch() {
                     onChange={(item) => { setSelectedMember(item.target.value) }}
                 >
                     <option>...</option>
-                    {studentList.map((name, index) => (
-                        <option key={index} value={name.studentName} className="text-xs ">{atob(name.studentName)}</option>
+                    {studentCodeList.map((name, index) => (
+                        <option key={index} value={name} className="text-xs ">{atob(name)}</option>
                     ))}
                 </Select>
             </div>
@@ -216,7 +233,7 @@ export default function MemberVouch() {
                             {
                                isView ? '' :
                                countTrueFilled() >= 3 ? (<Button
-                                onClick={() => { setIsLoading(true) }}
+                                onClick={() => { handleSubmitMemberVouch() }}
                                 outline
                                 gradientDuoTone="purpleToBlue"
                                 className="bg-gradient-to-br from-purple-200 to-cyan-200 text-white focus:ring-2 focus:ring-cyan-100 enabled:hover:bg-gradient-to-bl dark:focus:ring-cyan-800 w-full mt-4">
