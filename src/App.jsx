@@ -31,6 +31,9 @@ import AdminLogin from "./components/AdminPages/AdminLogin"
 //Logged in the RoomList 
 import RoomList from "./components/AdminPages/RoomList"
 
+//The room itself
+import Room from "./components/AdminPages/Room"
+
 export default function App() {
   return (
     <>
@@ -55,9 +58,12 @@ export default function App() {
           <Route path="/adminLogin" element={<AdminLogin /> } />
 
           <Route path="/roomList" element={<RoomList />} />
-          
+
+          <Route path="/room/:roomCode" element={<Room /> } />
+
           <Route path="/adminDashboard/:roomCode" element={<AdminDashboard />} />
           <Route path="/voteBacklog" element={<VoteBacklog />} />
+
         </Routes>
       </Router>
     </>

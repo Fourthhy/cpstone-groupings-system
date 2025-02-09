@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react"
 import { LogIn, X, EyeOff, Eye } from "lucide-react"
 import { Button, TextInput, Label, Textarea } from "flowbite-react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import AnimatedContent from "../ComponentAnimations/AnimatedContent"
 import Loading from "../ReusableComponents/Loading"
 
 import { fetchRoomList } from "../../functions/adminFunctions"
 
 export default function RoomList() {
+    const navigate = useNavigate()
     const [isEnterPassword, setIsEnterPassowrd] = useState(false);
     const [isNewRoom, setIsNewRoom] = useState(true) //temporary
     const [isLoading, setIsLoading] = useState(false)
@@ -147,7 +148,7 @@ export default function RoomList() {
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-span-1 flex items-center justify-center mr-[5px]">
-                                                                    <LogIn color="#0e2a26" className="cursor-pointer" onClick={() => { setIsEnterPassowrd(!isEnterPassword) }} />
+                                                                    <LogIn color="#0e2a26" className="cursor-pointer" onClick={() => { navigate(`/room/${room.roomCode}`) }} />
                                                                 </div>
                                                             </div>
                                                         ))}
