@@ -1,10 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 import MemberSelect from "./components/user/MemberSelect"
-// import AdminLogin from "./components/admin/AdminLogin"
 import AdminDashboard from "./components/admin/AdminDashboard"
 import VoteBacklog from "./components/admin/VoteBacklog"
-import RoomList from "./components/admin/RoomList"
 
 //Landing Page 
 import LandingPage from "./components/user/LandingPage"
@@ -30,6 +28,9 @@ import VouchResults from "./components/UserPages/CheckVouch/VouchResults"
 //Login as Admin
 import AdminLogin from "./components/AdminPages/AdminLogin"
 
+//Logged in the RoomList 
+import RoomList from "./components/AdminPages/RoomList"
+
 export default function App() {
   return (
     <>
@@ -53,8 +54,8 @@ export default function App() {
 
           <Route path="/adminLogin" element={<AdminLogin /> } />
 
-          {/* <Route path="/adminLogin" element={<AdminLogin />} /> */}
           <Route path="/roomList" element={<RoomList />} />
+          
           <Route path="/adminDashboard/:roomCode" element={<AdminDashboard />} />
           <Route path="/voteBacklog" element={<VoteBacklog />} />
         </Routes>

@@ -19,10 +19,16 @@ const handleAdminCodeValidation = (adminCode) => {
 const fetchRoomList = async () => {
   const roomList = [];
   const querySnapshot = await getDocs(collection(db, "roomList"));
+  
   querySnapshot.forEach((doc) => {
-    roomList.push({ roomCode: doc.id, timestamp: doc.data().timestamp })
+    const timestamp = doc.data().timestamp; // Fetch the timestamp from Firestore
+    const date = timestamp.toDate(); // Convert Firestore timestamp to JavaScript Date
+    const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`; // Format the date
+
+    roomList.push({ roomCode: doc.id, date: formattedDate }); // Store the room code and formatted date
   });
-  return roomList
+
+  return roomList; // Return the list of rooms with formatted dates
 }
 
 const deleteRoom = async (code) => {

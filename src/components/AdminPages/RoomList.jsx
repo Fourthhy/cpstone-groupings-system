@@ -5,28 +5,29 @@ import { Link } from "react-router-dom"
 import AnimatedContent from "../ComponentAnimations/AnimatedContent"
 import Loading from "../ReusableComponents/Loading"
 
-
+import { fetchRoomList } from "../../functions/adminFunctions"
 
 export default function RoomList() {
     const [isEnterPassword, setIsEnterPassowrd] = useState(false);
     const [isNewRoom, setIsNewRoom] = useState(true) //temporary
-    const [showPassword, setShowPassword] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
     const [roomCode, setRoomCode] = useState(0)
-    const [roomPasscode, setRoomPasscode] = useState(0)
 
     const [names, setNames] = useState('')
     const [nameCount, setNameCount] = useState(0)
+
+    const [roomList, setRoomList] = useState([])
+
     useEffect(() => {
         setRoomCode(Math.floor(Math.random() * 900000) + 100000)
-        setRoomPasscode(Math.floor(Math.random() * 900000) + 100000)
+        const fetchData = async () => {
+            const rooms = await fetchRoomList();
+            setRoomList(rooms);
+        };
+        fetchData();
     }, [])
 
-
-    const handleShowPasword = () => {
-        setShowPassword(!showPassword)
-    }
 
     const handleItemCounting = (event) => {
         setNames(event.target.value);
@@ -46,7 +47,7 @@ export default function RoomList() {
                     scale={1}
                     threshold={0.2}
                 >
-                    <div className="h-[500px] w-[400px] font-raleway flex justify-start items-center flex-col border-[1px] rounded-[5px] bg-white">
+                    <div className="h-[500px] w-[400px] font-raleway flex justify-center items-center flex-col border-[1px] rounded-[5px] bg-white">
                         {isLoading ? (<Loading origin={'roomlist'} path={'room'} purpose={'going to the room'} />) : (
                             <>
                                 {isNewRoom ? (
@@ -69,35 +70,12 @@ export default function RoomList() {
                                             </div>
 
                                             <div>
-                                                <Label htmlFor="input-gray" color="gray" value="Room Password" />
-                                                <div className="flex gap-5">
-                                                    {showPassword ? (
-                                                        <>
-                                                            <span className="font-bold">{roomPasscode}</span>
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            -------
-                                                        </>
-                                                    )}
-
-                                                    <div className="flex items-center justify-center">
-                                                        {showPassword ? (
-                                                            <Eye onClick={() => { handleShowPasword() }} className="cursor-pointer" />
-                                                        ) : (
-                                                            <EyeOff onClick={() => { handleShowPasword() }} className="cursor-pointer" />
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div>
                                                 <Label htmlFor="comment" value="Enter Names" />
                                                 <Textarea
                                                     value={names}
                                                     onChange={handleItemCounting}
                                                     id="comment"
-                                                    placeholder="Paste Names Here and press enter"
+                                                    placeholder="List down the names here..."
                                                     rows={4} />
                                                 <Label htmlFor="comment" value={`Total names: ${nameCount}`} />
                                             </div>
@@ -107,7 +85,6 @@ export default function RoomList() {
                                                     onClick={() => {
                                                         console.log(names)
                                                         console.log(roomCode)
-                                                        console.log(roomPasscode)
                                                         // setIsLoading(true) 
                                                     }}
                                                     outline
@@ -156,55 +133,24 @@ export default function RoomList() {
                                                     </div>
 
                                                     <div className="flex flex-col items-center gap-2 mt-[8px] row-span-9">
+                                                        {roomList.map((room) => (
+                                                            <div className="border rounded-[7px] w-[95%] grid grid-cols-9 gap-1">
+                                                                <div className="col-span-8 flex justify-evenly">
+                                                                    <div className="flex flex-col items-start justify-center my-[5px]">
+                                                                        <span className="text-sm font-bold w-full">Code</span>
+                                                                        <span className="text-sm w-full">{room.roomCode}</span>
+                                                                    </div>
 
-                                                        <div className="border rounded-[7px] w-[95%] grid grid-cols-9 gap-1">
-                                                            <div className="col-span-8 flex justify-evenly">
-                                                                <div className="flex flex-col items-start justify-center my-[5px]">
-                                                                    <span className="text-sm font-bold w-full">Code</span>
-                                                                    <span className="text-sm w-full">123---</span>
+                                                                    <div className="flex flex-col items-start justify-center my-[5px]">
+                                                                        <span className="text-sm font-bold w-full">Date Created</span>
+                                                                        <span className="text-sm w-full">{room.date}</span>
+                                                                    </div>
                                                                 </div>
-                                                                <div className="flex flex-col items-start justify-center my-[5px]">
-                                                                    <span className="text-sm font-bold w-full">Names</span>
-                                                                    <span className="text-sm w-full">27</span>
-                                                                </div>
-                                                                <div className="flex flex-col items-start justify-center my-[5px]">
-                                                                    <span className="text-sm font-bold w-full">Vouching</span>
-                                                                    <span className="text-sm w-full text-green-500">enabled</span>
-                                                                </div>
-                                                                <div className="flex flex-col items-start justify-center my-[5px]">
-                                                                    <span className="text-sm font-bold w-full">Date Created</span>
-                                                                    <span className="text-sm w-full">01-01-2025</span>
+                                                                <div className="col-span-1 flex items-center justify-center mr-[5px]">
+                                                                    <LogIn color="#0e2a26" className="cursor-pointer" onClick={() => { setIsEnterPassowrd(!isEnterPassword) }} />
                                                                 </div>
                                                             </div>
-                                                            <div className="col-span-1 flex items-center justify-center mr-[5px]">
-                                                                <LogIn color="#0e2a26" className="cursor-pointer" onClick={() => { setIsEnterPassowrd(!isEnterPassword) }} />
-                                                            </div>
-                                                        </div>
-
-                                                        <div className="border rounded-[7px] w-[95%] grid grid-cols-9 gap-1">
-                                                            <div className="col-span-8 flex justify-evenly">
-                                                                <div className="flex flex-col items-start justify-center my-[5px]">
-                                                                    <span className="text-sm font-bold w-full">Code</span>
-                                                                    <span className="text-sm w-full">123---</span>
-                                                                </div>
-                                                                <div className="flex flex-col items-start justify-center my-[5px]">
-                                                                    <span className="text-sm font-bold w-full">Names</span>
-                                                                    <span className="text-sm w-full">27</span>
-                                                                </div>
-                                                                <div className="flex flex-col items-start justify-center my-[5px]">
-                                                                    <span className="text-sm font-bold w-full">Vouching</span>
-                                                                    <span className="text-sm w-full text-red-500">disabled</span>
-                                                                </div>
-                                                                <div className="flex flex-col items-start justify-center my-[5px]">
-                                                                    <span className="text-sm font-bold w-full">Date Created</span>
-                                                                    <span className="text-sm w-full">01-01-2025</span>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-span-1 flex items-center justify-center mr-[5px]">
-                                                                <LogIn color="#0e2a26" className="cursor-pointer" onClick={() => { setIsEnterPassowrd(!isEnterPassword) }} />
-                                                            </div>
-                                                        </div>
-
+                                                        ))}
                                                     </div>
                                                 </div>
                                             </>
