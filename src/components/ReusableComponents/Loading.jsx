@@ -73,6 +73,9 @@ export default function Loading({ origin, path, purpose }) {
                 navigate(`/${path}`)
                 break;
 
+            case 'room':
+                navigate(`/${path}`)
+                break;
         }
     }
 
