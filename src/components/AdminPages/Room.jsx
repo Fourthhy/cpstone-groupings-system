@@ -11,6 +11,8 @@ export default function Room() {
     const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage] = useState(5) // number of items per page
 
+    const [display, setDisplay] = useState(null)
+
     const [docCount, setDocCount] = useState(0)
     const [roomDate, setRoomDate] = useState('')
     const { roomCode } = useParams()
@@ -18,6 +20,7 @@ export default function Room() {
     const [allDocs, setAllDocs] = useState([])
 
     useEffect(() => {
+
         const fetchCount = async () => {
             const itemsCount = await countAllDocs(roomCode)
             setDocCount(itemsCount)
@@ -35,15 +38,63 @@ export default function Room() {
         const fetchDocs = async () => {
             const documents = await fetchRoomDocs(roomCode)
             setAllDocs(documents)
+            console.log(documents)
+            const removeLastElement = () => {
+                const newArray = documents.slice(0, -1)
+                setAllDocs(newArray)
+            }
+
+            removeLastElement()
+
+            //the rest of the code
         }
 
-        fetchDocs()
+        fetchDocs()    
+
+        const displaySet = () => {
+            const array = []
+
+            const decodeID = (id) => {
+                return atob(id)
+            }
+
+            allDocs.map((item) => {
+                array.push({
+                    id: decodeID(item.id),
+                    isVouched: item.isVouched,
+                    role: item.role
+                })
+            })
+
+            console.log(array)
+
+            const sortedArray = 
+                array.sort((a, b) => {
+                    if (a.id < b.id) {
+                        return -1;
+                    }
+                    if (a.id > b.id) {
+                        return 0;
+                    }
+                    return 0;
+                })
+            
+
+            console.log(sortedArray)
+            console.log(allDocs)
+
+            setDisplay(sortedArray)
+            console.log(display)
+        }
+ 
+        displaySet()
+
     }, [roomCode])
 
     // Pagination logic
     const totalPages = Math.ceil(docCount / itemsPerPage)
 
-    const currentDocs = allDocs.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+    const currentDocs = display.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
     const transformIndex = (index) => {
         switch (index) {
@@ -157,15 +208,12 @@ export default function Room() {
                                             <Table.Body className="divide-y">
                                                 {currentDocs.map((doc, index) => (
                                                     <Table.Row key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                                        <Table.Cell>{atob(doc.id)}</Table.Cell>
+                                                        <Table.Cell>{doc.id}</Table.Cell>
                                                         <Table.Cell>{transformIndex(doc.role)}</Table.Cell>
                                                         <Table.Cell>
-                                                            <div className="flex items-center justify-start gap-3 w-full">
-                                                                <div>
+                                                            <div className="flex items-center justify-start w-full">
+                                                                <div className="ml-[25px]">
                                                                     {doc.isVouched ? <Check color="#2ab265" /> : <X color="#c82828" />}
-                                                                </div>
-                                                                <div>
-                                                                    <Info className="cursor-pointer" />
                                                                 </div>
                                                             </div>
                                                         </Table.Cell>
