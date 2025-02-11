@@ -45,6 +45,21 @@ export default function Room() {
 
     const currentDocs = allDocs.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
+    const transformIndex = (index) => {
+        switch (index) {
+            case 1:
+                return "System Developer"
+            case 2:
+                return "Project Manager"
+            case 3:
+                return "System QA"
+            case 4:
+                return "UI/UX Developer"
+            default:
+                return "No role"
+        }
+    }
+
     return (
         <>
             <div className="h-screen w-screen flex items-center justify-center bg-gray-100 text-gray-700">
@@ -123,10 +138,10 @@ export default function Room() {
                                         <span className="text-xs">&nbsp; {docCount - 1} </span>
                                     </div>
 
-                                    <div className="flex flex-col items-start justify-center">
+                                    {/* <div className="flex flex-col items-start justify-center">
                                         <h2 className="font-bold text-left text-m">Total vouched</h2>
                                         <span className="text-xs">&nbsp; 15 / 27 </span>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
 
@@ -143,7 +158,7 @@ export default function Room() {
                                                 {currentDocs.map((doc, index) => (
                                                     <Table.Row key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                                         <Table.Cell>{atob(doc.id)}</Table.Cell>
-                                                        <Table.Cell>{doc.role === "" ? "no role" : doc.role}</Table.Cell>
+                                                        <Table.Cell>{transformIndex(doc.role)}</Table.Cell>
                                                         <Table.Cell>
                                                             <div className="flex items-center justify-start gap-3 w-full">
                                                                 <div>
