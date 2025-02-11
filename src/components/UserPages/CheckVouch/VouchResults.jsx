@@ -79,10 +79,10 @@ export default function VouchResults() {
                                 {members.map((item, index) => (
                                     <div className="border rounded-[5px] px-[10px] py-[5px] grid grid-cols-10 grid-rows-1">
                                         <div className="flex col-span-9">
-                                            <img src={`/${handleRoleProfileIndexTranslate(index + 1)}`} alt="" className="w-[50px] h-[50px] mx-[10px]" />
+                                            <img src={`/${handleRoleProfileIndexTranslate(members[index].roleIndex)}`} alt="" className="w-[50px] h-[50px] mx-[10px]" />
                                             <div className="flex flex-col justify-center">
                                                 <p className="text-sm text-gray-500">{atob(members[index].userCode)}</p>
-                                                <p className="text-xs text-gray-500">{handleRoleNameIndexTranslate(index)}</p>
+                                                <p className="text-xs text-gray-500">{handleRoleNameIndexTranslate(members[index].roleIndex)}</p>
                                             </div>
                                         </div>
                                         <div className="flex items-center ml-[5px]">
