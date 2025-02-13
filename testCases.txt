@@ -1,0 +1,86 @@
+room code
+875473
+
+Test Case
+ - submitted vote
+ - unique userCode ID
+ - Reflect on checkVouch
+ - Reflect on room
+
+//UPON ANOTHER ONE VOTED
+ - submitted vote
+ - unique userCode ID
+ - Reflect on checkVouch - with one match and so on
+ - Reflect on room
+
+first test group
+Manansala - Dev
+ - Submitted vote		| passed
+ - UserCode		| User-4367 / passed
+ - Reflect on Check Vouch	| 0 mutuals required / passed
+ - Reflect on room		| passed
+
+Asaldo
+ - Submitted vote		| passed
+ - UserCode		| User-6144 / passed
+ - Reflect on Check Vouch	| 1 mutuals required / passed
+ - Reflect on room		| passed
+
+
+Borja
+ - Submitted vote		| passed
+ - UserCode		| User-2570 / passed
+ - Reflect on Check Vouch	| 2 mutuals required / passed
+ - Reflect on room		| passed 
+
+
+Cuanan
+ - Submitted vote		| passed
+ - UserCode		| User-2803 / passed
+ - Reflect on Check Vouch	| 3 mutuals required / passed
+ - Reflect on room		| passed
+
+
+Malapit
+ - Submitted vote		| passed 
+ - UserCode		| User-8467 / passed
+ - Reflect on Check Vouch	| 4 passed required / passed
+ - Reflect on room		| passed
+
+TESTING CASES SET 2
+
+Mañabo
+ - Submitted vote		| passed
+ - UserCode		| User-7418 / passed
+ - Reflect on Check Vouch	| 0 mutuals required / passed / 4 mutuals required / passed 
+ - Reflect on room		| passed
+
+Isip
+ - Submitted vote		| passed 
+ - UserCode		| User-6825 / passed
+ - Reflect on Check Vouch	| 1 mutuals required / passed / 4 mutuals required / passed
+ - Reflect on room		| passed
+
+Olingay
+ - Submitted vote		| passed
+ - UserCode		| User-9016 / passed
+ - Reflect on Check Vouch	| 2 mutuals required / passed / 4 mutuals required / passed
+ - Reflect on room		| passed
+
+Olorvida
+ - Submitted vote		| passed 
+ - UserCode		| User-2336 / passed
+ - Reflect on Check Vouch	| 3 mutuals required / passed / 4 mutuals required / passed
+ - Reflect on room		| 
+
+Pagarigan
+ - Submitted vote		| passed 
+ - UserCode		| User-9880 / passed
+ - Reflect on Check Vouch	| 4 mutuals required / passed
+ - Reflect on room		| 
+
+//After passing the last test case, repeat reflect on CheckVouch starting from first member to confirm the reflection of mutual
+
+
+
+

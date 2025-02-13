@@ -42,7 +42,6 @@ export default function MemberVouch() {
         
         // 1. Create a *single* copy of the selectedMembers array:
         const updatedMembers = [...selectedMembers];
-        alert(roleIndex)
 
         const updatedList = studentCodeList.filter(student => student !== selectedMember)
         setStudentCodeList(updatedList)
@@ -141,7 +140,7 @@ export default function MemberVouch() {
     const handleSelect = (index) => {
         setSelectedIndex(Number(index)); // Make sure to parse index to a number
         setIsHidden('hidden');
-        setIsView(true);
+        setIsView(true); //former setIsView(true)
     };
 
     const handleUnselect = () => {
@@ -180,9 +179,12 @@ export default function MemberVouch() {
                         )}
                     </>
                 ) : ( // BASUC GRID PREVIEW
-                    <div className="flex flex-col items-center">
-                        <img src={`${selectedMembers[index - 1].previewProfile}`} className="z-0 w-[50px] h-[50px] ml-[5px] mb-[10px]" alt="" />
-                        <p className="text-xs text-gray-500">{selectedMembers[index - 1].roleName}</p>
+                    <div className="flex justfiy-start w-full">
+                        <img src={`${selectedMembers[index - 1].previewProfile}`} className="z-0 w-[50px] h-[50px] my-[5px] mx-[10px]" alt="" />
+                        <div className="h-full flex flex-col items-start justify-center">
+                            <p className="text-sm text-gray-500">{atob(selectedMembers[index - 1].studentName) === '' ? 'none' : atob(selectedMembers[index - 1].studentName) }</p>
+                            <p className="text-sm text-gray-500">{selectedMembers[index - 1].roleName}</p>
+                        </div>
                     </div>
                 )}
             </div>
@@ -199,22 +201,22 @@ export default function MemberVouch() {
                         <div className="w-[380px] h-full flex flex-col justify-center items-center">
                             <h2 className="font-bold text-center text-lg">Vouch for members</h2>
                             <h2 className="text-center text-gray-500 text-s">Requirement: {countTrueFilled()} / 3</h2>
-                            <div className="grid grid-cols-2 grid-rows-2 gap-2 w-full h-[70%] rounded-s">
+                            <div className="grid grid-cols-1 grid-rows-4 gap-2 w-full h-[70%] rounded-s">
                                 {/* Show all content initially */}
                                 {[1, 2, 3, 4].map((item, index) => (
                                     <div
                                         key={index}
-                                        className={`relative border-[1px] w-full h-full transition-all duration-500 ease-in-out transform rounded-s ${selectedIndex === item ? 'col-span-full row-span-full' : isHidden}`}>
+                                        className={`relative border-gray-300 flex flex-col justify-center items-center w-full h-full transition-all duration-500 ease-in-out transform rounded-[15px] ${selectedIndex === item ? 'col-span-full row-span-full' : isHidden}`}>
                                         {/* Transition the icons between Pencil and Save */}
 
-                                        <div className="w-full h-full absolute z-1 flex justify-end mt-[5px] ml-[-5px]">
+                                        <div className="w-full h-full absolute z-1 flex items-center justify-end mt-[-5px] ml-[-5px]">
                                             <div
                                                 className={`absolute transition-all duration-300 transform ${isView ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`}>
                                                 <Pencil color="#6dc4d0" onClick={() => handleSelect(item)} className="transition-all duration-300 ease-in-out" />
 
                                             </div>
                                             <div
-                                                className={`transition-all duration-300 transform ${isView ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
+                                                className={`mb-[300px] transition-all duration-300 transform ${isView ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
                                                 {isEdit ? (
                                                     <>
                                                         <Save color="#6dc4d0" onClick={() => {
@@ -229,6 +231,7 @@ export default function MemberVouch() {
 
                                             </div>
                                         </div>
+
                                         <SelectedMemberView index={item} />
                                     </div>
                                 ))}
